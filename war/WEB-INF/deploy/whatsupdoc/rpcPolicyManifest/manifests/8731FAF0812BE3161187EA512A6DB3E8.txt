@@ -1,0 +1,2 @@
+serviceClass: pl.dmcs.whatsupdoc.client.GreetingService
+path: 46753AA802323B2E6C51C38526A7A867.gwt.rpc

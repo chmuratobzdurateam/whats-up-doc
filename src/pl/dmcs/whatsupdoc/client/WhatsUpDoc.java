@@ -1,5 +1,6 @@
 package pl.dmcs.whatsupdoc.client;
 
+import pl.dmcs.whatsupdoc.client.providers.MenuProvider;
 import pl.dmcs.whatsupdoc.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -40,7 +41,15 @@ public class WhatsUpDoc implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
+		final Button sendButton2 = new Button("A");
+		MenuProvider m = new MenuProvider();
+		m.addMenuBar(sendButton);
+		m.addMenuBar(sendButton2);
+		ContentManager cm = new ContentManager();
+		cm.addMenu(m,"nawigacja");
+		cm.addMenu(m,"nawigacja2"); // Nie doda sie ponieważ już istnieje 
+		cm.drawContent();
+		/*final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
 		final Label errorLabel = new Label();
 
@@ -83,30 +92,30 @@ public class WhatsUpDoc implements EntryPoint {
 				sendButton.setEnabled(true);
 				sendButton.setFocus(true);
 			}
-		});
+		}); */
 
 		// Create a handler for the sendButton and nameField
-		class MyHandler implements ClickHandler, KeyUpHandler {
-			/**
+		/*class MyHandler implements ClickHandler, KeyUpHandler {
+			*//**
 			 * Fired when the user clicks on the sendButton.
-			 */
+			 *//*
 			public void onClick(ClickEvent event) {
 				sendNameToServer();
 			}
 
-			/**
+			*//**
 			 * Fired when the user types in the nameField.
-			 */
+			 *//*
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 					sendNameToServer();
 				}
 			}
-
+*/
 			/**
 			 * Send the name from the nameField to the server and wait for a response.
 			 */
-			private void sendNameToServer() {
+/*			private void sendNameToServer() {
 				// First, we validate the input.
 				errorLabel.setText("");
 				String textToServer = nameField.getText();
@@ -147,6 +156,7 @@ public class WhatsUpDoc implements EntryPoint {
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
 		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
+		nameField.addKeyUpHandler(handler);*/
 	}
+
 }

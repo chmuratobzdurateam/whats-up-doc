@@ -11,6 +11,16 @@
     <url-pattern>/whatsupdoc/greet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>authServlet</servlet-name>
+    <servlet-class>pl.dmcs.whatsupdoc.server.AuthenticationServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>authServlet</servlet-name>
+    <url-pattern>/whatsupdoc/authService</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

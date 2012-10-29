@@ -14,9 +14,9 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public interface ContentProviderInt {
 	/**
+	 * Returns content.
 	 * @return VerticalPanel
 	 * 
-	 * Return vertical panel of element
 	 */
 	public Panel getContent();
 }

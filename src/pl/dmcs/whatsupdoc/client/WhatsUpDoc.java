@@ -1,6 +1,8 @@
 package pl.dmcs.whatsupdoc.client;
 
+import pl.dmcs.whatsupdoc.client.providers.BodyProvider;
 import pl.dmcs.whatsupdoc.client.providers.DoctorMenuProvider;
+import pl.dmcs.whatsupdoc.client.providers.LoginProvider;
 import pl.dmcs.whatsupdoc.client.providers.MenuProvider;
 import pl.dmcs.whatsupdoc.shared.ContentType;
 import pl.dmcs.whatsupdoc.shared.FieldVerifier;
@@ -49,6 +51,8 @@ public class WhatsUpDoc implements EntryPoint {
 		ContentManager cm = new ContentManager(ContentType.AUTHORIZATION, p);
 		MenuProvider mp = new DoctorMenuProvider(cm);
 		cm.setMenu(mp);
+		BodyProvider body = new LoginProvider(cm);
+		cm.setBody(body);
 		cm.drawContent();
 		
 		/*final TextBox nameField = new TextBox();

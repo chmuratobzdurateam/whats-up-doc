@@ -1,0 +1,2 @@
+serviceClass: pl.dmcs.whatsupdoc.client.services.AuthenticationService
+path: A5714F78AA1531300A94F21B46D69FE9.gwt.rpc

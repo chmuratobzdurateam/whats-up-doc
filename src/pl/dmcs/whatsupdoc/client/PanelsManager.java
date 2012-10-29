@@ -23,18 +23,23 @@ public class PanelsManager {
 	
 	private RootPanel firstMenu;
 	private RootPanel secondMenu;
+	private RootPanel content;
 	
 	/**
-	 * 
+	 * Default constructor
 	 */
 	public PanelsManager() {
-		firstMenu = RootPanel.get("nawigacja");
+		firstMenu = RootPanel.get("menu_level_1");
 		if(firstMenu==null){
 			logger.log(Level.WARNING, "Wrong ID for first level menu");
 		}
-		secondMenu = RootPanel.get("wstawTekst");
+		secondMenu = RootPanel.get("menu_level_2");
 		if(secondMenu==null){
 			logger.log(Level.WARNING, "Wrong ID for second level menu");
+		}
+		content = RootPanel.get("content");
+		if(content==null){
+			logger.log(Level.WARNING, "Wrong ID for page content");
 		}
 	}
 	
@@ -61,6 +66,19 @@ public class PanelsManager {
 		}
 		if(secondMenu != null){
 			secondMenu.add(menu);
+		}
+	}
+	
+	/**
+	 * @param body - Panel to draw into html
+	 */
+	public void drawBody(Panel body){
+		if(body==null){
+			logger.log(Level.WARNING, "drawBody Method get null parameter");
+			return;
+		}
+		if(content!=null){
+			content.add(body);
 		}
 	}
 }

@@ -16,6 +16,7 @@ import org.apache.commons.collections.map.HashedMap;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import pl.dmcs.whatsupdoc.client.providers.BodyProvider;
 import pl.dmcs.whatsupdoc.client.providers.ContentProviderInt;
 import pl.dmcs.whatsupdoc.client.providers.MenuProvider;
 import pl.dmcs.whatsupdoc.shared.ContentType;
@@ -32,12 +33,27 @@ public class ContentManager {
 	private Logger logger = Logger.getLogger("ContentManager");
 	
 	private MenuProvider menu;
+	private BodyProvider body;
 	private ContentType currentType;
 	private PanelsManager panels;
 
 	public ContentManager(ContentType type, PanelsManager panels) {
 		currentType = type;
 		this.panels = panels;
+	}
+
+	/**
+	 * @return the body
+	 */
+	public BodyProvider getBody() {
+		return body;
+	}
+
+	/**
+	 * @param body the body to set
+	 */
+	public void setBody(BodyProvider body) {
+		this.body = body;
 	}
 
 	/**
@@ -97,6 +113,12 @@ public class ContentManager {
 			}
 			else{
 				logger.log(Level.WARNING, "No menu in Content manager");
+			}
+			if(body!=null){
+				panels.drawBody(body.getContent());
+			}
+			else{
+				logger.log(Level.WARNING,"No body in Content manager");
 			}
 		}
 		else{

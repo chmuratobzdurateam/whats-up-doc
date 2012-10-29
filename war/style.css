@@ -8,7 +8,7 @@ aside, nav, article  {
 
 #wrapper   {
     margin: 0 auto;
-    width: 960px;
+    width: auto;
 
 }
 
@@ -25,11 +25,11 @@ footer  {
     background: url(images/Stopka-Tlo-PAsek.png) repeat-x;
     height: 53px;
 }
-#nav2  {
+#menu_level_2   {
     background: #F4F5F4;
     height: 36px;
 }
-#pasek{
+#belt{
 		position: relative;
 		font-size:			12px;
 		font-family: 		Verdana;
@@ -38,17 +38,18 @@ footer  {
     	height: 26px;
     	
 }
-#pasek table{
+#belt table{
 	position:relative; top:-3px;
 }
 
-article{
+#contents{
 		font-size:			12px;
 		font-family: 		Verdana;
 		color:				#666666;
 		position: relative; top:20px;
 		background: #F4F5F4;
 		width: 860px;
+		min-height: 100px; 
 		margin: 0 auto;
 }
 
@@ -62,35 +63,35 @@ nav {
 
 
 .container {
-display: table;         /* wyświetlanie jak tabela*/
+display: table;         /* wyĹ›wietlanie jak tabela*/
 }
 .blockOuter {
 display: table-cell;
-vertical-align: middle; /* wypośrodkowywanie treści w pionie */
+vertical-align: middle; /* wypoĹ›rodkowywanie treĹ›ci w pionie */
 }
 
 
-ul, ul li {
+#menu_level_2 ul, ul li {
 	display: block;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-ul {
+#menu_level_2 ul {
 
 	float: left;
 	width: 100%;
 		padding-left: 250px;
 }
 
-ul li {
+#menu_level_2 ul li {
 	float: left;
 	text-align:center;
 
 }
 
-ul a:link, ul a:visited {
+#menu_level_2 ul a:link, ul a:visited {
 	font-family: 		Verdana;
 	font-size: 		12px;
 	text-decoration: none;
@@ -104,22 +105,23 @@ ul a:link, ul a:visited {
 	float: centre;
 }
 
-ul a:hover {
+#menu_level_2 ul a:hover {
 	top: 2px;
 	background-color: #fff;
 	border-bottom-color: #fff;
 	color: #207DBA;
 	height: 34px;
 }
-#nawigacja a{
-			font-family: 		Verdana;
+#menu_level_1 a{
+	margin-left: 50px;
+	font-family: 		Verdana;
 	padding-top: 15px;
 	color: #666666;
 	position: relative;
 	top: 10px;
   	text-decoration: none;
 }
-#nawigacja a:hover { 
+#menu_level_1 a:hover { 
 	color: #207DBA;
 	text-decoration: underline 
 	}

@@ -1,0 +1,2 @@
+serviceClass: pl.dmcs.whatsupdoc.client.services.UserService
+path: 28185B889F630A1A99F17EB588B4162F.gwt.rpc

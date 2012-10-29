@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.Panel;
 public class MenuProvider implements ContentProviderInt {
 	protected HorizontalPanel hFirstPanel;
 	protected HorizontalPanel hSecondPanel;
-	protected ContentManager manager;
+	private ContentManager manager;
 	
 	/**
 	 * @param manager - ContentManager type
@@ -51,4 +51,19 @@ public class MenuProvider implements ContentProviderInt {
 	public Panel getSecondLevel() {
 		return hSecondPanel;
 	}
+
+	/**
+	 * @return the manager
+	 */
+	public ContentManager getManager() {
+		return manager;
+	}
+
+	/**
+	 * @param manager the manager to set
+	 */
+	public void setManager(ContentManager manager) {
+		this.manager = manager;
+	}
+	
 }

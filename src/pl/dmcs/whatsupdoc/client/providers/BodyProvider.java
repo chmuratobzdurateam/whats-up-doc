@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class BodyProvider implements ContentProviderInt {
 	
 	protected VerticalPanel mainPanel;
-	protected ContentManager cm;
+	private ContentManager cm;
 	
 	/**
 	 * Default constructor for BodyProvider
@@ -33,6 +33,20 @@ public class BodyProvider implements ContentProviderInt {
 	@Override
 	public Panel getContent() {
 		return this.mainPanel;
+	}
+
+	/**
+	 * @return the cm
+	 */
+	public ContentManager getCm() {
+		return cm;
+	}
+
+	/**
+	 * @param cm the cm to set
+	 */
+	public void setCm(ContentManager cm) {
+		this.cm = cm;
 	}
 
 }

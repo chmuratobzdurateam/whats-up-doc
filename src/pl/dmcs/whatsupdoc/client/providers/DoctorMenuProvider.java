@@ -4,13 +4,16 @@
 package pl.dmcs.whatsupdoc.client.providers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Panel;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
-import pl.dmcs.whatsupdoc.client.handlers.PatientSearchClickHandler;
 
 
 /**
@@ -21,28 +24,174 @@ import pl.dmcs.whatsupdoc.client.handlers.PatientSearchClickHandler;
  */
 public class DoctorMenuProvider extends MenuProvider {
 
+	private Map<Bar, List<Button> > subMenus;
+	private Bar currentBar;
 	
 	/**
 	 * @param manager - ContentManager type
 	 */
 	public DoctorMenuProvider(ContentManager manager) {
 		super(manager);
+		this.currentBar = Bar.HOME;
+		this.subMenus = new HashMap<Bar, List<Button>>();
 		
-		ArrayList<Button> button1LvlList = new ArrayList<Button>();
-		Button bb = new Button("AHA");
-		bb.addClickHandler(new PatientSearchClickHandler(manager));
-		button1LvlList.add(bb);
-		button1LvlList.add(new Button("DoctorFirstLevel"));
-		button1LvlList.add(new Button("DoctorFirstLevel"));
-		ArrayList<Button> button2LvlList = new ArrayList<Button>();
-		button2LvlList.add(new Button("DoctorSecondLevel"));
+		//*********************************************************** Create empty sub-menus ********************************************
 		
-		for(Button b : button1LvlList){
-			hFirstPanel.add(b);
+		this.subMenus.put(Bar.HOME, new ArrayList<Button>());
+		
+		//*********************************************************** Create buttons for first menu *************************************
+		
+		Button button = new Button("Strona Główna");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				currentBar = Bar.HOME;
+				getManager().drawContent();
+			}
+		});
+		hFirstPanel.add(button);
+		
+		button = new Button("Moje konto");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				currentBar = Bar.MY_ACCOUNT;
+				getManager().drawContent();
+			}
+		});
+		hFirstPanel.add(button);
+		
+		button = new Button("Pacjenci");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				currentBar = Bar.PATIENTS;
+				getManager().drawContent();
+			}
+		});
+		hFirstPanel.add(button);
+		
+		button = new Button("Statystyki");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				currentBar = Bar.STATISTICS;
+				getManager().drawContent();
+			}
+		});
+		hFirstPanel.add(button);
+		
+		//******************************************************* Create buttons for My Account sub-menu *******************************
+		
+		ArrayList<Button> list = new ArrayList<Button>(2);
+		
+		button = new Button("Zmien haslo");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+			}
+		});
+		list.add(button);
+		
+		button = new Button("Zmien dane osobowe");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+			}
+		});
+		list.add(button);
+		
+		subMenus.put(Bar.MY_ACCOUNT, list);
+		
+		//******************************************************** Create buttons for Patients sub-menu ****************************************
+		
+		list = new ArrayList<Button>(2);
+		
+		button = new Button("Wyszukiwarka");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+			}
+		});
+		list.add(button);
+		
+		button = new Button("Moi pacjenci");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+			}
+		});
+		list.add(button);
+		
+		subMenus.put(Bar.PATIENTS, list);
+		
+		//******************************************************* Create buttons for Statistics sub-menu *************************************
+		
+		list = new ArrayList<Button>(2);
+		
+		button = new Button("Skuteczność leków wg. objawów");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+			}
+		});
+		list.add(button);
+		
+		button = new Button("Moja skuteczność leków");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+			}
+		});
+		list.add(button);
+		
+		subMenus.put(Bar.STATISTICS, list);
+	}
+	
+	/* (non-Javadoc)
+	 * @see pl.dmcs.whatsupdoc.client.providers.MenuProvider#getSecondLevel()
+	 */
+	@Override
+	public Panel getSecondLevel() {
+		hSecondPanel.clear();
+		for(Button button : subMenus.get(currentBar)){
+			hSecondPanel.add(button);
 		}
-		
-		for(Button b : button2LvlList){
-			hSecondPanel.add(b);
-		}
+		return hSecondPanel;
+
+	}
+
+
+
+	/**
+	 * 29-10-2012 - first menu bars
+	 * @author Jakub Jeleński, jjelenski90@gmail.com
+	 * 
+	 * 
+	 */
+	private enum Bar{
+		HOME, PATIENTS, MY_ACCOUNT, STATISTICS
 	}
 }

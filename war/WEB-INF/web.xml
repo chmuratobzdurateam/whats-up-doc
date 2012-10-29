@@ -12,6 +12,16 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>userServlet</servlet-name>
+    <servlet-class>pl.dmcs.whatsupdoc.server.UserServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>userServlet</servlet-name>
+    <url-pattern>/whatsupdoc/userService</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>authServlet</servlet-name>
     <servlet-class>pl.dmcs.whatsupdoc.server.AuthenticationServiceImpl</servlet-class>
   </servlet>

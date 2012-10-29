@@ -37,7 +37,7 @@ public class PanelsManager {
 		if(secondMenu==null){
 			logger.log(Level.WARNING, "Wrong ID for second level menu");
 		}
-		content = RootPanel.get("content");
+		content = RootPanel.get("contents");
 		if(content==null){
 			logger.log(Level.WARNING, "Wrong ID for page content");
 		}
@@ -52,6 +52,7 @@ public class PanelsManager {
 			return;
 		}
 		if(firstMenu != null){
+			firstMenu.clear();
 			firstMenu.add(menu);
 		}
 	}
@@ -65,6 +66,7 @@ public class PanelsManager {
 			return;
 		}
 		if(secondMenu != null){
+			secondMenu.clear();
 			secondMenu.add(menu);
 		}
 	}
@@ -78,6 +80,7 @@ public class PanelsManager {
 			return;
 		}
 		if(content!=null){
+			content.clear();
 			content.add(body);
 		}
 	}

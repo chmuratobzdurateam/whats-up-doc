@@ -5,10 +5,12 @@ package pl.dmcs.whatsupdoc.client.providers;
 
 import com.google.gwt.user.client.ui.Panel;
 
+
 /**
- * @author Jakub Jeleński
- * @email jjelenski90@gmail.com
- *
+ * 29-10-2012
+ * @author Jakub Jeleński, jjelenski90@gmail.com
+ * 
+ * 
  */
 public interface ContentProviderInt {
 	/**

@@ -3,20 +3,31 @@
  */
 package pl.dmcs.whatsupdoc.client.providers;
 
+import pl.dmcs.whatsupdoc.client.ContentManager;
+
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 
+
 /**
- * @author Jakub Jeleński
- * @email jjelenski90@gmail.com
- *
+ * 29-10-2012
+ * @author Jakub Jeleński, jjelenski90@gmail.com
+ * 
+ * 
  */
 public class MenuProvider implements ContentProviderInt {
-private HorizontalPanel hPanel;
+	protected HorizontalPanel hFirstPanel;
+	protected HorizontalPanel hSecondPanel;
+	protected ContentManager manager;
 	
-	public MenuProvider(){
-		hPanel = new HorizontalPanel();
+	/**
+	 * @param manager - ContentManager type
+	 */
+	public MenuProvider(ContentManager manager){
+		this.manager = manager;
+		hFirstPanel = new HorizontalPanel();
+		hSecondPanel = new HorizontalPanel();
 	}
 	
 	/* (non-Javadoc)
@@ -24,15 +35,20 @@ private HorizontalPanel hPanel;
 	 */
 	@Override
 	public Panel getContent() {
-		return hPanel;
+		return hFirstPanel;
 	}
-
+	
 	/**
-	 * @param button
-	 * 
-	 * Add gwt Button to vertical panel
+	 * @return first level menu of HorizontalPanel type
 	 */
-	public void addMenuBar(Button button){
-		hPanel.add(button);
+	public Panel getFirstLevel() {
+		return hFirstPanel;
+	}
+	
+	/**
+	 * @return second level menu of HorizontalPanel type
+	 */
+	public Panel getSecondLevel() {
+		return hSecondPanel;
 	}
 }

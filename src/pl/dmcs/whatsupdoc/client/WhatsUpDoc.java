@@ -1,6 +1,8 @@
 package pl.dmcs.whatsupdoc.client;
 
+import pl.dmcs.whatsupdoc.client.providers.DoctorMenuProvider;
 import pl.dmcs.whatsupdoc.client.providers.MenuProvider;
+import pl.dmcs.whatsupdoc.shared.ContentType;
 import pl.dmcs.whatsupdoc.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -42,13 +44,13 @@ public class WhatsUpDoc implements EntryPoint {
 	public void onModuleLoad() {
 		final Button sendButton = new Button("Send");
 		final Button sendButton2 = new Button("A");
-		MenuProvider m = new MenuProvider();
-		m.addMenuBar(sendButton);
-		m.addMenuBar(sendButton2);
-		ContentManager cm = new ContentManager();
-		cm.addMenu(m,"nawigacja");
-		cm.addMenu(m,"nawigacja2"); // Nie doda sie ponieważ już istnieje 
+		
+		PanelsManager p = new PanelsManager();
+		ContentManager cm = new ContentManager(ContentType.AUTHORIZATION, p);
+		MenuProvider mp = new DoctorMenuProvider(cm);
+		cm.setMenu(mp);
 		cm.drawContent();
+		
 		/*final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
 		final Label errorLabel = new Label();

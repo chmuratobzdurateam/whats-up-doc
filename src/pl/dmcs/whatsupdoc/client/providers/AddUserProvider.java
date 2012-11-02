@@ -131,8 +131,8 @@ public class AddUserProvider extends BodyProvider {
 				}
 				
 				
-				userService.addUser(nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
-						phoneBox.getText(), Integer.parseInt(PESEL_Box.getText()), defaultType, new AsyncCallback<Boolean>() {
+				userService.addVerifier(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
+						phoneBox.getText(), PESEL_Box.getText(), defaultType, new AsyncCallback<Boolean>() {
 
 							@Override
 							public void onFailure(Throwable caught) {

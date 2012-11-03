@@ -90,7 +90,12 @@ public class PUser {
 	}
 
 	public User asUser() {
-		return new User(login, name, surname, userType);
+		User user = new User();
+		user.setLogin(login);
+		user.setName(name);
+		user.setSurname(surname);
+		user.setUserType(userType);
+		return user;
 	}
 
 	public String getName() {

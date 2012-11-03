@@ -21,7 +21,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import pl.dmcs.whatsupdoc.client.ContentManager;
 import pl.dmcs.whatsupdoc.client.services.UserService;
 import pl.dmcs.whatsupdoc.client.services.UserServiceAsync;
+import pl.dmcs.whatsupdoc.shared.Address;
 import pl.dmcs.whatsupdoc.shared.FieldVerifier;
+import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
 
 /**
@@ -39,6 +41,21 @@ public class AddUserProvider extends BodyProvider {
 	private RadioButton patient, doctor, verifier;
 	private Button addUser, cancel;
 	private UserType defaultType = UserType.PATIENT;
+	private AsyncCallback<Boolean> loginCallback = new AsyncCallback<Boolean>() {
+		
+		@Override
+		public void onSuccess(Boolean result) {
+			clearWidgets();
+			errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
+			getCm().drawContent();
+		}
+		
+		@Override
+		public void onFailure(Throwable caught) {
+			clearWidgets();
+			getCm().drawContent();
+		}
+	};
 
 	/**
 	 * @param cm - ContentManager for BodyProvider
@@ -145,30 +162,20 @@ public class AddUserProvider extends BodyProvider {
 				
 				if(doctor.getValue().booleanValue()){
 					defaultType = UserType.DOCTOR;
+					userService.addDoctor(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
+						phoneBox.getText(), PESEL_Box.getText(), defaultType, Speciality.GINEKOLOG, loginCallback);
 				}else {
 					if(verifier.getValue().booleanValue()){
 						defaultType = UserType.VERIFIER;
+						userService.addVerifier(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
+								phoneBox.getText(), PESEL_Box.getText(), defaultType, loginCallback);
 					}else{
+						userService.addPatient(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
+								phoneBox.getText(), PESEL_Box.getText(), defaultType, new Address(), loginCallback);
 						defaultType = UserType.PATIENT;
 					}
 				}
 				
-				userService.addVerifier(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
-						phoneBox.getText(), PESEL_Box.getText(), defaultType, new AsyncCallback<Boolean>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								clearWidgets();
-								errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
-								getCm().drawContent();
-							}
-
-							@Override
-							public void onSuccess(Boolean result) {
-								clearWidgets();
-								getCm().drawContent();
-							}
-						});
 			}
 		});
 		
@@ -288,5 +295,6 @@ public class AddUserProvider extends BodyProvider {
 		mainPanel.add(hPanel);
 
 	}
+	
 
 }

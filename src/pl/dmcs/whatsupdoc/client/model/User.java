@@ -1,22 +1,17 @@
 package pl.dmcs.whatsupdoc.client.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import pl.dmcs.whatsupdoc.shared.UserType;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class User implements IsSerializable{
-	private String userFullName;
+	private String login;
+	private String name;
+	private String surname;
+	private String PESEL;
 	private UserType userType;
 	
 	public User(){
-	}
-	
-	public User(String username, UserType userType){
-		setUserFullName(userFullName);
-		setUserType(userType);
 	}
 
 	/**
@@ -33,18 +28,59 @@ public class User implements IsSerializable{
 		this.userType = userType;
 	}
 
-
 	/**
-	 * @return the userFullName
+	 * @return the login
 	 */
-	public String getUserFullName() {
-		return userFullName;
+	public String getLogin() {
+		return login;
 	}
 
 	/**
-	 * @param userFullName the userFullName to set
+	 * @param login the login to set
 	 */
-	public void setUserFullName(String userFullName) {
-		this.userFullName = userFullName;
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the surname
+	 */
+	public String getSurname() {
+		return surname;
+	}
+
+	/**
+	 * @param surname the surname to set
+	 */
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	/**
+	 * @return the pESEL
+	 */
+	public String getPESEL() {
+		return PESEL;
+	}
+
+	/**
+	 * @param pESEL the pESEL to set
+	 */
+	public void setPESEL(String pESEL) {
+		PESEL = pESEL;
 	}
 }

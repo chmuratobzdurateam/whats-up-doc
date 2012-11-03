@@ -1,10 +1,9 @@
 package pl.dmcs.whatsupdoc.server.datastore.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -15,14 +14,17 @@ import pl.dmcs.whatsupdoc.shared.UserType;
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
+@Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 public class PUser {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
 	@Persistent
-	private String username;
+	private String login;
 	@Persistent
-	private String userFullName;
+	private String name;
+	@Persistent
+	private String surname;
 	@Persistent
 	private String password;
 	@Persistent
@@ -30,21 +32,19 @@ public class PUser {
 	@Persistent
 	private String phone;
 	@Persistent
-	private Integer PESEL;
+	private String PESEL;
 	@Persistent
 	private UserType userType;
 	
 	public PUser(){
 	}
-	
-	public PUser(String username, String userFullName, String password, String mail, String phone, Integer PESEL, UserType userType){
-		setUsername(username);
-		setUserFullName(userFullName);
-		setPassword(password);
-		setMail(mail);
-		setPhone(phone);
-		setUserType(userType);
-		setPESEL(PESEL);		
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	/**
@@ -90,35 +90,23 @@ public class PUser {
 	}
 
 	public User asUser() {
-		return new User(userFullName, userType);
+		return new User(login, name, surname, userType);
 	}
 
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	/**
-	 * @return the userFullName
-	 */
-	public String getUserFullName() {
-		return userFullName;
+	public String getSurname() {
+		return surname;
 	}
 
-	/**
-	 * @param userFullName the userFullName to set
-	 */
-	public void setUserFullName(String userFullName) {
-		this.userFullName = userFullName;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	/**
@@ -152,14 +140,14 @@ public class PUser {
 	/**
 	 * @return the pESEL
 	 */
-	public Integer getPESEL() {
+	public String getPESEL() {
 		return PESEL;
 	}
 
 	/**
 	 * @param pESEL the pESEL to set
 	 */
-	public void setPESEL(Integer pESEL) {
-		PESEL = pESEL;
+	public void setPESEL(String PESEL) {
+		this.PESEL = PESEL;
 	}
 }

@@ -26,12 +26,14 @@ public class DoctorMenuProvider extends MenuProvider {
 
 	private Map<Bar, List<Button> > subMenus;
 	private Bar currentBar;
+	//private ArrayList<String> CSS;
 	
 	/**
 	 * @param manager - ContentManager type
 	 */
 	public DoctorMenuProvider(ContentManager manager) {
 		super(manager);
+		
 		this.currentBar = Bar.HOME;
 		this.subMenus = new HashMap<Bar, List<Button>>();
 		
@@ -42,44 +44,53 @@ public class DoctorMenuProvider extends MenuProvider {
 		//*********************************************************** Create buttons for first menu *************************************
 		
 		Button button = new Button("Strona Główna");
+		firstLevelButton = button;
+		button.setStyleName(CSS.get(0));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.HOME;
+				setFirstLvlCSS((Button) event.getSource());
 				getManager().drawContent();
 			}
 		});
 		hFirstPanel.add(button);
 		
 		button = new Button("Moje konto");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.MY_ACCOUNT;
+				setFirstLvlCSS((Button) event.getSource());
 				getManager().drawContent();
 			}
 		});
 		hFirstPanel.add(button);
 		
 		button = new Button("Pacjenci");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.PATIENTS;
+				setFirstLvlCSS((Button) event.getSource());
 				getManager().drawContent();
 			}
 		});
 		hFirstPanel.add(button);
 		
 		button = new Button("Statystyki");
+		button.setStyleName(CSS.get(1));;
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.STATISTICS;
+				setFirstLvlCSS((Button) event.getSource());
 				getManager().drawContent();
 			}
 		});
@@ -90,22 +101,24 @@ public class DoctorMenuProvider extends MenuProvider {
 		ArrayList<Button> list = new ArrayList<Button>(2);
 		
 		button = new Button("Zmien haslo");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				setSecondLvlCSS((Button) event.getSource());
 				
 			}
 		});
 		list.add(button);
 		
 		button = new Button("Zmien dane osobowe");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				setSecondLvlCSS((Button) event.getSource());
 				
 			}
 		});
@@ -118,22 +131,24 @@ public class DoctorMenuProvider extends MenuProvider {
 		list = new ArrayList<Button>(2);
 		
 		button = new Button("Wyszukiwarka");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				setSecondLvlCSS((Button) event.getSource());
 				
 			}
 		});
 		list.add(button);
 		
 		button = new Button("Moi pacjenci");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				setSecondLvlCSS((Button) event.getSource());
 				
 			}
 		});
@@ -146,22 +161,24 @@ public class DoctorMenuProvider extends MenuProvider {
 		list = new ArrayList<Button>(2);
 		
 		button = new Button("Skuteczność leków wg. objawów");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				setSecondLvlCSS((Button) event.getSource());
 				
 			}
 		});
 		list.add(button);
 		
 		button = new Button("Moja skuteczność leków");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				setSecondLvlCSS((Button) event.getSource());
 				
 			}
 		});

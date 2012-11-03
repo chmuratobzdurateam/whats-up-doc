@@ -25,6 +25,7 @@ public class BodyProvider implements ContentProviderInt {
 	public BodyProvider(ContentManager cm) {
 		this.cm = cm;
 		this.mainPanel = new VerticalPanel();
+		this.mainPanel.setStyleName("mainPanel");
 	}
 
 	/* (non-Javadoc)

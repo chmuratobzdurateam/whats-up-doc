@@ -43,58 +43,73 @@ public class VerifierMenuProvider extends MenuProvider {
 		// *********************************************************** Create buttons for first menu *************************************
 
 		Button button = new Button("Strona Główna");
+		firstLevelButton = button;
+		button.setStyleName(CSS.get(0));
 		button.addClickHandler(new ClickHandler() {
-
+			
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.HOME;
+				
+				setFirstLvlCSS((Button) event.getSource());
+				
 				getManager().drawContent();
 			}
 		});
 		hFirstPanel.add(button);
 
 		button = new Button("Moje konto");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.MY_ACCOUNT;
+				
+				setFirstLvlCSS((Button) event.getSource());
+				
 				getManager().drawContent();
 			}
 		});
 		hFirstPanel.add(button);
 
 		button = new Button("Użytkownicy");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.USERS;
+				
+				setFirstLvlCSS((Button) event.getSource());
+				
 				getManager().drawContent();
 			}
 		});
 		hFirstPanel.add(button);
 
 		// ******************************************************* Create buttons for My Account sub-menu *******************************
-
+		
 		ArrayList<Button> list = new ArrayList<Button>(2);
 
 		button = new Button("Zmien haslo");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-
+				setSecondLvlCSS((Button) event.getSource());
 			}
 		});
 		list.add(button);
 
 		button = new Button("Zmien dane osobowe");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-
+				setSecondLvlCSS((Button) event.getSource());
 			}
 		});
 		list.add(button);
@@ -106,10 +121,12 @@ public class VerifierMenuProvider extends MenuProvider {
 		list = new ArrayList<Button>(2);
 
 		button = new Button("Dodaj użytkownika");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				setSecondLvlCSS((Button) event.getSource());
 				BodyProvider b = new AddUserProvider(getManager());
 				getManager().setBody(b);
 				getManager().drawContent();
@@ -119,10 +136,12 @@ public class VerifierMenuProvider extends MenuProvider {
 		list.add(button);
 
 		button = new Button("Edytuj użytkownika");
+		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				setSecondLvlCSS((Button) event.getSource());
 
 			}
 		});
@@ -131,6 +150,7 @@ public class VerifierMenuProvider extends MenuProvider {
 		subMenus.put(Bar.USERS, list);
 
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see pl.dmcs.whatsupdoc.client.providers.MenuProvider#getSecondLevel()

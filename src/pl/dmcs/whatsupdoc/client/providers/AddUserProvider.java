@@ -49,48 +49,61 @@ public class AddUserProvider extends BodyProvider {
 		final UserServiceAsync userService = GWT.create(UserService.class);
 		
 		nameLabel = new Label("Imię:");
+		nameLabel.setStyleName("label");
+		
 		surnameLabel = new Label("Nazwisko:");
+		surnameLabel.setStyleName("label");
+		
 		passwordLabel = new Label("Hasło:");
+		passwordLabel.setStyleName("label");
+		
 		mailLabel = new Label("E-mail:");
+		mailLabel.setStyleName("label");
+		
 		phoneLabel = new Label("Tel.:");
+		phoneLabel.setStyleName("label");
+		
 		PESEL_Label = new Label("PESEL:");
+		PESEL_Label.setStyleName("label");
+		
 		userTypeLabel = new Label("Uprawnienia:");
+		userTypeLabel.setStyleName("label");
+		
 		errorLabel = new Label();
+		errorLabel.setStyleName("error");
 		
 		nameBox = new TextBox();
+		nameBox.setStyleName("textBox");
+		
 		surnameBox = new TextBox();
+		surnameBox.setStyleName("textBox");
+		
 		mailBox = new TextBox();
+		mailBox.setStyleName("textBox");
+		
 		phoneBox = new TextBox();
+		phoneBox.setStyleName("textBox");
+		
 		PESEL_Box = new TextBox();
+		PESEL_Box.setStyleName("textBox");
 		
 		passwordBox = new PasswordTextBox();
+		passwordBox.setStyleName("textBox");
+		
 		
 		patient = new RadioButton("userType", UserType.PATIENT.toString());
-		patient.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				defaultType = UserType.PATIENT;
-			}
-		});
+		patient.setValue(true);
+		patient.setStyleName("radioButton");
+		
 		doctor = new RadioButton("userType", UserType.DOCTOR.toString());
-		doctor.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				defaultType = UserType.DOCTOR;
-			}
-		});
+		doctor.setStyleName("radioButton");
+		
 		verifier = new RadioButton("userType", UserType.VERIFIER.toString());
-		verifier.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				defaultType = UserType.VERIFIER;
-			}
-		});
+		verifier.setStyleName("radioButton");
+		
 		
 		addUser = new Button("Dodaj");
+		addUser.setStyleName("confirmButton");
 		addUser.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -130,6 +143,15 @@ public class AddUserProvider extends BodyProvider {
 					return;
 				}
 				
+				if(doctor.getValue().booleanValue()){
+					defaultType = UserType.DOCTOR;
+				}else {
+					if(verifier.getValue().booleanValue()){
+						defaultType = UserType.VERIFIER;
+					}else{
+						defaultType = UserType.PATIENT;
+					}
+				}
 				
 				userService.addUser(nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
 						phoneBox.getText(), Integer.parseInt(PESEL_Box.getText()), defaultType, new AsyncCallback<Boolean>() {
@@ -151,6 +173,7 @@ public class AddUserProvider extends BodyProvider {
 		});
 		
 		cancel = new Button("Wyczyść");
+		cancel.setStyleName("cancelButton");
 		cancel.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -179,6 +202,9 @@ public class AddUserProvider extends BodyProvider {
 		mailBox.setText("");
 		phoneBox.setText("");
 		PESEL_Box.setText("");
+		patient.setValue(true);
+		doctor.setValue(false);
+		verifier.setValue(false);
 	}
 	
 	/**
@@ -204,39 +230,48 @@ public class AddUserProvider extends BodyProvider {
 			return;
 		}
 		mainPanel.clear();
+		
 		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(nameLabel);
 		hPanel.add(nameBox);
 		mainPanel.add(hPanel);
 		
 		hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(surnameLabel);
 		hPanel.add(surnameBox);
 		mainPanel.add(hPanel);
 		
 		hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(passwordLabel);
 		hPanel.add(passwordBox);
 		mainPanel.add(hPanel);
 		
 		hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(PESEL_Label);
 		hPanel.add(PESEL_Box);
 		mainPanel.add(hPanel);
 		
 		hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(mailLabel);
 		hPanel.add(mailBox);
 		mainPanel.add(hPanel);
 		
 		hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(phoneLabel);
 		hPanel.add(phoneBox);
 		mainPanel.add(hPanel);
 		
 		hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(userTypeLabel);
 		VerticalPanel vPanel = new VerticalPanel();
+		vPanel.setStyleName("verticalPanel");
 		vPanel.add(patient);
 		vPanel.add(doctor);
 		vPanel.add(verifier);
@@ -246,6 +281,7 @@ public class AddUserProvider extends BodyProvider {
 		mainPanel.add(errorLabel);
 		
 		hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(addUser);
 		hPanel.add(cancel);
 		

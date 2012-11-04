@@ -3,6 +3,8 @@
  */
 package pl.dmcs.whatsupdoc.client.providers;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +15,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
@@ -35,24 +38,33 @@ import pl.dmcs.whatsupdoc.shared.UserType;
 public class AddUserProvider extends BodyProvider {
 	private Logger logger = Logger.getLogger("AddUserProvider");
 	
-	private Label nameLabel, surnameLabel, passwordLabel, mailLabel, phoneLabel, PESEL_Label, userTypeLabel, errorLabel;
-	private TextBox nameBox, surnameBox, mailBox, phoneBox, PESEL_Box;
+	private Label nameLabel, surnameLabel, passwordLabel, mailLabel, phoneLabel, PESEL_Label, userTypeLabel, specialityLabel, errorLabel;
+	private Label cityLabel, streetLabel, houseNrLabel;
+	private TextBox nameBox, surnameBox, mailBox, phoneBox, PESEL_Box, cityBox, streetBox, houseNrBox;
 	private PasswordTextBox passwordBox;
 	private RadioButton patient, doctor, verifier;
+	private ListBox doctorSpeciality;
+	private Map<String, Speciality> specialityMap;
 	private Button addUser, cancel;
-	private UserType defaultType = UserType.PATIENT;
+	private ClickHandler userTypeChange = new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+			reCreatePanel();
+		}
+	};
 	private AsyncCallback<Boolean> loginCallback = new AsyncCallback<Boolean>() {
 		
 		@Override
 		public void onSuccess(Boolean result) {
 			clearWidgets();
-			errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
 			getCm().drawContent();
 		}
 		
 		@Override
 		public void onFailure(Throwable caught) {
 			clearWidgets();
+			errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
 			getCm().drawContent();
 		}
 	};
@@ -64,6 +76,33 @@ public class AddUserProvider extends BodyProvider {
 		super(cm);
 		
 		final UserServiceAsync userService = GWT.create(UserService.class);
+		
+		specialityMap = new HashMap<String, Speciality>();
+		specialityMap.put(Speciality.GINEKOLOG.toString(), Speciality.GINEKOLOG);
+		specialityMap.put(Speciality.KARDIOLOG.toString(), Speciality.KARDIOLOG);
+		specialityMap.put(Speciality.NEUROLOG.toString(), Speciality.NEUROLOG);
+		specialityMap.put(Speciality.UROLOG.toString(), Speciality.UROLOG);
+		
+		doctorSpeciality = new ListBox();
+		doctorSpeciality.setVisibleItemCount(1);
+		doctorSpeciality.addItem(Speciality.GINEKOLOG.toString());
+		doctorSpeciality.addItem(Speciality.KARDIOLOG.toString());
+		doctorSpeciality.addItem(Speciality.NEUROLOG.toString());
+		doctorSpeciality.addItem(Speciality.UROLOG.toString());
+		doctorSpeciality.setSelectedIndex(0);
+		doctorSpeciality.setStyleName("selectBox");
+		
+		cityLabel = new Label("Miasto:");
+		cityLabel.setStyleName("label");
+		
+		streetLabel = new Label("Ulica:");
+		cityLabel.setStyleName("label");
+		
+		houseNrLabel = new Label("Numer mieszkania:");
+		houseNrLabel.setStyleName("label");
+		
+		specialityLabel = new Label("Specjalność:");
+		specialityLabel.setStyleName("label");
 		
 		nameLabel = new Label("Imię:");
 		nameLabel.setStyleName("label");
@@ -89,6 +128,15 @@ public class AddUserProvider extends BodyProvider {
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
 		
+		cityBox = new TextBox();
+		cityBox.setStyleName("textBox");
+		
+		streetBox = new TextBox();
+		streetBox.setStyleName("textBox");
+		
+		houseNrBox = new TextBox();
+		houseNrBox.setStyleName("textBox");
+		
 		nameBox = new TextBox();
 		nameBox.setStyleName("textBox");
 		
@@ -111,13 +159,15 @@ public class AddUserProvider extends BodyProvider {
 		patient = new RadioButton("userType", UserType.PATIENT.toString());
 		patient.setValue(true);
 		patient.setStyleName("radioButton");
+		patient.addClickHandler(userTypeChange);
 		
 		doctor = new RadioButton("userType", UserType.DOCTOR.toString());
 		doctor.setStyleName("radioButton");
+		doctor.addClickHandler(userTypeChange);
 		
 		verifier = new RadioButton("userType", UserType.VERIFIER.toString());
 		verifier.setStyleName("radioButton");
-		
+		verifier.addClickHandler(userTypeChange);
 		
 		addUser = new Button("Dodaj");
 		addUser.setStyleName("confirmButton");
@@ -160,19 +210,53 @@ public class AddUserProvider extends BodyProvider {
 					return;
 				}
 				
+				
 				if(doctor.getValue().booleanValue()){
-					defaultType = UserType.DOCTOR;
+					int index = doctorSpeciality.getSelectedIndex();
+					if(index==-1){
+						errorLabel.setText("Proszę wybrać specjalizację.");
+						getCm().drawContent();
+						return;
+					}
+					String sp = doctorSpeciality.getItemText(doctorSpeciality.getSelectedIndex());
+					Speciality speciality = specialityMap.get(sp);
+					if(speciality==null){
+						errorLabel.setText("Proszę wybrać specjalizację.");
+						getCm().drawContent();
+						return;
+					}
+					
 					userService.addDoctor(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
-						phoneBox.getText(), PESEL_Box.getText(), defaultType, Speciality.GINEKOLOG, loginCallback);
+						phoneBox.getText(), PESEL_Box.getText(), UserType.DOCTOR, speciality, loginCallback);
 				}else {
 					if(verifier.getValue().booleanValue()){
-						defaultType = UserType.VERIFIER;
+						
 						userService.addVerifier(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
-								phoneBox.getText(), PESEL_Box.getText(), defaultType, loginCallback);
+								phoneBox.getText(), PESEL_Box.getText(), UserType.VERIFIER, loginCallback);
 					}else{
+						String city = cityBox.getText(), street = streetBox.getText(), house = houseNrBox.getText();
+						if(city==null || city==""){
+							errorLabel.setText("Prosze podać miasto.");
+							getCm().drawContent();
+							return;
+						}
+						if(street==null || street==""){
+							errorLabel.setText("Prosze podać ulicę.");
+							getCm().drawContent();
+							return;
+						}
+						if(house==null || house==""){
+							errorLabel.setText("Prosze podać numer mieszkania.");
+							getCm().drawContent();
+							return;
+						}
+						Address addr = new Address();
+						addr.setCity(city);
+						addr.setStreet(street);
+						addr.setHouseNumber(house);
 						userService.addPatient(nameBox.getText(), nameBox.getText(), surnameBox.getText(), passwordBox.getText(), mailBox.getText(), 
-								phoneBox.getText(), PESEL_Box.getText(), defaultType, new Address(), loginCallback);
-						defaultType = UserType.PATIENT;
+								phoneBox.getText(), PESEL_Box.getText(), UserType.PATIENT, addr, loginCallback);
+
 					}
 				}
 				
@@ -186,7 +270,7 @@ public class AddUserProvider extends BodyProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				clearWidgets();
-				//reCreatePanel();
+				reCreatePanel();
 				getCm().drawContent();
 			}
 		});
@@ -209,6 +293,10 @@ public class AddUserProvider extends BodyProvider {
 		mailBox.setText("");
 		phoneBox.setText("");
 		PESEL_Box.setText("");
+		cityBox.setText("");
+		streetBox.setText("");
+		houseNrBox.setText("");
+		doctorSpeciality.setSelectedIndex(0);
 		patient.setValue(true);
 		doctor.setValue(false);
 		verifier.setValue(false);
@@ -228,6 +316,34 @@ public class AddUserProvider extends BodyProvider {
 		return false;
 	}
 	
+	private void addPatientWidgets(){
+		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.add(cityLabel);
+		hPanel.add(cityBox);
+		hPanel.setStyleName("horizontalPanel");
+		mainPanel.add(hPanel);
+		
+		hPanel = new HorizontalPanel();
+		hPanel.add(streetLabel);
+		hPanel.add(streetBox);
+		hPanel.setStyleName("horizontalPanel");
+		mainPanel.add(hPanel);
+		
+		hPanel = new HorizontalPanel();
+		hPanel.add(houseNrLabel);
+		hPanel.add(houseNrBox);
+		hPanel.setStyleName("horizontalPanel");
+		mainPanel.add(hPanel);
+	}
+	
+	private void addDoctorWidgets(){
+		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.add(specialityLabel);
+		hPanel.add(doctorSpeciality);
+		hPanel.setStyleName("horizontalPanel");
+		mainPanel.add(hPanel);
+	}
+	
 	/**
 	 * Method add widget's to panel.
 	 */
@@ -239,6 +355,17 @@ public class AddUserProvider extends BodyProvider {
 		mainPanel.clear();
 		
 		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.setStyleName("horizontalPanel");
+		hPanel.add(userTypeLabel);
+		VerticalPanel vPanel = new VerticalPanel();
+		vPanel.setStyleName("verticalPanel");
+		vPanel.add(patient);
+		vPanel.add(doctor);
+		vPanel.add(verifier);
+		hPanel.add(vPanel);
+		mainPanel.add(hPanel);
+		
+		hPanel = new HorizontalPanel();
 		hPanel.setStyleName("horizontalPanel");
 		hPanel.add(nameLabel);
 		hPanel.add(nameBox);
@@ -274,16 +401,15 @@ public class AddUserProvider extends BodyProvider {
 		hPanel.add(phoneBox);
 		mainPanel.add(hPanel);
 		
-		hPanel = new HorizontalPanel();
-		hPanel.setStyleName("horizontalPanel");
-		hPanel.add(userTypeLabel);
-		VerticalPanel vPanel = new VerticalPanel();
-		vPanel.setStyleName("verticalPanel");
-		vPanel.add(patient);
-		vPanel.add(doctor);
-		vPanel.add(verifier);
-		hPanel.add(vPanel);
-		mainPanel.add(hPanel);
+		if(patient.getValue().booleanValue()){
+			addPatientWidgets();
+		}else{
+			if(doctor.getValue().booleanValue()){
+				addDoctorWidgets();
+			}else{
+				
+			}
+		}
 		
 		mainPanel.add(errorLabel);
 		

@@ -91,7 +91,7 @@ public class FieldVerifier {
 		}
 		//Matcher matcher = VALID_PESEL_REGEX.matcher(PESEL);
         //return matcher.find();
-		return PESEL.matches("^[0-9]{3}$");
+		return PESEL.matches("^[0-9]{11}$");
 	}
 	
 	/**

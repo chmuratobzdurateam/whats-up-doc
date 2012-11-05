@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import pl.dmcs.whatsupdoc.client.ContentManager;
 
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -19,8 +20,8 @@ import com.google.gwt.user.client.ui.Panel;
  * 
  */
 public class MenuProvider implements ContentProviderInt {
-	protected HorizontalPanel hFirstPanel;
-	protected HorizontalPanel hSecondPanel;
+	protected FlowPanel hFirstPanel;
+	protected FlowPanel hSecondPanel;
 	protected ArrayList<String> CSS;
 	protected Button firstLevelButton; // Current button from first level
 	protected Button secondLevelButton; // Current button from second level
@@ -34,9 +35,9 @@ public class MenuProvider implements ContentProviderInt {
 		CSS = new ArrayList<String>();
 		CSS.add("currentMenuButton");
 		CSS.add("menuButton");
-		hFirstPanel = new HorizontalPanel();
+		hFirstPanel = new FlowPanel();
 		hFirstPanel.addStyleName("firstLevelMenu");
-		hSecondPanel = new HorizontalPanel();
+		hSecondPanel = new FlowPanel();
 		hSecondPanel.addStyleName("secondLevelMenu");
 	}
 	

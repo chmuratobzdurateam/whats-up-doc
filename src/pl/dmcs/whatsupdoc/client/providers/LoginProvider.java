@@ -4,6 +4,8 @@
 package pl.dmcs.whatsupdoc.client.providers;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.fields.InputField;
+import pl.dmcs.whatsupdoc.client.fields.InputFieldType;
 import pl.dmcs.whatsupdoc.client.services.AuthenticationService;
 import pl.dmcs.whatsupdoc.client.services.AuthenticationServiceAsync;
 import pl.dmcs.whatsupdoc.shared.FieldVerifier;
@@ -28,9 +30,8 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class LoginProvider extends BodyProvider{
 	
-	private TextBox loginBox;
-	private PasswordTextBox passBox;
-	private Label errorPasswordLabel, errorLoginLabel, errorLabel;
+	private Label errorLabel;
+	private InputField loginField, passwordField;
 	
 	/**
 	 * @param cm CoontentManager of this class
@@ -40,30 +41,12 @@ public class LoginProvider extends BodyProvider{
 		
 		final AuthenticationServiceAsync auth = GWT.create(AuthenticationService.class);
 		
-		HorizontalPanel hPanel1 = new HorizontalPanel();
-		hPanel1.setStyleName("horizontalPanel");
 		
-		HorizontalPanel hPanel2 = new HorizontalPanel();
-		hPanel2.setStyleName("horizontalPanel");
-		
-		Label loginLabel = new Label("Login:");
-		loginLabel.setStyleName("label");
-		Label passwordLabel = new Label("Hasło:");
-		passwordLabel.setStyleName("label");
-		errorPasswordLabel = new Label();
-		errorPasswordLabel.setStyleName("error");
-		
-		errorLoginLabel = new Label();
-		errorLoginLabel.setStyleName("error");
+		loginField = new InputField("Login:", InputFieldType.TEXT_BOX);
+		passwordField = new InputField("Hasło:", InputFieldType.PASSWORD_BOX);
 		
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
-		
-		loginBox = new TextBox();
-		loginBox.setStyleName("textBox");
-		
-		passBox = new PasswordTextBox();
-		passBox.setStyleName("textBox");
 		
 		Button login = new Button("Zaloguj");
 		login.setStyleName("confirmButton");
@@ -71,23 +54,16 @@ public class LoginProvider extends BodyProvider{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				String login = loginBox.getText();
-				String password = passBox.getText();
+
 				errorLabel.setText("");
-				errorPasswordLabel.setText("");
-				errorLoginLabel.setText("");
-				if(!FieldVerifier.isValidName(login)){
-					errorLoginLabel.setText("Zły format loginu!");
-					getCm().drawContent();
-					return;
-				}
-				if(!FieldVerifier.isValidPassword(password)){
-					errorPasswordLabel.setText("Zły format hasła!");
+				
+				if(!loginField.checkConstraint() || !passwordField.checkConstraint()){
 					getCm().drawContent();
 					return;
 				}
 				
-				auth.authenticate(login, password, new AsyncCallback<Boolean>() {
+				
+				auth.authenticate(loginField.getValue(), passwordField.getValue(), new AsyncCallback<Boolean>() {
 						
 					@Override
 					public void onSuccess(Boolean result) {
@@ -112,16 +88,9 @@ public class LoginProvider extends BodyProvider{
 			}
 		});
 		
-		hPanel1.add(loginLabel);
-		hPanel1.add(loginBox);
-		hPanel1.add(errorLoginLabel);
 		
-		hPanel2.add(passwordLabel);
-		hPanel2.add(passBox);
-		hPanel2.add(errorPasswordLabel);
-		
-		mainPanel.add(hPanel1);
-		mainPanel.add(hPanel2);
+		mainPanel.add(loginField.returnContent());
+		mainPanel.add(passwordField.returnContent());
 		mainPanel.add(errorLabel);
 		mainPanel.add(login);
 	}

@@ -5,6 +5,7 @@ package pl.dmcs.whatsupdoc.client.providers;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
 
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -16,7 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class BodyProvider implements ContentProviderInt {
 	
-	protected VerticalPanel mainPanel;
+	protected FlowPanel mainPanel;
 	private ContentManager cm;
 	
 	/**
@@ -24,7 +25,7 @@ public class BodyProvider implements ContentProviderInt {
 	 */
 	public BodyProvider(ContentManager cm) {
 		this.cm = cm;
-		this.mainPanel = new VerticalPanel();
+		this.mainPanel = new FlowPanel();
 		this.mainPanel.setStyleName("mainPanel");
 	}
 

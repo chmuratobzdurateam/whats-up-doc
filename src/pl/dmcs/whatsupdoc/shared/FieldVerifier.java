@@ -32,6 +32,8 @@ public class FieldVerifier {
 	//public static final Pattern VALID_PESEL_REGEX = Pattern.compile("^[0-9]{11}");
 	//public static final Pattern VALID_PHONE_REGEX = Pattern.compile("^[0-9]{9}");
 	
+	
+	
 	/**
 	 * Verifies that the specified name is valid for our service.
 	 * 
@@ -107,5 +109,26 @@ public class FieldVerifier {
 		//Matcher matcher = VALID_PHONE_REGEX.matcher(phone);
         //return matcher.find();
 		return phone.matches("^[0-9]{9}$");
+	}
+	
+	public static boolean isValidCity(String city){
+		if(city==null){
+			return false;
+		}
+		return city.length() > 3 && !city.contains(" ");
+	}
+	
+	public static boolean isValidStreet(String street){
+		if(street==null){
+			return false;
+		}
+		return street.length() > 4;
+	}
+	
+	public static boolean isValidHouseNr(String nr){
+		if(nr==null){
+			return false;
+		}
+		return nr.length() > 0;
 	}
 }

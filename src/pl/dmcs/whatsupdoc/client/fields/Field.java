@@ -19,15 +19,15 @@ public abstract class Field {
 	
 	Field(){
 		mainPanel = new FlowPanel();
-		mainPanel.setStylePrimaryName("dupa");
+		mainPanel.setStylePrimaryName("row");
 		part1 = new FlowPanel();
-		part1.setStyleName("lewy-posladek");
+		part1.setStyleName("firstColumn");
 		
 		part2 = new FlowPanel();
-		part2.setStyleName("rowek");
+		part2.setStyleName("secondColumn");
 		
 		part3 = new FlowPanel();
-		part3.setStyleName("prawy-posladek");
+		part3.setStyleName("thirdColumn");
 		
 		mainPanel.add(part1);
 		mainPanel.add(part2);
@@ -42,8 +42,13 @@ public abstract class Field {
 	}
 	
 	/**
-	 * @return String - return value
+	 * @return Object - return value, it can be object name or object itself
 	 */
 	public abstract Object getValue();
+	
+	/**
+	 * Clear some of content
+	 */
+	public abstract void clear();
 	
 }

@@ -34,7 +34,7 @@ public class InputField extends Field implements FieldConstraint {
 		}else{
 			this.input = new TextBox();
 		}
-		this.input.setStyleName("box");
+		this.input.setStyleName("textBox");
 		this.error = new Label();
 		this.error.setStyleName("error");
 		
@@ -120,6 +120,10 @@ public class InputField extends Field implements FieldConstraint {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see pl.dmcs.whatsupdoc.client.fields.Field#clear()
+	 */
+	@Override
 	public void clear(){
 		error.setText("");
 		input.setText("");

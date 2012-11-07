@@ -36,9 +36,9 @@ public class MenuProvider implements ContentProviderInt {
 		CSS.add("currentMenuButton");
 		CSS.add("menuButton");
 		hFirstPanel = new FlowPanel();
-		
+		hFirstPanel.setStyleName("firstLevelMenu");
 		hSecondPanel = new FlowPanel();
-		
+		hSecondPanel.setStyleName("secondLevelMenu");
 	}
 	
 	/* (non-Javadoc)

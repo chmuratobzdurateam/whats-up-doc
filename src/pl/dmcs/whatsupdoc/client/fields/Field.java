@@ -33,6 +33,7 @@ public abstract class Field {
 			}else{
 				fP.setStyleName("");
 			}
+			subDiv.add(fP);
 			mainPanel.add(fP);
 		}
 		

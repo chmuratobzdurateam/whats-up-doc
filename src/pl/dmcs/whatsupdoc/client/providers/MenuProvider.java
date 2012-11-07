@@ -36,9 +36,9 @@ public class MenuProvider implements ContentProviderInt {
 		CSS.add("currentMenuButton");
 		CSS.add("menuButton");
 		hFirstPanel = new FlowPanel();
-		hFirstPanel.addStyleName("firstLevelMenu");
+		
 		hSecondPanel = new FlowPanel();
-		hSecondPanel.addStyleName("secondLevelMenu");
+		
 	}
 	
 	/* (non-Javadoc)
@@ -87,11 +87,12 @@ public class MenuProvider implements ContentProviderInt {
 		firstLevelButton.setStyleName(CSS.get(1));
 		
 		b.setStyleName(CSS.get(0));
+		//b.addStyleName(CSS.get(1));
 		
 		firstLevelButton = b;
 		
 		if(secondLevelButton!=null){
-			secondLevelButton.setStyleName(CSS.get(1));
+			secondLevelButton.setStyleName(CSS.get(3));
 			secondLevelButton = null;
 		}
 	}
@@ -104,6 +105,7 @@ public class MenuProvider implements ContentProviderInt {
 	 */
 	protected void setSecondLvlCSS(Button b) {
 		b.setStyleName(CSS.get(0));
+		//b.addStyleName(CSS.get(2));
 		if(secondLevelButton==null){
 			secondLevelButton = b;
 		}else{

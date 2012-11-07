@@ -45,6 +45,7 @@ public class VerifierMenuProvider extends MenuProvider {
 		Button button = new Button("Strona Główna");
 		firstLevelButton = button;
 		button.setStyleName(CSS.get(0));
+		//button.addStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
 			@Override

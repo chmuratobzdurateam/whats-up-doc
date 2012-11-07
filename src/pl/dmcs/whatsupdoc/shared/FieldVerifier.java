@@ -49,7 +49,7 @@ public class FieldVerifier {
 		if (name == null) {
 			return false;
 		}
-		return name.length() > 3;
+		return name.length() >= 3;
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class FieldVerifier {
 		if(city==null){
 			return false;
 		}
-		return city.length() > 3 && !city.contains(" ");
+		return city.length() >= 3;
 	}
 	
 	public static boolean isValidStreet(String street){

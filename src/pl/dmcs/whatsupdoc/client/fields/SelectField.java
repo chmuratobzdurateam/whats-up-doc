@@ -4,6 +4,7 @@
 package pl.dmcs.whatsupdoc.client.fields;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -50,6 +51,7 @@ public class SelectField extends Field {
 	 * then getValue will return selected name 
 	 */
 	public SelectField(String title, int visibleCount, SelectFieldType type, List<String> itemsNames, List<Object> items) {
+		super(2, Arrays.asList(new String[]{"firstColumn","secondColumn"}));
 		if(items != null && itemsNames.size()==items.size()){
 			itemMap = new HashMap<String, Object>(itemsNames.size());
 			Iterator<String> name = itemsNames.iterator();
@@ -81,8 +83,8 @@ public class SelectField extends Field {
 			this.select.addItem(name);
 		}
 		
-		part1.add(this.title);
-		part2.add(select);
+		subDiv.get(0).add(this.title);
+		subDiv.get(1).add(select);
 	}
 
 	/* (non-Javadoc)

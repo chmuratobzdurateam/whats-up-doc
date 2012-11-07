@@ -3,6 +3,9 @@
  */
 package pl.dmcs.whatsupdoc.client.fields;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -15,23 +18,24 @@ import com.google.gwt.user.client.ui.Panel;
 public abstract class Field {
 
 	protected FlowPanel mainPanel;
-	protected FlowPanel part1, part2, part3;
+	protected List<FlowPanel> subDiv;
 	
-	Field(){
+	Field(int number, List<String> cssList){
 		mainPanel = new FlowPanel();
 		mainPanel.setStylePrimaryName("row");
-		part1 = new FlowPanel();
-		part1.setStyleName("firstColumn");
 		
-		part2 = new FlowPanel();
-		part2.setStyleName("secondColumn");
+		subDiv = new ArrayList<FlowPanel>(number);
 		
-		part3 = new FlowPanel();
-		part3.setStyleName("thirdColumn");
+		for(int i=0;i<number;i++){
+			FlowPanel fP = new FlowPanel();
+			if(cssList.size()==number){
+				fP.setStyleName(cssList.get(i));
+			}else{
+				fP.setStyleName("");
+			}
+			mainPanel.add(fP);
+		}
 		
-		mainPanel.add(part1);
-		mainPanel.add(part2);
-		mainPanel.add(part3);
 	}
 	
 	/**

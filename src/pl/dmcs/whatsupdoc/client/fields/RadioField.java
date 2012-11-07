@@ -4,6 +4,7 @@
 package pl.dmcs.whatsupdoc.client.fields;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 
@@ -62,6 +64,7 @@ public class RadioField extends Field{
 	 * @param clicks - list of ClickHandlers
 	 */
 	public RadioField(String title, List<String> titles, String group, List<Object> obj, List<ClickHandler> clicks){
+		super(2, Arrays.asList(new String[]{"firstColumn","secondColumn"}));
 		this.title = new Label(title);
 		this.title.setStyleName("title");
 		
@@ -93,10 +96,11 @@ public class RadioField extends Field{
 			rButtons.add(b);
 		}
 		
-		part1.add(this.title);
+		subDiv.get(0).add(this.title);
+		FlowPanel f = subDiv.get(1);
 		for(RadioButton rb : rButtons){
 			
-			part2.add(rb);
+			f.add(rb);
 		}
 	}
 	

@@ -3,6 +3,8 @@
  */
 package pl.dmcs.whatsupdoc.client.fields;
 
+import java.util.Arrays;
+
 import pl.dmcs.whatsupdoc.shared.FieldVerifier;
 
 import com.google.gwt.user.client.ui.Label;
@@ -26,6 +28,7 @@ public class InputField extends Field implements FieldConstraint {
 	 * @param type - what type is this input field
 	 */
 	public InputField(String title, InputFieldType type){
+		super(3, Arrays.asList(new String[]{"firstColumn", "secondColumn", "thirdColumn"}));
 		this.title = new Label(title);
 		this.title.setStyleName("title");
 		this.myType = type;
@@ -38,9 +41,9 @@ public class InputField extends Field implements FieldConstraint {
 		this.error = new Label();
 		this.error.setStyleName("error");
 		
-		part1.add(this.title);
-		part2.add(this.input);
-		part3.add(this.error);
+		subDiv.get(0).add(this.title);
+		subDiv.get(1).add(this.input);
+		subDiv.get(2).add(this.error);
 	}
 	
 	/* (non-Javadoc)

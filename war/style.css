@@ -1,77 +1,78 @@
-header, footer, section
-aside, nav, article  {
-        display: block;
-        position: relative;
+header,footer,section
+aside,nav,article {
+	display: block;
+	position: relative;
 }
 
- 
-
-#wrapper   {
-    margin: 0 auto;
-    width: auto;
-
+#wrapper {
+	margin: 0 auto;
+	width: auto;
 }
 
-header  {
-    background: url(images/MGlowne-Tlo-Pasek.png) repeat-x;
-    height: 53px;
-}
-footer  {
-		position: relative; top:100px;
-		font-family: 		Verdana;
-		font-size: 		12px;
-		color:				#666666;
-
-    background: url(images/Stopka-Tlo-PAsek.png) repeat-x;
-    height: 53px;
-}
-#menu_level_2   {
-    background: #F4F5F4;
-    height: 36px;
-}
-#belt{
-		position: relative;
-		font-size:			12px;
-		font-family: 		Verdana;
-		color:				white;		
-	    background: #207DBA;
-    	height: 26px;
-    	
-}
-#belt table{
-	position:relative; top:-3px;
+header {
+	background: url(images/MGlowne-Tlo-Pasek.png) repeat-x;
+	height: 53px;
 }
 
-#contents{
-		font-size:			12px;
-		font-family: 		Verdana;
-		color:				#666666;
-		position: relative; top:20px;
-		background: #F4F5F4;
-		width: 860px;
-		min-height: 100px; 
-		margin: 0 auto;
+footer {
+	position: relative;
+	top: 100px;
+	font-family: Verdana;
+	font-size: 12px;
+	color: #666666;
+	background: url(images/Stopka-Tlo-PAsek.png) repeat-x;
+	height: 53px;
+	text-align: center;
+	padding-top: 10px;
 }
 
+#menu_level_2 {
+	background: #F4F5F4;
+	height: 36px;
+}
+
+#belt {
+	position: relative;
+	font-size: 12px;
+	font-family: Verdana;
+	color: white;
+	background: #207DBA;
+	height: 26px;
+}
+
+#belt table {
+	position: relative;
+	top: -3px;
+}
+
+#contents {
+	font-size: 12px;
+	font-family: Verdana;
+	color: #666666;
+	position: relative;
+	top: 20px;
+	background: #F4F5F4;
+	width: 860px;
+	min-height: 100px;
+	margin: 0 auto;
+}
 
 nav {
-			font-family: 		Verdana;
-			font-size: 			20px;
-			color:				#666666;
+	font-family: Verdana;
+	font-size: 20px;
+	color: #666666;
 }
-
-
 
 .container {
-display: table;         /* wyĹ›wietlanie jak tabela*/
+	display: table; /* wyświetlanie jak tabela*/
 }
+
 .blockOuter {
-display: table-cell;
-vertical-align: middle; /* wypoĹ›rodkowywanie treĹ›ci w pionie */
+	display: table-cell;
+	vertical-align: middle; /* wypośrodkowywanie treści w pionie */
 }
 
-
-#menu_level_2 ul, ul li {
+#menu_level_2 ul,ul li {
 	display: block;
 	list-style: none;
 	margin: 0;
@@ -79,30 +80,18 @@ vertical-align: middle; /* wypoĹ›rodkowywanie treĹ›ci w pionie */
 }
 
 #menu_level_2 ul {
-
-	float: left;
 	width: 100%;
-		padding-left: 250px;
+	padding-left: 250px;
+	display: inline;
 }
 
 #menu_level_2 ul li {
 	float: left;
-	text-align:center;
-
+	text-align: center;
 }
 
-#menu_level_2 ul a:link, ul a:visited {
-	font-family: 		Verdana;
-	font-size: 		12px;
-	text-decoration: none;
-	display: block;
-	background-color: #E5E5E5;
-	color: #666666;
-	position: relative;
-	top: 10px;
-	width: 100px;
-	height: 26px;
-	float: centre;
+#menu_level_2 ul a:link,ul a:visited {
+
 }
 
 #menu_level_2 ul a:hover {
@@ -111,17 +100,82 @@ vertical-align: middle; /* wypoĹ›rodkowywanie treĹ›ci w pionie */
 	border-bottom-color: #fff;
 	color: #207DBA;
 	height: 34px;
+	float: left;
+	text-align: center;
+		float: left;
+	width: 100%;
+	padding-left: 250px;
 }
-#menu_level_1 a{
+
+.secondLevelMenu > .menuButton {
+	font-family: Verdana;
+	font-size: 12px;
+	text-decoration: none;
+	display: block;
+	background-color: #E5E5E5;
+	color: #666666;
+	position: relative;
+	top: 10px;
+	width: 150px;
+	height: 26px;
+	float: centre;
+	display: inline;
+	text-align: center;
+	border: none;
+
+}
+.secondLevelMenu {
+     text-align: center; 
+     display: inline;
+     position:absolute;
+       left: 30%;
+       right: 30%;
+       
+}
+
+.firstLevelMenu{
+    margin-left: 36%;  
+}
+
+
+.secondLevelMenu > .currentMenuButton {		
+    font-family: Verdana;
+	font-size: 12px;
+	text-decoration: none;
+	display: block;
+	background-color: white;
+	color: #666666;
+	position: relative;
+	top: 4px;
+	width: 150px;
+	height: 32px;
+	float: centre;
+	display: inline;
+	text-align: center;
+	border: none;
+	color: #207DBA;
+
+}
+
+.firstLevelMenu > .menuButton{
 	margin-left: 50px;
 	font-family: 		Verdana;
 	padding-top: 15px;
 	color: #666666;
 	position: relative;
-	top: 10px;
   	text-decoration: none;
+  	border: none;
+
+  	
 }
-#menu_level_1 a:hover { 
+
+
+.firstLevelMenu > .currentMenuButton{ 
+	margin-left: 50px;
+	font-family: 		Verdana;
+	padding-top: 10px;
+	position: relative;
 	color: #207DBA;
-	text-decoration: underline 
+	text-decoration: underline;
+	border: none;
 	}

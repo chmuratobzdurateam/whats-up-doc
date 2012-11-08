@@ -64,12 +64,12 @@ nav {
 }
 
 .container {
-	display: table; /* wyÅ›wietlanie jak tabela*/
+	display: table; /* wyœwietlanie jak tabela*/
 }
 
 .blockOuter {
 	display: table-cell;
-	vertical-align: middle; /* wypoÅ›rodkowywanie treÅ›ci w pionie */
+	vertical-align: middle; /* wypoœrodkowywanie treœci w pionie */
 }
 
 #menu_level_2 ul,ul li {
@@ -170,6 +170,7 @@ nav {
 }
 
 
+
 .firstLevelMenu > .currentMenuButton{ 
 	margin-left: 50px;
 	font-family: 		Verdana;
@@ -179,3 +180,156 @@ nav {
 	text-decoration: underline;
 	border: none;
 	}
+	
+	
+button.confirmButton {
+font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 5px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#207cba 0%,
+		#15537a);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#207cba),
+		to(#15537a));
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #282257;
+	-moz-box-shadow:
+		0px 0px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 0px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	box-shadow:
+		0px 0px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+}
+
+button.confirmButton:hover {
+font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 5px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#207cba 0%,
+		#15537a);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#207cba),
+		to(#15537a));
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #282257;
+	-moz-box-shadow:
+		3px 3px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		3px 3px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	box-shadow:
+		3px 3px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+}
+
+.mainPanel{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.row > .firstColumn {
+     padding-top: 15px;
+     text-align: left;
+     padding-left: 350px;
+}
+.row > .secondColumn {
+     padding-top: 5px;
+     text-align: center;
+}
+.row > .thirdColumn{
+    
+     padding-top: 5px;
+     color: red; 
+}
+
+button.cancelButton {
+font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 5px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#207cba 0%,
+		#15537a);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#207cba),
+		to(#15537a));
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #282257;
+	-moz-box-shadow:
+		0px 0px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 0px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	box-shadow:
+		0px 0px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+}
+
+button.cancelButton:hover {
+font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 5px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#207cba 0%,
+		#15537a);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#207cba),
+		to(#15537a));
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #282257;
+	-moz-box-shadow:
+		3px 3px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		3px 3px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	box-shadow:
+		3px 3px 9px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+}
+
+.radioButton{
+    padding-top: 10px;
+    padding-left: 10px;
+    }
+
+
+

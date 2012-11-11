@@ -109,7 +109,7 @@ public class InputField extends Field implements FieldConstraint {
 				}
 				
 			case HOUSE_NR:
-				if(FieldVerifier.isValidEmail(this.input.getText())){
+				if(FieldVerifier.isValidHouseNr(this.input.getText())){
 					return true;
 				}else{
 					error.setText("Musisz podać numer mieszkania!");

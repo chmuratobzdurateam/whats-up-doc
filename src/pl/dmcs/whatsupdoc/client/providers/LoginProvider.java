@@ -69,7 +69,7 @@ public class LoginProvider extends BodyProvider{
 					public void onSuccess(Boolean result) {
 						BodyProvider b = new BodyProvider(getCm());
 						getCm().setBody(b);
-						MenuProvider menu = new VerifierMenuProvider(getCm());
+						MenuProvider menu = new DoctorMenuProvider(getCm());
 						getCm().setMenu(menu);
 							getCm().drawContent();
 					}
@@ -79,7 +79,7 @@ public class LoginProvider extends BodyProvider{
 						// Right now it's dummy method. Later it'll clear login and password box and render it again.
 						BodyProvider b = new BodyProvider(getCm());
 						getCm().setBody(b);
-						MenuProvider menu = new VerifierMenuProvider(getCm());
+						MenuProvider menu = new DoctorMenuProvider(getCm());
 						getCm().setMenu(menu);
 						getCm().drawContent();
 					}

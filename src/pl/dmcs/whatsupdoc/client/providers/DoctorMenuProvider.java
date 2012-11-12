@@ -137,7 +137,9 @@ public class DoctorMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				setSecondLvlCSS((Button) event.getSource());
-				
+				BodyProvider b = new SearchProvider(getManager());
+				getManager().setBody(b);
+				getManager().drawContent();
 			}
 		});
 		list.add(button);

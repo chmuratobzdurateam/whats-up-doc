@@ -92,7 +92,7 @@ public class MenuProvider implements ContentProviderInt {
 		firstLevelButton = b;
 		
 		if(secondLevelButton!=null){
-			secondLevelButton.setStyleName(CSS.get(3));
+			secondLevelButton.setStyleName(CSS.get(1));
 			secondLevelButton = null;
 		}
 	}

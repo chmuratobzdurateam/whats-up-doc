@@ -1,10 +1,20 @@
 package pl.dmcs.whatsupdoc.shared;
 
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class Address implements IsSerializable{
+@PersistenceCapable(identityType=IdentityType.APPLICATION)
+public class PAddress implements IsSerializable{
+	@Persistent
 	private String city;
+	@Persistent
 	private String street;
+	@Persistent
+	private String postalCode;
+	@Persistent
 	private String houseNumber;
 	/**
 	 * @return the city
@@ -41,5 +51,17 @@ public class Address implements IsSerializable{
 	 */
 	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
+	}
+	/**
+	 * @return the postalCode
+	 */
+	public String getPostalCode() {
+		return postalCode;
+	}
+	/**
+	 * @param postalCode the postalCode to set
+	 */
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 }

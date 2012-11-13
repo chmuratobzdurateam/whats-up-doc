@@ -2,12 +2,12 @@ package pl.dmcs.whatsupdoc.client.model;
 
 import java.util.ArrayList;
 
-import pl.dmcs.whatsupdoc.shared.Address;
+import pl.dmcs.whatsupdoc.shared.PAddress;
 import pl.dmcs.whatsupdoc.shared.Alergy;
 
 public class PatientCard extends User{
 	private ArrayList<Alergy> alergies;
-	private Address address;
+	private PAddress address;
 	
 	public PatientCard(){
 	}
@@ -30,13 +30,13 @@ public class PatientCard extends User{
 	/**
 	 * @return the address
 	 */
-	public Address getAddress() {
+	public PAddress getAddress() {
 		return address;
 	}
 	/**
 	 * @param address the address to set
 	 */
-	public void setAddress(Address address) {
+	public void setAddress(PAddress address) {
 		this.address = address;
 	}
 }

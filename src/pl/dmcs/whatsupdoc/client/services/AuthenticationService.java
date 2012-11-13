@@ -12,5 +12,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface AuthenticationService extends RemoteService {
 	Boolean authenticate(String login, String password);
 	Boolean isUserLoggedIn();
-	User getCurrentUser();
+	User getCurrentLoggedInUser();
 }

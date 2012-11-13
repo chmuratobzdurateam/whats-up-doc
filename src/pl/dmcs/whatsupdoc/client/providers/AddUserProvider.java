@@ -21,7 +21,7 @@ import pl.dmcs.whatsupdoc.client.fields.SelectField;
 import pl.dmcs.whatsupdoc.client.fields.SelectFieldType;
 import pl.dmcs.whatsupdoc.client.services.UserService;
 import pl.dmcs.whatsupdoc.client.services.UserServiceAsync;
-import pl.dmcs.whatsupdoc.shared.Address;
+import pl.dmcs.whatsupdoc.shared.PAddress;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
 
@@ -126,7 +126,7 @@ public class AddUserProvider extends BodyProvider {
 							return;
 						}
 						
-						Address addr = new Address();
+						PAddress addr = new PAddress();
 						addr.setCity(city.getValue());
 						addr.setStreet(street.getValue());
 						addr.setHouseNumber(houseNr.getValue());

@@ -1,16 +1,27 @@
 package pl.dmcs.whatsupdoc.shared;
 
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class OpeningHours implements IsSerializable{
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
+public class POpeningHours implements IsSerializable{
+	@Persistent
 	private Integer openHour;
+	@Persistent
 	private Integer openMinute;
+	@Persistent
 	private Integer closeHour;
+	@Persistent
 	private Integer closeMinute;
+	@Persistent
 	private Integer dayNumber;
+	@Persistent
 	private Boolean isOpened;
 	
-	public OpeningHours(){
+	public POpeningHours(){
 	}
 	
 	/**

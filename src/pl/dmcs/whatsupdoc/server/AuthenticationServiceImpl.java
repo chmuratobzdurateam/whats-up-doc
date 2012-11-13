@@ -2,7 +2,6 @@ package pl.dmcs.whatsupdoc.server;
 
 import java.util.List;
 
-import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
@@ -10,7 +9,6 @@ import pl.dmcs.whatsupdoc.client.model.User;
 import pl.dmcs.whatsupdoc.client.services.AuthenticationService;
 import pl.dmcs.whatsupdoc.server.datastore.model.PDoctor;
 import pl.dmcs.whatsupdoc.server.datastore.model.PPatient;
-import pl.dmcs.whatsupdoc.server.datastore.model.PUser;
 import pl.dmcs.whatsupdoc.server.datastore.model.PVerifier;
 import pl.dmcs.whatsupdoc.shared.Persister;
 
@@ -85,7 +83,7 @@ public class AuthenticationServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public User getCurrentUser() {
+	public User getCurrentLoggedInUser() {
 		if(isUserLoggedIn()){
 			return (User) this.getThreadLocalRequest().getSession().getAttribute("user");
 		}

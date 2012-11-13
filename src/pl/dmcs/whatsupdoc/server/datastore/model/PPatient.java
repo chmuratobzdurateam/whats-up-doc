@@ -4,17 +4,23 @@ import java.util.ArrayList;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.smartcardio.CardPermission;
+import javax.jdo.annotations.Persistent;
 
 import pl.dmcs.whatsupdoc.client.model.Patient;
 import pl.dmcs.whatsupdoc.client.model.PatientCard;
-import pl.dmcs.whatsupdoc.shared.Address;
 import pl.dmcs.whatsupdoc.shared.Alergy;
+import pl.dmcs.whatsupdoc.shared.PAddress;
+
+import com.google.appengine.datanucleus.annotations.Owned;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class PPatient extends PUser{
+	@Persistent
 	private ArrayList<Alergy> alergies;
-	private Address address;
+	
+	@Persistent(dependent = "true")
+	@Owned
+	private PAddress address;
 	
 	public PPatient(){
 	}
@@ -34,13 +40,13 @@ public class PPatient extends PUser{
 	/**
 	 * @return the address
 	 */
-	public Address getAddress() {
+	public PAddress getAddress() {
 		return address;
 	}
 	/**
 	 * @param address the address to set
 	 */
-	public void setAddress(Address address) {
+	public void setAddress(PAddress address) {
 		this.address = address;
 	}
 

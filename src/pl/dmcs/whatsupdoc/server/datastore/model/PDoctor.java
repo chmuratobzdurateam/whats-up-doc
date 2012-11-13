@@ -3,19 +3,27 @@ package pl.dmcs.whatsupdoc.server.datastore.model;
 import java.util.ArrayList;
 
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Inheritance;
-import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 
-import pl.dmcs.whatsupdoc.shared.Address;
-import pl.dmcs.whatsupdoc.shared.OpeningHours;
+import pl.dmcs.whatsupdoc.shared.PAddress;
+import pl.dmcs.whatsupdoc.shared.POpeningHours;
 import pl.dmcs.whatsupdoc.shared.Speciality;
+
+import com.google.appengine.datanucleus.annotations.Owned;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class PDoctor extends PUser{
+	@Persistent
 	private Speciality speciality;
-	private Address consultingRoomAddress;
-	private ArrayList<OpeningHours> openingHours; 
+	
+	@Persistent(dependent = "true")
+	@Owned
+	private PAddress consultingRoomAddress;
+	
+	@Persistent(dependent = "true")
+	@Owned
+	private ArrayList<POpeningHours> openingHours; 
 	
 	public PDoctor(){
 	}
@@ -37,28 +45,28 @@ public class PDoctor extends PUser{
 	/**
 	 * @return the consultingRoomAddress
 	 */
-	public Address getConsultingRoomAddress() {
+	public PAddress getConsultingRoomAddress() {
 		return consultingRoomAddress;
 	}
 
 	/**
 	 * @param consultingRoomAddress the consultingRoomAddress to set
 	 */
-	public void setConsultingRoomAddress(Address consultingRoomAddress) {
+	public void setConsultingRoomAddress(PAddress consultingRoomAddress) {
 		this.consultingRoomAddress = consultingRoomAddress;
 	}
 
 	/**
 	 * @return the openingHours
 	 */
-	public ArrayList<OpeningHours> getOpeningHours() {
+	public ArrayList<POpeningHours> getOpeningHours() {
 		return openingHours;
 	}
 
 	/**
 	 * @param openingHours the openingHours to set
 	 */
-	public void setOpeningHours(ArrayList<OpeningHours> openingHours) {
+	public void setOpeningHours(ArrayList<POpeningHours> openingHours) {
 		this.openingHours = openingHours;
 	}
 }

@@ -5,7 +5,8 @@ import java.util.List;
 import pl.dmcs.whatsupdoc.client.model.Patient;
 import pl.dmcs.whatsupdoc.client.model.PatientCard;
 import pl.dmcs.whatsupdoc.client.model.User;
-import pl.dmcs.whatsupdoc.shared.Address;
+import pl.dmcs.whatsupdoc.shared.Gender;
+import pl.dmcs.whatsupdoc.shared.PAddress;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
 
@@ -16,15 +17,17 @@ public interface UserServiceAsync {
 
 	void addVerifier(String login, String name, String surname,
 			String password, String mail, String phone, String PESEL,
-			UserType userType, AsyncCallback<Boolean> callback);
+			UserType userType, Gender gender, AsyncCallback<Boolean> callback);
 
 	void addPatient(String login, String name, String surname, String password,
 			String mail, String phone, String PESEL, UserType userType,
-			Address address, AsyncCallback<Boolean> callback);
+			String city, String street, String houseNumber, String postalCode,
+			Gender gender, AsyncCallback<Boolean> callback);
 
 	void addDoctor(String login, String name, String surname, String password,
 			String mail, String phone, String PESEL, UserType userType,
-			Speciality speciality, AsyncCallback<Boolean> callback);
+			Speciality speciality, Gender gender,
+			AsyncCallback<Boolean> callback);
 
 	void getPatientByPESEL(String PESEL, AsyncCallback<Patient> callback);
 

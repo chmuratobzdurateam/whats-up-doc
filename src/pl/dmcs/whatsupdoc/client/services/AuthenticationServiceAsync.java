@@ -9,7 +9,7 @@ public interface AuthenticationServiceAsync {
 	void authenticate(String username, String password,
 			AsyncCallback<Boolean> callback);
 
-	void getCurrentUser(AsyncCallback<User> callback);
+	void getCurrentLoggedInUser(AsyncCallback<User> callback);
 
 	void isUserLoggedIn(AsyncCallback<Boolean> callback);
 

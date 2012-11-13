@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+import javax.jdo.Transaction;
 
 import pl.dmcs.whatsupdoc.client.model.Patient;
 import pl.dmcs.whatsupdoc.client.model.PatientCard;
@@ -12,7 +13,8 @@ import pl.dmcs.whatsupdoc.client.services.UserService;
 import pl.dmcs.whatsupdoc.server.datastore.model.PDoctor;
 import pl.dmcs.whatsupdoc.server.datastore.model.PPatient;
 import pl.dmcs.whatsupdoc.server.datastore.model.PVerifier;
-import pl.dmcs.whatsupdoc.shared.Address;
+import pl.dmcs.whatsupdoc.shared.Gender;
+import pl.dmcs.whatsupdoc.shared.PAddress;
 import pl.dmcs.whatsupdoc.shared.Persister;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
@@ -38,7 +40,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 	@Override
 	public Boolean addVerifier(String login, String name,
 			String surname, String password, String mail, String phone,
-			String PESEL, UserType userType) {
+			String PESEL, UserType userType, Gender gender) {
 		PersistenceManager persister = Persister.getPersistenceManager();
 		try{
 			Query query = persister.newQuery(PVerifier.class);
@@ -59,6 +61,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 			newVerificator.setPESEL(PESEL);
 			newVerificator.setPhone(phone);
 			newVerificator.setUserType(userType);
+			newVerificator.setGender(gender);
 			persister.makePersistent(newVerificator);
 		} catch (Exception e){
 			return false;
@@ -72,8 +75,9 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 	@Override
 	public Boolean addPatient(String login, String name,
 			String surname, String password, String mail, String phone,
-			String PESEL, UserType userType, Address address) {
+			String PESEL, UserType userType, String city, String street, String houseNumber, String postalCode, Gender gender) {
 		PersistenceManager persister = Persister.getPersistenceManager();
+		Transaction tx = persister.currentTransaction();
 		try{
 			Query query = persister.newQuery(PPatient.class);
 			query.declareParameters("String aPESEL");
@@ -93,11 +97,25 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 			newPatient.setPESEL(PESEL);
 			newPatient.setPhone(phone);
 			newPatient.setUserType(userType);
-			newPatient.setAddress(address);
-			persister.makePersistent(newPatient);
+			newPatient.setGender(gender);
+			
+			PAddress newAddress = new PAddress();
+			newAddress.setCity(city);
+			newAddress.setStreet(street);
+			newAddress.setHouseNumber(houseNumber);
+			newAddress.setPostalCode(postalCode);
+			newPatient.setAddress(newAddress);
+			
+	        tx.begin();
+	        persister.makePersistent(newPatient);
+	        tx.commit();
+			
 		} catch (Exception e){
 			return false;
 		} finally{
+			if(tx.isActive()){
+				tx.rollback();
+			}
 			persister.close();
 		}
 		return true;
@@ -107,7 +125,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 	@Override
 	public Boolean addDoctor(String login, String name,
 			String surname, String password, String mail, String phone,
-			String PESEL, UserType userType, Speciality speciality) {
+			String PESEL, UserType userType, Speciality speciality, Gender gender) {
 		PersistenceManager persister = Persister.getPersistenceManager();
 		try{
 			Query query = persister.newQuery(PDoctor.class);
@@ -129,6 +147,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 			newDoctor.setPhone(phone);
 			newDoctor.setUserType(userType);
 			newDoctor.setSpeciality(speciality);
+			newDoctor.setGender(gender);
 			persister.makePersistent(newDoctor);
 		} catch (Exception e){
 			return false;

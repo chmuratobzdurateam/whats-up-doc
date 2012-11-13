@@ -9,6 +9,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import pl.dmcs.whatsupdoc.client.model.User;
+import pl.dmcs.whatsupdoc.shared.Gender;
 import pl.dmcs.whatsupdoc.shared.UserType;
 
 import com.google.appengine.api.datastore.Key;
@@ -35,6 +36,8 @@ public class PUser {
 	private String PESEL;
 	@Persistent
 	private UserType userType;
+	@Persistent
+	private Gender gender;
 	
 	public PUser(){
 	}
@@ -154,5 +157,19 @@ public class PUser {
 	 */
 	public void setPESEL(String PESEL) {
 		this.PESEL = PESEL;
+	}
+
+	/**
+	 * @return the gender
+	 */
+	public Gender getGender() {
+		return gender;
+	}
+
+	/**
+	 * @param gender the gender to set
+	 */
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 }

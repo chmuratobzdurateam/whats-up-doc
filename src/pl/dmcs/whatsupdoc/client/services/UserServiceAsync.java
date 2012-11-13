@@ -5,8 +5,8 @@ import java.util.List;
 import pl.dmcs.whatsupdoc.client.model.Patient;
 import pl.dmcs.whatsupdoc.client.model.PatientCard;
 import pl.dmcs.whatsupdoc.client.model.User;
+import pl.dmcs.whatsupdoc.server.datastore.model.PAddress;
 import pl.dmcs.whatsupdoc.shared.Gender;
-import pl.dmcs.whatsupdoc.shared.PAddress;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
 

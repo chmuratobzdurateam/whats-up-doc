@@ -8,11 +8,11 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Key;
+
 import pl.dmcs.whatsupdoc.client.model.User;
 import pl.dmcs.whatsupdoc.shared.Gender;
 import pl.dmcs.whatsupdoc.shared.UserType;
-
-import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
@@ -78,19 +78,6 @@ public class PUser {
 		this.userType = userType;
 	}
 
-	/**
-	 * @return the key
-	 */
-	public Key getKey() {
-		return key;
-	}
-
-	/**
-	 * @param key the key to set
-	 */
-	public void setKey(Key key) {
-		this.key = key;
-	}
 
 	public User asUser() {
 		User user = new User();
@@ -171,5 +158,19 @@ public class PUser {
 	 */
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+
+	/**
+	 * @return the key
+	 */
+	public Key getKey() {
+		return key;
+	}
+
+	/**
+	 * @param key the key to set
+	 */
+	public void setKey(Key key) {
+		this.key = key;
 	}
 }

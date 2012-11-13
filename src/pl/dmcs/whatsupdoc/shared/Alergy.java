@@ -1,7 +1,7 @@
 package pl.dmcs.whatsupdoc.shared;
 
 public enum Alergy {
-	KURZ("kurz"), SIERSC("sierœæ"), TRUSKAWKI("truskawki"), LISCIE_LIPY("liœcie lipy");
+	DUST("kurz"), HAIR("sierœæ"), STRAWBERRIES("truskawki"), LIME_LEAVES("liœcie lipy");
 	
 	private final String alergyString;
 	
@@ -20,6 +20,6 @@ public enum Alergy {
 			}
 		}
 		
-		return KURZ;
+		return DUST;
 	}
 }

@@ -1,13 +1,19 @@
 package pl.dmcs.whatsupdoc.shared;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Key;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class POpeningHours implements IsSerializable{
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
 	@Persistent
 	private Integer openHour;
 	@Persistent
@@ -95,5 +101,19 @@ public class POpeningHours implements IsSerializable{
 	 */
 	public void setOpened(Boolean isOpened) {
 		this.isOpened = isOpened;
+	}
+
+	/**
+	 * @return the key
+	 */
+	public Key getKey() {
+		return key;
+	}
+
+	/**
+	 * @param key the key to set
+	 */
+	public void setKey(Key key) {
+		this.key = key;
 	}
 }

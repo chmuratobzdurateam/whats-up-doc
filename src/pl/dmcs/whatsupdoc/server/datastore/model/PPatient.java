@@ -9,8 +9,8 @@ import javax.jdo.annotations.Persistent;
 import pl.dmcs.whatsupdoc.client.model.Patient;
 import pl.dmcs.whatsupdoc.client.model.PatientCard;
 import pl.dmcs.whatsupdoc.shared.Alergy;
-import pl.dmcs.whatsupdoc.shared.PAddress;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.annotations.Owned;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
@@ -18,7 +18,7 @@ public class PPatient extends PUser{
 	@Persistent
 	private ArrayList<Alergy> alergies;
 	
-	@Persistent(dependent = "true")
+	@Persistent
 	@Owned
 	private PAddress address;
 	
@@ -26,7 +26,7 @@ public class PPatient extends PUser{
 	}
 	
 	/**
-	 * @return the alergies
+	 * @return the alergies 
 	 */
 	public ArrayList<Alergy> getAlergies() {
 		return alergies;
@@ -63,9 +63,10 @@ public class PPatient extends PUser{
 		PatientCard patientCard = new PatientCard();
 		patientCard.setName(getName());
 		patientCard.setSurname(getSurname());
-		patientCard.setAddress(getAddress());
+		patientCard.setAddress(getAddress().asAddress());
 		patientCard.setAlergies(getAlergies());
 		patientCard.setPESEL(getPESEL());
+		patientCard.setPatientKey(KeyFactory.keyToString(getKey()));
 		return patientCard;
 	}
 }

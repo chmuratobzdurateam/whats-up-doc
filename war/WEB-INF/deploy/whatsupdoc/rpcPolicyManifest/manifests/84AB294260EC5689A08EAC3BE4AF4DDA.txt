@@ -1,0 +1,2 @@
+serviceClass: pl.dmcs.whatsupdoc.client.services.TreatmentService
+path: 6A2711F0ADC9EAFC7AB76820F576E8C0.gwt.rpc

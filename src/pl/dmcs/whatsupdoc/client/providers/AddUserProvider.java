@@ -21,7 +21,7 @@ import pl.dmcs.whatsupdoc.client.fields.SelectField;
 import pl.dmcs.whatsupdoc.client.fields.SelectFieldType;
 import pl.dmcs.whatsupdoc.client.services.UserService;
 import pl.dmcs.whatsupdoc.client.services.UserServiceAsync;
-import pl.dmcs.whatsupdoc.shared.PAddress;
+import pl.dmcs.whatsupdoc.server.datastore.model.PAddress;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
 
@@ -111,17 +111,17 @@ public class AddUserProvider extends BodyProvider {
 					
 					Speciality speciality = (Speciality) select.getValue();
 					if(speciality!=null){
-						userService.addDoctor(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
-								phone.getValue(), PESEL.getValue(), UserType.DOCTOR, speciality, registerCallback);
+						/*userService.addDoctor(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
+								phone.getValue(), PESEL.getValue(), UserType.DOCTOR, speciality, registerCallback);*/
 					}
 					
 				}else {
 					if(userType.getValue() == UserType.VERIFIER){
 						
-						userService.addVerifier(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
-								phone.getValue(), PESEL.getValue(), UserType.VERIFIER, registerCallback);
+						/*userService.addVerifier(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
+								phone.getValue(), PESEL.getValue(), UserType.VERIFIER, registerCallback);*/
 					}else{
-						if(!city.checkConstraint() || !street.checkConstraint() || !houseNr.checkConstraint()){
+						/*if(!city.checkConstraint() || !street.checkConstraint() || !houseNr.checkConstraint()){
 							getCm().drawContent();
 							return;
 						}
@@ -131,7 +131,7 @@ public class AddUserProvider extends BodyProvider {
 						addr.setStreet(street.getValue());
 						addr.setHouseNumber(houseNr.getValue());
 						userService.addPatient(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
-								phone.getValue(), PESEL.getValue(), UserType.PATIENT, addr, registerCallback);
+								phone.getValue(), PESEL.getValue(), UserType.PATIENT, addr, registerCallback);*/
 
 					}
 				}

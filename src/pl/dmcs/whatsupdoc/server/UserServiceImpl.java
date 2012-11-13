@@ -10,11 +10,11 @@ import pl.dmcs.whatsupdoc.client.model.Patient;
 import pl.dmcs.whatsupdoc.client.model.PatientCard;
 import pl.dmcs.whatsupdoc.client.model.User;
 import pl.dmcs.whatsupdoc.client.services.UserService;
+import pl.dmcs.whatsupdoc.server.datastore.model.PAddress;
 import pl.dmcs.whatsupdoc.server.datastore.model.PDoctor;
 import pl.dmcs.whatsupdoc.server.datastore.model.PPatient;
 import pl.dmcs.whatsupdoc.server.datastore.model.PVerifier;
 import pl.dmcs.whatsupdoc.shared.Gender;
-import pl.dmcs.whatsupdoc.shared.PAddress;
 import pl.dmcs.whatsupdoc.shared.Persister;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
@@ -84,8 +84,10 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 			query.setFilter("PESEL == aPESEL");
 			List<PPatient> pPatients = (List<PPatient>)query.execute(PESEL);
 			
-			if(pPatients.size() != 0){
-				return false;
+			if(pPatients != null){
+				if(pPatients.size() != 0){
+					return false;
+				}
 			}
 			
 			PPatient newPatient = new PPatient();
@@ -111,6 +113,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 	        tx.commit();
 			
 		} catch (Exception e){
+			e.printStackTrace();
 			return false;
 		} finally{
 			if(tx.isActive()){

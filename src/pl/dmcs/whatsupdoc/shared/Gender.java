@@ -13,7 +13,7 @@ public enum Gender {
 		return genderString;
 	}
 	
-	public static Gender getAlergy(String genderString){
+	public static Gender getGender(String genderString){
 		for(Gender gender: Gender.values()){
 			if(gender.toString().equals(genderString)){
 				return gender;

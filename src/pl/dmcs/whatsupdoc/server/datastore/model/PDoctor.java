@@ -6,7 +6,6 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
-import pl.dmcs.whatsupdoc.shared.PAddress;
 import pl.dmcs.whatsupdoc.shared.POpeningHours;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 
@@ -21,7 +20,7 @@ public class PDoctor extends PUser{
 	@Owned
 	private PAddress consultingRoomAddress;
 	
-	@Persistent(dependent = "true")
+	@Persistent
 	@Owned
 	private ArrayList<POpeningHours> openingHours; 
 	

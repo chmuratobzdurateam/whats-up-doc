@@ -110,12 +110,10 @@ public class RadioField extends Field{
 	 */
 	@Override
 	public void clear(){
-		int index = 0;
-		rButtons.get(index).setValue(true);
-		index++;
-		for(;index<rButtons.size();index++){
-			rButtons.get(index).setValue(false);
+		for (RadioButton b : rButtons) {
+			b.setValue(false);
 		}
+		rButtons.get(0).setValue(true);
 	}
 
 	/* (non-Javadoc)

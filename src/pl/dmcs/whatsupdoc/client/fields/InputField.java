@@ -115,6 +115,14 @@ public class InputField extends Field implements FieldConstraint {
 					error.setText("Musisz podać numer mieszkania!");
 					return false;
 				}
+				
+			case POSTAL_CODE:
+				if(FieldVerifier.isValidPostalCode(this.input.getText())){
+					return true;
+				}else{
+					error.setText("Musisz podać kod pocztowy w formacie: dd-ddd");
+					return false;
+				}
 	
 			default:
 				return false;

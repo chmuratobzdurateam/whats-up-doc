@@ -22,6 +22,7 @@ import pl.dmcs.whatsupdoc.client.fields.SelectFieldType;
 import pl.dmcs.whatsupdoc.client.services.UserService;
 import pl.dmcs.whatsupdoc.client.services.UserServiceAsync;
 import pl.dmcs.whatsupdoc.server.datastore.model.PAddress;
+import pl.dmcs.whatsupdoc.shared.Gender;
 import pl.dmcs.whatsupdoc.shared.Speciality;
 import pl.dmcs.whatsupdoc.shared.UserType;
 
@@ -34,9 +35,9 @@ import pl.dmcs.whatsupdoc.shared.UserType;
 public class AddUserProvider extends BodyProvider {
 	private Logger logger = Logger.getLogger("AddUserProvider");
 	
-	private InputField name, surname, password, mail, phone, PESEL, city, street, houseNr, userLogin;
+	private InputField name, surname, password, mail, phone, PESEL, city, street, houseNr, postalCode, userLogin;
 	private SelectField select;
-	private RadioField userType;
+	private RadioField userType, genderType;
 	private Label errorLabel;
 	private Button addUser, cancel;
 	private ClickHandler userTypeChange = new ClickHandler() {
@@ -84,10 +85,16 @@ public class AddUserProvider extends BodyProvider {
 		city = new InputField("Miasto:", InputFieldType.CITY);
 		street = new InputField("Ulica:", InputFieldType.STREET);
 		houseNr = new InputField("Mieszkanie:", InputFieldType.HOUSE_NR);
+		postalCode = new InputField("Kod pocztowy:", InputFieldType.POSTAL_CODE);
+		
+		Object obj[] = UserType.values();
 		
 		userType = new RadioField("Uprawnienia:", Arrays.asList(new String[] {"Pacjent","Doktor","Weryfikator"}), "userType", 
-				Arrays.asList(new Object[] {UserType.PATIENT,UserType.DOCTOR, UserType.VERIFIER}), 
+				Arrays.asList(obj), 
 				Arrays.asList(new ClickHandler[]{userTypeChange}));
+		
+		obj = Gender.values();
+		genderType = new RadioField("Płeć:", Arrays.asList(new String[] {"nieznany", "mężczyzna","kobieta"}), "sexChoice", Arrays.asList(obj));
 		
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
@@ -99,9 +106,9 @@ public class AddUserProvider extends BodyProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-
+				Gender gender = (Gender) genderType.getValue();
 				if(!name.checkConstraint() || !surname.checkConstraint() || !password.checkConstraint() || !mail.checkConstraint() 
-						|| !PESEL.checkConstraint() || !phone.checkConstraint() || !userLogin.checkConstraint()){
+						|| !PESEL.checkConstraint() || !phone.checkConstraint() || !userLogin.checkConstraint() || gender == null){
 					getCm().drawContent();
 					return;
 				}
@@ -111,27 +118,28 @@ public class AddUserProvider extends BodyProvider {
 					
 					Speciality speciality = (Speciality) select.getValue();
 					if(speciality!=null){
-						/*userService.addDoctor(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
-								phone.getValue(), PESEL.getValue(), UserType.DOCTOR, speciality, registerCallback);*/
+						userService.addDoctor(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
+								phone.getValue(), PESEL.getValue(), UserType.DOCTOR, speciality, gender, registerCallback);
 					}
 					
 				}else {
 					if(userType.getValue() == UserType.VERIFIER){
 						
-						/*userService.addVerifier(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
-								phone.getValue(), PESEL.getValue(), UserType.VERIFIER, registerCallback);*/
+						userService.addVerifier(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
+								phone.getValue(), PESEL.getValue(), UserType.VERIFIER, gender, registerCallback);
 					}else{
-						/*if(!city.checkConstraint() || !street.checkConstraint() || !houseNr.checkConstraint()){
+						if(!city.checkConstraint() || !street.checkConstraint() || !houseNr.checkConstraint() || !postalCode.checkConstraint()){
 							getCm().drawContent();
 							return;
 						}
 						
-						PAddress addr = new PAddress();
+						/*PAddress addr = new PAddress();
 						addr.setCity(city.getValue());
 						addr.setStreet(street.getValue());
-						addr.setHouseNumber(houseNr.getValue());
+						addr.setHouseNumber(houseNr.getValue());*/
 						userService.addPatient(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
-								phone.getValue(), PESEL.getValue(), UserType.PATIENT, addr, registerCallback);*/
+								phone.getValue(), PESEL.getValue(), UserType.PATIENT, city.getValue(),
+								street.getValue(), houseNr.getValue(), postalCode.getValue(), gender, registerCallback);
 
 					}
 				}
@@ -170,7 +178,9 @@ public class AddUserProvider extends BodyProvider {
 		PESEL.clear();
 		password.clear();
 		street.clear();
+		postalCode.clear();
 		userType.clear();
+		genderType.clear();
 		select.clear();
 	}
 	
@@ -179,7 +189,7 @@ public class AddUserProvider extends BodyProvider {
 		mainPanel.add(city.returnContent());
 		mainPanel.add(street.returnContent());
 		mainPanel.add(houseNr.returnContent());
-		
+		mainPanel.add(postalCode.returnContent());
 	}
 	
 	private void addDoctorWidgets(){
@@ -213,7 +223,7 @@ public class AddUserProvider extends BodyProvider {
 				
 			}
 		}
-		
+		mainPanel.add(genderType.returnContent());
 		
 		mainPanel.add(errorLabel);
 		mainPanel.add(addUser);

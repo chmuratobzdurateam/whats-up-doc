@@ -126,4 +126,12 @@ public class FieldVerifier {
 		}
 		return nr.length() > 0;
 	}
+	
+	public static boolean isValidPostalCode(String code){
+		if(code==null || "".equals(code)){
+			return false;
+		}
+		
+		return code.matches("^[0-9]{2}(-)[0-9]{3}$");
+	}
 }

@@ -16,6 +16,7 @@ import org.apache.commons.collections.map.HashedMap;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import pl.dmcs.whatsupdoc.client.model.User;
 import pl.dmcs.whatsupdoc.client.providers.BodyProvider;
 import pl.dmcs.whatsupdoc.client.providers.ContentProviderInt;
 import pl.dmcs.whatsupdoc.client.providers.MenuProvider;
@@ -36,6 +37,7 @@ public class ContentManager {
 	private BodyProvider body;
 	private ContentType currentType;
 	private PanelsManager panels;
+	private User currentUser;
 
 	public ContentManager(ContentType type, PanelsManager panels) {
 		currentType = type;
@@ -100,6 +102,20 @@ public class ContentManager {
 	 */
 	public void setCurrentType(ContentType currentType) {
 		this.currentType = currentType;
+	}
+
+	/**
+	 * @return the currentUser
+	 */
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * @param currentUser the currentUser to set
+	 */
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
 	}
 
 	/**

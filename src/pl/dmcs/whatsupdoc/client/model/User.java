@@ -9,6 +9,8 @@ public class User implements IsSerializable{
 	private String name;
 	private String surname;
 	private String PESEL;
+	private String phone;
+	private String mail;
 	private UserType userType;
 	
 	public User(){
@@ -82,5 +84,33 @@ public class User implements IsSerializable{
 	 */
 	public void setPESEL(String pESEL) {
 		PESEL = pESEL;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the mail
+	 */
+	public String getMail() {
+		return mail;
+	}
+
+	/**
+	 * @param mail the mail to set
+	 */
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 }

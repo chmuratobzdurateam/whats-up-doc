@@ -82,7 +82,6 @@ public class LoginProvider extends BodyProvider{
 								@Override
 								public void onSuccess(User result) {
 									if(result!=null){
-										getCm().setCurrentUser(result);
 										switch(result.getUserType()){
 										case VERIFIER:
 											setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));

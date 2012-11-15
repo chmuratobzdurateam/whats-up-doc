@@ -1,10 +1,5 @@
 package pl.dmcs.whatsupdoc.shared;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
-import com.google.gwt.regexp.shared.RegExp;
 
 /**
  * <p>

@@ -3,6 +3,7 @@ package pl.dmcs.whatsupdoc.client.services;
 import java.util.ArrayList;
 
 import pl.dmcs.whatsupdoc.client.model.Recognition;
+import pl.dmcs.whatsupdoc.client.model.RecognitionDetails;
 import pl.dmcs.whatsupdoc.client.model.Treatment;
 import pl.dmcs.whatsupdoc.shared.Disease;
 
@@ -15,5 +16,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("treatService")
 public interface TreatmentService extends RemoteService {
 	ArrayList<Recognition> getRecognitions(String patientKeyString);
-	void addRecognition(Disease disease, String patientKeyString, String doctorKeyString, ArrayList<Treatment> treatments);
+	Boolean addRecognition(String patientKeyString, String doctorKeyString, Disease disease, ArrayList<Treatment> treatments);
+	Boolean updateRecognition(String recognitionKeyString, ArrayList<Treatment> treatments);
+	RecognitionDetails getRecognitionDetails(String recognitionKeyString);
 }

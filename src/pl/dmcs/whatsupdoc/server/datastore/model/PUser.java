@@ -9,6 +9,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 import pl.dmcs.whatsupdoc.client.model.User;
 import pl.dmcs.whatsupdoc.shared.Gender;
@@ -85,6 +86,7 @@ public class PUser {
 		user.setName(name);
 		user.setSurname(surname);
 		user.setUserType(userType);
+		user.setKeyString(KeyFactory.keyToString(key));
 		return user;
 	}
 

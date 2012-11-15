@@ -12,6 +12,7 @@ public class User implements IsSerializable{
 	private String phone;
 	private String mail;
 	private UserType userType;
+	private String keyString;
 	
 	public User(){
 	}
@@ -112,5 +113,19 @@ public class User implements IsSerializable{
 	 */
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	/**
+	 * @return the keyString
+	 */
+	public String getKeyString() {
+		return keyString;
+	}
+
+	/**
+	 * @param keyString the keyString to set
+	 */
+	public void setKeyString(String keyString) {
+		this.keyString = keyString;
 	}
 }

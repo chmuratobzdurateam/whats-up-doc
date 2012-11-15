@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import pl.dmcs.whatsupdoc.shared.DoseType;
 import pl.dmcs.whatsupdoc.shared.Medicine;
 import pl.dmcs.whatsupdoc.shared.Symptom;
+import pl.dmcs.whatsupdoc.shared.TreatmentStatus;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Treatment implements IsSerializable{
 	private Symptom symptom;
-	private ArrayList<Medicine> medicine;
+	private ArrayList<Medicine> medicine = new ArrayList<Medicine>();
 	private Float dose;
 	private DoseType doseType;
-	private Boolean symptomDisappear;
 	private Integer threatmentLength;
+	private TreatmentStatus treatmentStatus;
 	
 	public Treatment(){
 	}
@@ -34,14 +35,14 @@ public class Treatment implements IsSerializable{
 	/**
 	 * @return the medicine
 	 */
-	public ArrayList<Medicine> getMedicine() {
+	public ArrayList<Medicine> getMedicines() {
 		return medicine;
 	}
 	/**
 	 * @param medicine the medicine to set
 	 */
 	public void setMedicine(ArrayList<Medicine> medicine) {
-		this.medicine = medicine;
+		this.medicine = new ArrayList<Medicine>(medicine);
 	}
 	/**
 	 * @return the doseType
@@ -68,18 +69,6 @@ public class Treatment implements IsSerializable{
 		this.dose = dose;
 	}
 	/**
-	 * @return the symptomDisappear
-	 */
-	public Boolean getSymptomDisappear() {
-		return symptomDisappear;
-	}
-	/**
-	 * @param symptomDisappear the symptomDisappear to set
-	 */
-	public void setSymptomDisappear(Boolean symptomDisappear) {
-		this.symptomDisappear = symptomDisappear;
-	}
-	/**
 	 * @return the threatmentLength
 	 */
 	public Integer getThreatmentLength() {
@@ -90,5 +79,19 @@ public class Treatment implements IsSerializable{
 	 */
 	public void setThreatmentLength(Integer threatmentLength) {
 		this.threatmentLength = threatmentLength;
+	}
+
+	/**
+	 * @return the treatmentStatus
+	 */
+	public TreatmentStatus getTreatmentStatus() {
+		return treatmentStatus;
+	}
+
+	/**
+	 * @param treatmentStatus the treatmentStatus to set
+	 */
+	public void setTreatmentStatus(TreatmentStatus treatmentStatus) {
+		this.treatmentStatus = treatmentStatus;
 	}
 }

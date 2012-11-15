@@ -8,9 +8,11 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import pl.dmcs.whatsupdoc.client.model.Treatment;
 import pl.dmcs.whatsupdoc.shared.DoseType;
 import pl.dmcs.whatsupdoc.shared.Medicine;
 import pl.dmcs.whatsupdoc.shared.Symptom;
+import pl.dmcs.whatsupdoc.shared.TreatmentStatus;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -28,11 +30,11 @@ public class PTreatment {
 	@Persistent
 	private DoseType doseType;
 	@Persistent
-	private Boolean symptomDisappear;
+	private Integer threatmentLength = 0;
 	@Persistent
-	private Integer threatmentLength;
-	
-	public PTreatment(){
+	private TreatmentStatus treatmentStatus = TreatmentStatus.UNKNOWN;
+
+	public PTreatment() {
 		medicine = new ArrayList<Medicine>();
 	}
 
@@ -44,7 +46,8 @@ public class PTreatment {
 	}
 
 	/**
-	 * @param key the key to set
+	 * @param key
+	 *            the key to set
 	 */
 	public void setKey(Key key) {
 		this.key = key;
@@ -58,7 +61,8 @@ public class PTreatment {
 	}
 
 	/**
-	 * @param symptom the symptom to set
+	 * @param symptom
+	 *            the symptom to set
 	 */
 	public void setSymptom(Symptom symptom) {
 		this.symptom = symptom;
@@ -72,7 +76,8 @@ public class PTreatment {
 	}
 
 	/**
-	 * @param medicine the medicine to set
+	 * @param medicine
+	 *            the medicine to set
 	 */
 	public void setMedicine(ArrayList<Medicine> medicine) {
 		this.medicine = medicine;
@@ -86,7 +91,8 @@ public class PTreatment {
 	}
 
 	/**
-	 * @param dose the dose to set
+	 * @param dose
+	 *            the dose to set
 	 */
 	public void setDose(Float dose) {
 		this.dose = dose;
@@ -100,24 +106,11 @@ public class PTreatment {
 	}
 
 	/**
-	 * @param doseType the doseType to set
+	 * @param doseType
+	 *            the doseType to set
 	 */
 	public void setDoseType(DoseType doseType) {
 		this.doseType = doseType;
-	}
-
-	/**
-	 * @return the symptomDisappear
-	 */
-	public Boolean getSymptomDisappear() {
-		return symptomDisappear;
-	}
-
-	/**
-	 * @param symptomDisappear the symptomDisappear to set
-	 */
-	public void setSymptomDisappear(Boolean symptomDisappear) {
-		this.symptomDisappear = symptomDisappear;
 	}
 
 	/**
@@ -128,9 +121,40 @@ public class PTreatment {
 	}
 
 	/**
-	 * @param threatmentLength the threatmentLength to set
+	 * @param threatmentLength
+	 *            the threatmentLength to set
 	 */
 	public void setThreatmentLength(Integer threatmentLength) {
 		this.threatmentLength = threatmentLength;
+	}
+
+	/**
+	 * @return the treatmentStatus
+	 */
+	public TreatmentStatus getTreatmentStatus() {
+		return treatmentStatus;
+	}
+
+	/**
+	 * @param treatmentStatus
+	 *            the treatmentStatus to set
+	 */
+	public void setTreatmentStatus(TreatmentStatus treatmentStatus) {
+		this.treatmentStatus = treatmentStatus;
+		if (treatmentStatus.equals(TreatmentStatus.FAILED)) {
+			setThreatmentLength(-1);
+		} else if(treatmentStatus.equals(TreatmentStatus.UNKNOWN)){
+			setThreatmentLength(0);
+		}
+	}
+
+	public Treatment asTreatment() {
+		Treatment treatment = new Treatment();
+		treatment.setDose(getDose());
+		treatment.setDoseType(getDoseType());
+		treatment.setSymptom(getSymptom());
+		treatment.setTreatmentStatus(getTreatmentStatus());
+		treatment.setThreatmentLength(getThreatmentLength());
+		return treatment;
 	}
 }

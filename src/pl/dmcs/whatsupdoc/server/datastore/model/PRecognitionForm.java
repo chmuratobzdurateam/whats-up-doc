@@ -10,7 +10,11 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import pl.dmcs.whatsupdoc.client.model.Recognition;
+import pl.dmcs.whatsupdoc.client.model.RecognitionDetails;
+import pl.dmcs.whatsupdoc.client.model.Treatment;
 import pl.dmcs.whatsupdoc.shared.Disease;
+import pl.dmcs.whatsupdoc.shared.FormStatus;
+import pl.dmcs.whatsupdoc.shared.TreatmentStatus;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.datanucleus.annotations.Owned;
@@ -34,6 +38,8 @@ public class PRecognitionForm {
 	private ArrayList<PTreatment> treatments;
 	@Persistent
 	private Date date;
+	@Persistent
+	private FormStatus formStatus = FormStatus.NOT_APPROVED;
 	
 	public PRecognitionForm(){
 		treatments = new ArrayList<PTreatment>();
@@ -129,5 +135,55 @@ public class PRecognitionForm {
 		recognition.setDisease(disease);
 		recognition.setDoctorName(doctor.getName()+" "+doctor.getSurname());
 		return recognition;
+	}
+
+	public Integer updateTreatment(Treatment treatment) {
+		boolean isFormApproved = true;
+		Integer oldTreatmentLength = 0;
+		for(PTreatment pTreatment: treatments){
+			if(pTreatment.getSymptom().equals(treatment.getSymptom())){
+				oldTreatmentLength = pTreatment.getThreatmentLength();
+				pTreatment.setThreatmentLength(treatment.getThreatmentLength());
+				pTreatment.setTreatmentStatus(treatment.getTreatmentStatus());
+			}
+			
+			if(pTreatment.getTreatmentStatus().equals(TreatmentStatus.UNKNOWN)){
+				isFormApproved = false;
+			}
+		}
+		
+		if(isFormApproved){
+			setFormStatus(FormStatus.APPROVED);
+		}
+		
+		return oldTreatmentLength;
+	}
+
+	/**
+	 * @return the formStatus
+	 */
+	public FormStatus getFormStatus() {
+		return formStatus;
+	}
+
+	/**
+	 * @param formStatus the formStatus to set
+	 */
+	public void setFormStatus(FormStatus formStatus) {
+		this.formStatus = formStatus;
+	}
+
+	public RecognitionDetails asRecognitionDetails() {
+		RecognitionDetails recognitionDetails = new RecognitionDetails();
+		recognitionDetails.setDate(getDate());
+		recognitionDetails.setDisease(getDisease());
+		recognitionDetails.setDoctorName(getDoctor().getSurname()+" "+getDoctor().getName());
+		recognitionDetails.setPatientName(getPatient().getSurname()+" "+getPatient().getName());
+		ArrayList<Treatment> treatments = new ArrayList<Treatment>();
+		for(PTreatment pTreatment: this.treatments){
+			treatments.add(pTreatment.asTreatment());
+		}
+		recognitionDetails.setTreatments(treatments);
+		return recognitionDetails;
 	}
 }

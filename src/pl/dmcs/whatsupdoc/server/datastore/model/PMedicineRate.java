@@ -81,4 +81,18 @@ public class PMedicineRate {
 	public Float getMedicineRate(){
 		return (getSuccessTreatmentsRate()/getAverageTreatmentLength());
 	}
+
+	public void onFailedStatusCancel() {
+		treatmentsNumber--;
+	}
+
+	public void onSuccesfullStatusCancel(Integer oldTreatmentLength) {
+		treatmentsNumber--;
+		totalTreatmentLength -= oldTreatmentLength;
+		successTreatmentsNumber--;
+	}
+
+	public void onTreatmentLengthChange(Integer treatmentLengthDiff) {
+		totalTreatmentLength += treatmentLengthDiff;
+	}
 }

@@ -3,9 +3,11 @@ package pl.dmcs.whatsupdoc.client.model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import pl.dmcs.whatsupdoc.shared.Disease;
 
-public class RecognitionDetails {
+public class RecognitionDetails implements IsSerializable{
 	private Disease disease;
 	private String patientName;
 	private String doctorName;

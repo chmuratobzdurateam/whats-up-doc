@@ -1,10 +1,14 @@
 package pl.dmcs.whatsupdoc.client.model;
 
+import java.io.Serializable;
+
 import pl.dmcs.whatsupdoc.shared.UserType;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class User implements IsSerializable{
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2792102342567875699L;
 	private String login;
 	private String name;
 	private String surname;

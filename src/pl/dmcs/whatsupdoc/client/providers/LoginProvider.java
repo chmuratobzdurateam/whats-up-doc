@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.fields.ButtonStatusField;
 import pl.dmcs.whatsupdoc.client.fields.InputField;
 import pl.dmcs.whatsupdoc.client.fields.InputFieldType;
 import pl.dmcs.whatsupdoc.client.model.Patient;
@@ -39,6 +40,7 @@ public class LoginProvider extends BodyProvider{
 	
 	private Label errorLabel;
 	private InputField loginField, passwordField;
+	private ButtonStatusField login;
 	
 	/**
 	 * @param cm CoontentManager of this class
@@ -55,13 +57,13 @@ public class LoginProvider extends BodyProvider{
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
 		
-		Button login = new Button("Zaloguj");
-		login.setStyleName("confirmButton");
-		login.addClickHandler(new ClickHandler() {
+		Button loginButton = new Button("Zaloguj");
+		loginButton.setStyleName("confirmButton");
+		loginButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-
+				login.setText("Czekaj.");
 				errorLabel.setText("");
 				
 				if(!loginField.checkConstraint() || !passwordField.checkConstraint()){
@@ -75,6 +77,7 @@ public class LoginProvider extends BodyProvider{
 					@Override
 					public void onSuccess(Boolean result) {
 						if(result==false){ // only for now
+							login.setText("Zły login lub hasło.");
 							setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
 						}else{
 							auth.getCurrentLoggedInUser(new AsyncCallback<User>() {
@@ -120,6 +123,7 @@ public class LoginProvider extends BodyProvider{
 						MenuProvider menu = new DoctorMenuProvider(getCm());
 						getCm().setMenu(menu);
 						getCm().drawContent();*/
+						login.setText("Problem z bazą danych.");
 						logger.log(Level.WARNING, "Exception while user authentication.");
 					}
 				});
@@ -127,11 +131,12 @@ public class LoginProvider extends BodyProvider{
 			}
 		});
 		
+		login = new ButtonStatusField(loginButton, "");
 		
 		mainPanel.add(loginField.returnContent());
 		mainPanel.add(passwordField.returnContent());
 		mainPanel.add(errorLabel);
-		mainPanel.add(login);
+		mainPanel.add(login.returnContent());
 	}
 	
 	private void setUpBodyAndMenu(BodyProvider body, MenuProvider menu){

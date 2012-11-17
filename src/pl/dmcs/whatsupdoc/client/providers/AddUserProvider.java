@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.fields.ButtonStatusField;
 import pl.dmcs.whatsupdoc.client.fields.InputField;
 import pl.dmcs.whatsupdoc.client.fields.InputFieldType;
 import pl.dmcs.whatsupdoc.client.fields.RadioField;
@@ -39,7 +40,8 @@ public class AddUserProvider extends BodyProvider {
 	private SelectField select;
 	private RadioField userType, genderType;
 	private Label errorLabel;
-	private Button addUser, cancel;
+	private Button cancel;
+	private ButtonStatusField addUserButton;
 	private ClickHandler userTypeChange = new ClickHandler() {
 		
 		@Override
@@ -52,13 +54,15 @@ public class AddUserProvider extends BodyProvider {
 		@Override
 		public void onSuccess(Boolean result) {
 			clearWidgets();
+			addUserButton.setText("Użytkownika dodano pomyślnie.");
 			getCm().drawContent();
 		}
 		
 		@Override
 		public void onFailure(Throwable caught) {
 			clearWidgets();
-			errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
+			//errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
+			addUserButton.setText("Problem z dodaniem użytkownika do bazy danych.");
 			getCm().drawContent();
 		}
 	};
@@ -100,7 +104,7 @@ public class AddUserProvider extends BodyProvider {
 		errorLabel.setStyleName("error");
 		
 		
-		addUser = new Button("Dodaj");
+		Button addUser = new Button("Dodaj");
 		addUser.setStyleName("confirmButton");
 		addUser.addClickHandler(new ClickHandler() {
 			
@@ -113,6 +117,7 @@ public class AddUserProvider extends BodyProvider {
 					return;
 				}
 				
+				addUserButton.setText("Czekaj");
 				
 				if(userType.getValue() == UserType.DOCTOR){
 					
@@ -146,6 +151,8 @@ public class AddUserProvider extends BodyProvider {
 				
 			}
 		});
+		
+		addUserButton = new ButtonStatusField(addUser, "");
 		
 		cancel = new Button("Wyczyść");
 		cancel.setStyleName("cancelButton");
@@ -182,6 +189,7 @@ public class AddUserProvider extends BodyProvider {
 		userType.clear();
 		genderType.clear();
 		select.clear();
+		addUserButton.clear();
 	}
 	
 	
@@ -226,7 +234,7 @@ public class AddUserProvider extends BodyProvider {
 		mainPanel.add(genderType.returnContent());
 		
 		mainPanel.add(errorLabel);
-		mainPanel.add(addUser);
+		mainPanel.add(addUserButton.returnContent());
 		mainPanel.add(cancel);
 		
 

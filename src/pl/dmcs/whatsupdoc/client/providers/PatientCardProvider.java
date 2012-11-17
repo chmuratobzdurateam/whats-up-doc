@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 
 public class PatientCardProvider extends BodyProvider {
 
-	private String PESEL;
+	private String PESEL, key;
 	private LinkedHashMap<String, String> infos = new LinkedHashMap<String,String>();
 	private FlowPanel row, column;
 	private Label information, text;
@@ -46,6 +46,7 @@ public class PatientCardProvider extends BodyProvider {
 			infos.put("Telefon", patientCard.getPhone());
 			infos.put("Email", patientCard.getMail());
 			infos.put("Numer domu/mieszkania", patientCard.getAddress().getHouseNumber());
+			key = patientCard.getKeyString();
 			
 			if(patientCard.getAlergies()!=null)
 				for(Alergy alergy: patientCard.getAlergies()){
@@ -145,6 +146,9 @@ public class PatientCardProvider extends BodyProvider {
 
 					@Override
 					public void onClick(ClickEvent event) {
+						BodyProvider b = new PatientRecognitionsProvider(getCm(), key);
+						getCm().setBody(b);
+						getCm().drawContent();
 					}
 				});
 				

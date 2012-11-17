@@ -17,6 +17,7 @@ import pl.dmcs.whatsupdoc.shared.FormStatus;
 import pl.dmcs.whatsupdoc.shared.TreatmentStatus;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.annotations.Owned;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
@@ -131,9 +132,10 @@ public class PRecognitionForm {
 
 	public Recognition asRecognition() {
 		Recognition recognition = new Recognition();
-		recognition.setDate(date);
-		recognition.setDisease(disease);
-		recognition.setDoctorName(doctor.getName()+" "+doctor.getSurname());
+		recognition.setRecognitionKeyString(KeyFactory.keyToString(getKey()));
+		recognition.setDate(getDate());
+		recognition.setDisease(getDisease());
+		recognition.setDoctorName(getDoctor().getName()+" "+getDoctor().getSurname());
 		return recognition;
 	}
 

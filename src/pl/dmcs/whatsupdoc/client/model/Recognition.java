@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import pl.dmcs.whatsupdoc.shared.Disease;
 
 public class Recognition implements IsSerializable{
+	private String recognitionKeyString;
 	private Disease disease;
 	private String doctorName;
 	private Date date;
@@ -54,5 +55,19 @@ public class Recognition implements IsSerializable{
 	 */
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	/**
+	 * @return the recognitionKeyString
+	 */
+	public String getRecognitionKeyString() {
+		return recognitionKeyString;
+	}
+
+	/**
+	 * @param recognitionKeyString the recognitionKeyString to set
+	 */
+	public void setRecognitionKeyString(String recognitionKeyString) {
+		this.recognitionKeyString = recognitionKeyString;
 	}
 }

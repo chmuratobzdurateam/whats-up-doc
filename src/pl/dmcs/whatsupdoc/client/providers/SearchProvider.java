@@ -86,7 +86,30 @@ public class SearchProvider extends BodyProvider{
 							errorLabel.setText("Pacjent umarl.. nic nie da sie zrobic.. a i przy okazji PESEL nie znaleziono");
 						}else{
 							String patient = result.getName()+" "+result.getSurname()+" "+result.getPESEL();
-							PatientField patientField = new PatientField(patient, new ArrayList<Button>());
+							final String PESEL = result.getPESEL();
+							/* new button list for Patient Card*/
+							ArrayList buttonList = new ArrayList<Button>();
+							Button patientCardButton = new Button("Karta Pacjenta");
+							buttonList.add(patientCardButton);
+							
+							/* onClick event to change view from patients found by PESEL list to detailed PatientCard of found Patient*/
+							patientCardButton.addClickHandler( new ClickHandler() {
+								
+								@Override
+								public void onClick(ClickEvent event) {
+									/* Creating new body provider for selected Patient*/
+									PatientCardProvider patientCard = new PatientCardProvider(getCm(), PESEL);
+									
+									/* sending new body for Content Manager and Drawing New View of PatientCard*/
+									getCm().setBody(patientCard);
+									getCm().drawContent();
+									
+								}
+								
+							});
+						
+							
+							PatientField patientField = new PatientField(patient, buttonList);
 							searchResult.add(patientField.returnContent());
 							
 						}

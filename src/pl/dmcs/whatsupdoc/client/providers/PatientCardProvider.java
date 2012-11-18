@@ -75,6 +75,7 @@ public class PatientCardProvider extends BodyProvider {
 	public PatientCardProvider(ContentManager cm, String Pesel) {
 		super(cm);
 		this.PESEL=Pesel;
+		stringAlergy = new StringBuilder();
 		CSS = new ArrayList<String>();
 		CSS.add("patientCardRow");
 		CSS.add("patientCardColumn");

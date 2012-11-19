@@ -35,8 +35,10 @@ public class PatientRecognitionsProvider extends BodyProvider {
 	private Label timeLabel, doctorLabel, sicknessLabel;
 	private Button detailsButton, editForm;
 	
+	
 	/**
-	 * 
+	 * @param cm - ContentManager of given BodyProvider
+	 * @param key - PatientKey
 	 */
 	public PatientRecognitionsProvider(ContentManager cm, String key) {
 		super(cm);
@@ -110,8 +112,9 @@ public class PatientRecognitionsProvider extends BodyProvider {
 	class FormEdit implements ClickHandler{
 		private Recognition recognition;
 		
+		
 		/**
-		 * 
+		 * @param recognition - Recognition
 		 */
 		public FormEdit(Recognition recognition) {
 			this.recognition = recognition;
@@ -123,7 +126,9 @@ public class PatientRecognitionsProvider extends BodyProvider {
 		@Override
 		public void onClick(ClickEvent event) {
 			if(FormStatus.APPROVED.equals(recognition.getStatusForm())){
-				
+				BodyProvider b = new QuestionnaireProvider(getCm(), recognition.getRecognitionKeyString());
+				getCm().setBody(b);
+				getCm().drawContent();
 			}
 			
 		}

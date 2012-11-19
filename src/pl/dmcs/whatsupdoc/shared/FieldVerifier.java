@@ -134,4 +134,12 @@ public class FieldVerifier {
 		
 		return code.matches("^[0-9]{2}(-)[0-9]{3}$");
 	}
+	
+	public static boolean isValidNumber(String number){
+		if(number==null || "".equals(number)){
+			return false;
+		}
+		
+		return number.matches("^[0-9]+$");
+	}
 }

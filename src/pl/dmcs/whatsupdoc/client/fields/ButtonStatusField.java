@@ -22,6 +22,10 @@ public class ButtonStatusField extends Field {
 	private Label text;
 	private final String startText;
 	
+	/**
+	 * @param b - Button given button
+	 * @param startText - text that is set at beginning
+	 */
 	public ButtonStatusField(Button b, String startText) {
 		super(2, Arrays.asList(new String[] {"labelColumn", "buttonColumn"}));
 		button = b;
@@ -49,6 +53,9 @@ public class ButtonStatusField extends Field {
 		text.setText(startText);
 	}
 
+	/**
+	 * @param text - change current label text
+	 */
 	public void setText(String text){
 		this.text.setText(text);
 	}

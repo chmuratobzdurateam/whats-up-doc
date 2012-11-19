@@ -123,6 +123,14 @@ public class InputField extends Field implements FieldConstraint {
 					error.setText("Musisz podać kod pocztowy w formacie: dd-ddd");
 					return false;
 				}
+				
+			case NUMBER:
+				if(FieldVerifier.isValidNumber(this.input.getText())){
+					return true;
+				}else{
+					error.setText("Podaj cyfrę.");
+					return false;
+				}
 	
 			default:
 				return false;
@@ -148,6 +156,9 @@ public class InputField extends Field implements FieldConstraint {
 		return this.input.getText();
 	}
 
+	/**
+	 * @param text - String set text to input box
+	 */
 	public void setValue(String text){
 		this.input.setText(text);
 	}

@@ -179,6 +179,7 @@ button.confirmButton:hover {
 .mainPanel {
 	text-align: center;
 	padding-bottom: 20px;
+	padding-top: 15px;
 }
 
 .row>.firstColumn {
@@ -297,9 +298,6 @@ button.cancelButton:hover {
      display: inline-block;   
 }
 
-.row{
-     padding-top: 15px;   
-}
 
 .searchResult{
      padding-top: 10px; 
@@ -327,6 +325,31 @@ button.cancelButton:hover {
 	color: #207DBA;
 	background: url(images/menu_kreska.png) repeat-x;
 	padding-bottom: 10px;
+
+
+}
+
+.PatientCardRowAlergie .patientCardColumn{
+     display: inline-block;
+
+        text-align: left;
+     padding-left: 20px;
+     padding-right: 20px;
+}
+.PatientCardRowAlergie{
+     padding-top: 15px;
+     font-size: 15px;
+    font-family: Verdana;
+    text-align: left;
+    padding-left: 10px;
+      
+}
+
+.PatientCardRowAlergie .patientCardColumn .name{
+	color: #207DBA;
+	background: url(images/menu_kreska.png) repeat-x;
+	padding-bottom: 10px;
+	width: 520px;
 
 
 }

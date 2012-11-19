@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 
 public class PatientCardProvider extends BodyProvider {
 
-	private String PESEL, key;
+	private String key, PESEL;
 	private LinkedHashMap<String, String> infos = new LinkedHashMap<String,String>();
 	private FlowPanel row, column;
 	private Label information, text;
@@ -82,6 +82,7 @@ public class PatientCardProvider extends BodyProvider {
 		CSS.add("name");
 		CSS.add("confirmButton");
 		CSS.add("value");
+		CSS.add("PatientCardRowAlergie");
 		final UserServiceAsync userService = GWT.create(UserService.class);
 		userService.getPatientCard(PESEL, patientCardCallback);
 		
@@ -101,7 +102,10 @@ public class PatientCardProvider extends BodyProvider {
 				a=3;
 				mainPanel.add(row);
 				row = new FlowPanel();
-				row.setStyleName(CSS.get(0));
+				if(key.equalsIgnoreCase("Alergie"))
+					row.setStyleName(CSS.get(5));
+				else
+					row.setStyleName(CSS.get(0));
 			}
 			column = new FlowPanel();
 			column.setStyleName(CSS.get(1));
@@ -109,7 +113,7 @@ public class PatientCardProvider extends BodyProvider {
 				text.setStyleName(CSS.get(2));
 				text.setText(key);
 				information = new Label();
-				information.setStyleName(CSS.get(3));
+				information.setStyleName(CSS.get(4));
 				information.setText(infos.get(key));
 			column.add(text);
 			column.add(information);

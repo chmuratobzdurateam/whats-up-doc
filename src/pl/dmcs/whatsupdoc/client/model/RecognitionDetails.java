@@ -1,18 +1,17 @@
 package pl.dmcs.whatsupdoc.client.model;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 import pl.dmcs.whatsupdoc.shared.Disease;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class RecognitionDetails implements IsSerializable{
 	private Disease disease;
 	private String patientName;
 	private String doctorName;
 	private ArrayList<Treatment> treatments;
-	private Date date;
+	private String date;
 	
 	public RecognitionDetails(){
 	}
@@ -76,14 +75,14 @@ public class RecognitionDetails implements IsSerializable{
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	

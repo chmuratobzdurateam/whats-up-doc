@@ -1,7 +1,6 @@
 package pl.dmcs.whatsupdoc.server.datastore.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -38,7 +37,7 @@ public class PRecognitionForm {
 	@Owned
 	private ArrayList<PTreatment> treatments;
 	@Persistent
-	private Date date;
+	private String date;
 	@Persistent
 	private FormStatus formStatus = FormStatus.NOT_APPROVED;
 	
@@ -116,20 +115,6 @@ public class PRecognitionForm {
 		this.treatments = treatments;
 	}
 
-	/**
-	 * @return the date
-	 */
-	public Date getDate() {
-		return date;
-	}
-
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	public Recognition asRecognition() {
 		Recognition recognition = new Recognition();
 		recognition.setRecognitionKeyString(KeyFactory.keyToString(getKey()));
@@ -188,5 +173,19 @@ public class PRecognitionForm {
 		}
 		recognitionDetails.setTreatments(treatments);
 		return recognitionDetails;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(String date) {
+		this.date = date;
 	}
 }

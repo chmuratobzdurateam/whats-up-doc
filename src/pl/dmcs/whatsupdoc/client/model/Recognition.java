@@ -1,17 +1,15 @@
 package pl.dmcs.whatsupdoc.client.model;
 
-import java.util.Date;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
-
 import pl.dmcs.whatsupdoc.shared.Disease;
 import pl.dmcs.whatsupdoc.shared.FormStatus;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Recognition implements IsSerializable{
 	private String recognitionKeyString;
 	private Disease disease;
 	private String doctorName;
-	private Date date;
+	private String date;
 	private FormStatus statusForm;
 	
 	
@@ -47,20 +45,6 @@ public class Recognition implements IsSerializable{
 	}
 
 	/**
-	 * @return the date
-	 */
-	public Date getDate() {
-		return date;
-	}
-
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	/**
 	 * @return the recognitionKeyString
 	 */
 	public String getRecognitionKeyString() {
@@ -90,5 +74,19 @@ public class Recognition implements IsSerializable{
 	 */
 	public void setStatusForm(FormStatus statusForm) {
 		this.statusForm = statusForm;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(String date) {
+		this.date = date;
 	}
 }

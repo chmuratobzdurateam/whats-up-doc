@@ -245,3 +245,54 @@ button.cancelButton:hover {
 	padding-top: 10px;
 	padding-left: 10px;
 }
+
+.details_questionnaire{
+    padding-top: 30px;
+    text-align: left;
+    font-size: 15px;
+
+	font-family: Verdana;
+	padding-left: 15px;
+
+}
+.first_label{
+           width: 100px;
+           display: inline-block;
+}
+
+.second_label{
+      display: inline-block;
+     color: blue;   
+}
+.symptoms_label{
+          padding-top: 30px;
+    text-align: left;
+    font-size: 15px;
+
+	font-family: Verdana;
+	padding-left: 15px;  
+}
+
+.details{
+     padding-top: 15px;
+    text-align: left;
+    font-size: 15px;
+
+	font-family: Verdana;
+	padding-left: 15px;   
+}
+.details > .firstRow{
+        
+}
+.details_label{
+     display: inline-block;
+     width: 300px;   
+}
+.details > .secondRow{
+    padding-top: 15px;
+    text-align: center;
+}
+
+.details_label_second{
+     display: inline-block;   
+}

@@ -15,6 +15,10 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ListItemField extends Field {
 	
+	/**
+	 * @param l - list of widgets
+	 * @param css - list of css
+	 */
 	public ListItemField(List<Widget> l, List<String> css){
 		super(l.size(), css);
 		

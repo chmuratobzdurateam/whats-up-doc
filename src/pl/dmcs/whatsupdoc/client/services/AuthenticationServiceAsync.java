@@ -6,8 +6,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface AuthenticationServiceAsync {
 
-	void authenticate(String username, String password,
-			AsyncCallback<Boolean> callback);
+	void authenticate(String login, String password,
+			AsyncCallback<User> callback);
 
 	void getCurrentLoggedInUser(AsyncCallback<User> callback);
 

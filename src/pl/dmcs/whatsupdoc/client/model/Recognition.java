@@ -5,15 +5,18 @@ import java.util.Date;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import pl.dmcs.whatsupdoc.shared.Disease;
+import pl.dmcs.whatsupdoc.shared.FormStatus;
 
 public class Recognition implements IsSerializable{
 	private String recognitionKeyString;
 	private Disease disease;
 	private String doctorName;
 	private Date date;
+	private FormStatus statusForm;
+	
 	
 	public Recognition(){
-	}
+	}	
 
 	/**
 	 * @return the disease
@@ -69,5 +72,23 @@ public class Recognition implements IsSerializable{
 	 */
 	public void setRecognitionKeyString(String recognitionKeyString) {
 		this.recognitionKeyString = recognitionKeyString;
+	}
+
+
+
+	/**
+	 * @return the statusForm
+	 */
+	public FormStatus getStatusForm() {
+		return statusForm;
+	}
+
+
+
+	/**
+	 * @param statusForm the statusForm to set
+	 */
+	public void setStatusForm(FormStatus statusForm) {
+		this.statusForm = statusForm;
 	}
 }

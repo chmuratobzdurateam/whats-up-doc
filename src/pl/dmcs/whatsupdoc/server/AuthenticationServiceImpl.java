@@ -23,60 +23,66 @@ public class AuthenticationServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Boolean authenticate(String login, String password) {
+	public User authenticate(String login, String password) {
 		PersistenceManager persister = Persister.getPersistenceManager();
-		try{
+		User user = null;
+		try {
 			Query query = persister.newQuery(PPatient.class);
 			query.declareParameters("String aLogin");
 			query.setFilter("login == aLogin");
-			List<PPatient> pPatients = (List<PPatient>)query.execute(login);
-			
-			if(pPatients.size() != 0){
+			List<PPatient> pPatients = (List<PPatient>) query.execute(login);
+
+			if (pPatients.size() != 0) {
 				System.out.println("Patient founded.");
 				PPatient pPatient = pPatients.get(0);
-				if(pPatient.getPassword().equals(password)){
-					this.getThreadLocalRequest().getSession().setAttribute("user", pPatient.asUser());
-					return true;
+				if (pPatient.getPassword().equals(password)) {
+					user = pPatient.asUser();
+					this.getThreadLocalRequest().getSession()
+							.setAttribute("user", user);
+				}
+			} else {
+
+				query = persister.newQuery(PDoctor.class);
+				query.declareParameters("String aLogin");
+				query.setFilter("login == aLogin");
+				List<PDoctor> pDoctors = (List<PDoctor>) query.execute(login);
+
+				if (pDoctors.size() != 0) {
+					System.out.println("Doctor founded.");
+					PDoctor pDoctor = pDoctors.get(0);
+					if (pDoctor.getPassword().equals(password)) {
+						user = pDoctor.asUser();
+						this.getThreadLocalRequest().getSession()
+								.setAttribute("user", user);
+					}
+				} else {
+					query = persister.newQuery(PVerifier.class);
+					query.declareParameters("String aLogin");
+					query.setFilter("login == aLogin");
+					List<PVerifier> pVerifiers = (List<PVerifier>) query
+							.execute(login);
+
+					if (pVerifiers.size() != 0) {
+						System.out.println("Verifier founded.");
+						PVerifier pVerifier = pVerifiers.get(0);
+						if (pVerifier.getPassword().equals(password)) {
+							user = pVerifier.asUser();
+							this.getThreadLocalRequest().getSession()
+									.setAttribute("user", user);
+						}
+					}
 				}
 			}
-			
-			query = persister.newQuery(PDoctor.class);
-			query.declareParameters("String aLogin");
-			query.setFilter("login == aLogin");
-			List<PDoctor> pDoctors = (List<PDoctor>)query.execute(login);
-			
-			if(pDoctors.size() != 0){
-				System.out.println("Doctor founded.");
-				PDoctor pDoctor = pDoctors.get(0);
-				if(pDoctor.getPassword().equals(password)){
-					this.getThreadLocalRequest().getSession().setAttribute("user", pDoctor.asUser());
-					return true;
-				}
-			}
-			
-			query = persister.newQuery(PVerifier.class);
-			query.declareParameters("String aLogin");
-			query.setFilter("login == aLogin");
-			List<PVerifier> pVerifiers = (List<PVerifier>)query.execute(login);
-			
-			if(pVerifiers.size() != 0){
-				System.out.println("Doctor founded.");
-				PVerifier pVerifier = pVerifiers.get(0);
-				if(pVerifier.getPassword().equals(password)){
-					this.getThreadLocalRequest().getSession().setAttribute("user", pVerifier.asUser());
-					return true;
-				}
-			}
-		} finally{
+		} finally {
 			persister.close();
 		}
-	
-		return false;
+
+		return user;
 	}
 
 	@Override
 	public Boolean isUserLoggedIn() {
-		if(this.getThreadLocalRequest().getSession().getAttribute("user") == null){
+		if (this.getThreadLocalRequest().getSession().getAttribute("user") == null) {
 			return false;
 		}
 		return true;
@@ -84,8 +90,9 @@ public class AuthenticationServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public User getCurrentLoggedInUser() {
-		if(isUserLoggedIn()){
-			return (User) this.getThreadLocalRequest().getSession().getAttribute("user");
+		if (isUserLoggedIn()) {
+			return (User) this.getThreadLocalRequest().getSession()
+					.getAttribute("user");
 		}
 		return null;
 	}

@@ -72,36 +72,34 @@ public class LoginProvider extends BodyProvider{
 				}
 				
 				
-				auth.authenticate(loginField.getValue(), passwordField.getValue(), new AsyncCallback<Boolean>() {
+				auth.authenticate(loginField.getValue(), passwordField.getValue(), new AsyncCallback<User>() {
 						
 					@Override
-					public void onSuccess(Boolean result) {
-						if(result==false){ // only for now
+					public void onSuccess(User result) {
+						if(result==null){ // only for now
 							login.setText("Zły login lub hasło.");
 							setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
 						}else{
-							auth.getCurrentLoggedInUser(new AsyncCallback<User>() {
+							switch(result.getUserType()){
+							case VERIFIER:
+								setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
+								break;
+								
+							case DOCTOR:
+								setUpBodyAndMenu(new BodyProvider(getCm()), new DoctorMenuProvider(getCm()));
+								break;
+							
+							case PATIENT:
+								setUpBodyAndMenu(new BodyProvider(getCm()), new PatientMenuProvider(getCm()));
+								break;
+								
+							default:
+							}
+							/*auth.getCurrentLoggedInUser(new AsyncCallback<User>() {
 								
 								@Override
 								public void onSuccess(User result) {
-									if(result!=null){
-										switch(result.getUserType()){
-										case VERIFIER:
-											setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
-											break;
-											
-										case DOCTOR:
-											setUpBodyAndMenu(new BodyProvider(getCm()), new DoctorMenuProvider(getCm()));
-											break;
-											
-										case PATIENT:
-											setUpBodyAndMenu(new BodyProvider(getCm()), new PatientMenuProvider(getCm()));
-											break;
-											
-										default:
-										}
-										
-									}
+									
 									
 								}
 								
@@ -109,7 +107,7 @@ public class LoginProvider extends BodyProvider{
 								public void onFailure(Throwable caught) {
 									logger.log(Level.WARNING, "Exception while get current user.");
 								}
-							});
+							});*/
 						}
 						
 						getCm().drawContent();

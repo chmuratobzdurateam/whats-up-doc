@@ -136,6 +136,7 @@ public class PRecognitionForm {
 		recognition.setDate(getDate());
 		recognition.setDisease(getDisease());
 		recognition.setDoctorName(getDoctor().getName()+" "+getDoctor().getSurname());
+		recognition.setStatusForm(getFormStatus());
 		return recognition;
 	}
 

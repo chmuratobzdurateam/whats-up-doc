@@ -148,4 +148,7 @@ public class InputField extends Field implements FieldConstraint {
 		return this.input.getText();
 	}
 
+	public void setValue(String text){
+		this.input.setText(text);
+	}
 }

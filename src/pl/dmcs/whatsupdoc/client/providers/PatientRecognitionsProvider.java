@@ -20,6 +20,7 @@ import pl.dmcs.whatsupdoc.client.fields.ListItemField;
 import pl.dmcs.whatsupdoc.client.model.Recognition;
 import pl.dmcs.whatsupdoc.client.services.TreatmentService;
 import pl.dmcs.whatsupdoc.client.services.TreatmentServiceAsync;
+import pl.dmcs.whatsupdoc.shared.FormStatus;
 
 /**
  * 17-11-2012
@@ -32,7 +33,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 	private String patientKey;
 	private List<ListItemField> items;
 	private Label timeLabel, doctorLabel, sicknessLabel;
-	private Button detailsButton;
+	private Button detailsButton, editForm;
 	
 	/**
 	 * 
@@ -49,7 +50,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 				@Override
 				public void onSuccess(ArrayList<Recognition> result) {
 					if(result!=null){
-						List<String> css = Arrays.asList(new String[] {"timeDiv", "personDiv", "diseaseDiv", "buttonDiv"});
+						List<String> css = Arrays.asList(new String[] {"timeDiv", "personDiv", "diseaseDiv", "buttonDiv", "buttonDiv"});
 						for(Recognition recognition : result){
 							ArrayList<Widget> widgets = new ArrayList<Widget>();
 							
@@ -61,11 +62,20 @@ public class PatientRecognitionsProvider extends BodyProvider {
 							sicknessLabel.setStyleName("diseaseName");
 							detailsButton = new Button("Szczegóły");
 							detailsButton.setStyleName("button");
-							detailsButton.addClickHandler(new RecognitionDetailHandler(""));
+							detailsButton.addClickHandler(new RecognitionDetailHandler(recognition.getRecognitionKeyString()));
+							editForm = new Button("Edytuj formularz");
+							editForm.setStyleName("button");
+							if( FormStatus.APPROVED.equals(recognition.getStatusForm()) ){
+								editForm.setEnabled(true);
+							}else{
+								editForm.setEnabled(false);
+							}
+							editForm.addClickHandler(new FormEdit(recognition));
 							
 							widgets.add(timeLabel);
 							widgets.add(doctorLabel);
 							widgets.add(sicknessLabel);
+							widgets.add(editForm);
 							widgets.add(detailsButton);
 							
 							items.add(new ListItemField(widgets, css));
@@ -96,7 +106,29 @@ public class PatientRecognitionsProvider extends BodyProvider {
 			mainPanel.add(i.returnContent());
 		}
 	}
-	
+
+	class FormEdit implements ClickHandler{
+		private Recognition recognition;
+		
+		/**
+		 * 
+		 */
+		public FormEdit(Recognition recognition) {
+			this.recognition = recognition;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt.event.dom.client.ClickEvent)
+		 */
+		@Override
+		public void onClick(ClickEvent event) {
+			if(FormStatus.APPROVED.equals(recognition.getStatusForm())){
+				
+			}
+			
+		}
+		
+	}
 	
 	class RecognitionDetailHandler implements ClickHandler{
 		

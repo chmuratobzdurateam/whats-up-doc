@@ -48,8 +48,8 @@ public class SymptomTreatmentResult {
 		first_label.setStyleName("details_label_second");
 		second_label.setStyleName("details_label_second");
 		
-		input = new InputField(null, null);
-		input.returnContent().setStyleName("details_label_second");
+	//	input = new InputField(null, InputFieldType.);
+	//	input.returnContent().setStyleName("details_label_second");
 		secondRowsSymptoms = new FlowPanel();
 		secondRowsSymptoms.add(first_label);
 		secondRowsSymptoms.add(input.returnContent());

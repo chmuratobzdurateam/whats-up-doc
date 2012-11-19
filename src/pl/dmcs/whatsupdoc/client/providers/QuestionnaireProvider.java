@@ -16,7 +16,6 @@ import pl.dmcs.whatsupdoc.client.model.Treatment;
 import pl.dmcs.whatsupdoc.client.services.TreatmentService;
 import pl.dmcs.whatsupdoc.client.services.TreatmentServiceAsync;
 
-
 public class QuestionnaireProvider extends BodyProvider {
 
 	SymptomTreatmentResult str;
@@ -31,12 +30,11 @@ public class QuestionnaireProvider extends BodyProvider {
 	Label doctor, doctor_name, patient, patient_name, date_label,
 			date_recognition, symptoms_label, symptoms_name, swistak;
 
-	
-private AsyncCallback<RecognitionDetails> questionnaireCallback = new AsyncCallback<RecognitionDetails>() {
-		
+	private AsyncCallback<RecognitionDetails> questionnaireCallback = new AsyncCallback<RecognitionDetails>() {
+
 		@Override
 		public void onSuccess(RecognitionDetails rd) {
-			
+
 			doctor = new Label();
 			doctor.setText("Lekarz: ");
 			doctor.setStyleName("first_label");
@@ -87,44 +85,44 @@ private AsyncCallback<RecognitionDetails> questionnaireCallback = new AsyncCallb
 			mainPanel.add(details);
 			mainPanel.add(symptoms_label);
 
-			for (Treatment tmp : treatmentsList) {
-				FlowPanel treatment_object = new FlowPanel();
-				SymptomTreatmentResult str = new SymptomTreatmentResult(tmp);
-				resultList.add(str);
-				treatment_object = str.treatment_object;
-				mainPanel.add(treatment_object);
+			if (treatmentsList.isEmpty() == true) {
+				for (Treatment tmp : treatmentsList) {
+					FlowPanel treatment_object = new FlowPanel();
+					SymptomTreatmentResult str = new SymptomTreatmentResult(tmp);
+					resultList.add(str);
+					treatment_object = str.treatment_object;
+					mainPanel.add(treatment_object);
+				}
 			}
-			
-			
+
 			getCm().drawContent();
-			
+
 		}
-		
+
 		@Override
-		public void onFailure(Throwable caught) {			
+		public void onFailure(Throwable caught) {
 			Label err = new Label("err");
 			mainPanel.add(err);
 		}
 	};
-	
-	
+
 	public QuestionnaireProvider(ContentManager cm, String recognitionKeyString) {
 		super(cm);
 
-		
-		/*  RecognitionDetails rd = new RecognitionDetails();
-		  
-		  rd.setDoctorName("Pastor Piotr");
-		  rd.setPatientName("Nowak Jan");
-		//  treatmentsList = rd.getTreatments(); 
-		  Treatment nowe = new Treatment();
-		  nowe.setSymptom(Symptom.CATARRH);
-		  nowe.setTreatmentStatus(TreatmentStatus.SUCCESSFULL);
-		  treatmentsList.add(nowe); */
-		 
-			final TreatmentServiceAsync treatmentService = GWT.create(TreatmentService.class);
-			treatmentService.getRecognitionDetails(recognitionKeyString, questionnaireCallback);
-		 
+		/*
+		 * RecognitionDetails rd = new RecognitionDetails();
+		 * 
+		 * rd.setDoctorName("Pastor Piotr"); rd.setPatientName("Nowak Jan"); //
+		 * treatmentsList = rd.getTreatments(); Treatment nowe = new
+		 * Treatment(); nowe.setSymptom(Symptom.CATARRH);
+		 * nowe.setTreatmentStatus(TreatmentStatus.SUCCESSFULL);
+		 * treatmentsList.add(nowe);
+		 */
+
+		final TreatmentServiceAsync treatmentService = GWT
+				.create(TreatmentService.class);
+		treatmentService.getRecognitionDetails(recognitionKeyString,
+				questionnaireCallback);
 
 	}
 }

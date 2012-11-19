@@ -296,3 +296,39 @@ button.cancelButton:hover {
 .details_label_second{
      display: inline-block;   
 }
+
+.row{
+     padding-top: 15px;   
+}
+
+.searchResult{
+     padding-top: 10px; 
+}
+
+.searchResult .row .patient{
+    padding-bottom: 10px;
+}
+
+.patientCardRow .patientCardColumn{
+     display: inline-block;
+     width: 240px;
+     text-align: left;
+     padding-left: 20px;
+     padding-right: 20px;
+}
+.patientCardRow{
+     padding-top: 15px;
+     font-size: 15px;
+    font-family: Verdana;
+      
+}
+
+.patientCardRow .patientCardColumn .name{
+	color: #207DBA;
+	background: url(images/menu_kreska.png) repeat-x;
+	padding-bottom: 10px;
+
+
+}
+
+

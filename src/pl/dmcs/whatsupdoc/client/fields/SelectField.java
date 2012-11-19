@@ -114,6 +114,8 @@ public class SelectField extends Field {
 				}
 			}
 			
+			return returnList;
+			
 		default:
 			return null;
 				

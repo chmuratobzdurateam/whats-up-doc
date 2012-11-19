@@ -91,8 +91,9 @@ public class AuthenticationServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public User getCurrentLoggedInUser() {
 		if (isUserLoggedIn()) {
-			return (User) this.getThreadLocalRequest().getSession()
+			User user = (User)this.getThreadLocalRequest().getSession()
 					.getAttribute("user");
+			return user;
 		}
 		return null;
 	}

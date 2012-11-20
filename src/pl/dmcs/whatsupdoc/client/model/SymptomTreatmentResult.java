@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import pl.dmcs.whatsupdoc.client.fields.InputField;
+import pl.dmcs.whatsupdoc.client.fields.InputFieldType;
 import pl.dmcs.whatsupdoc.client.model.Treatment;
 import pl.dmcs.whatsupdoc.shared.TreatmentStatus;
 
@@ -13,25 +14,33 @@ import pl.dmcs.whatsupdoc.shared.TreatmentStatus;
 public class SymptomTreatmentResult {
 
 	public FlowPanel treatment_object;
-	Treatment treatment;
+	Treatment treatments;
 	int status;
 	InputField input;
 	
+	public InputField getInput() {
+		return input;
+	}
+
+	public void setInput(InputField input) {
+		this.input = input;
+	}
+
 	public SymptomTreatmentResult(Treatment treatment) {
 		Label symptom_name, first_label, second_label;
 		FlowPanel firstRowSymptoms;
 		final FlowPanel secondRowsSymptoms;
-		this.treatment = treatment;
+		this.treatments = treatment;
 		RadioButton rb0 = new RadioButton("group_"+ treatment.getSymptom().toString(), "ustapil");
 		RadioButton rb1 = new RadioButton("group_"+ treatment.getSymptom().toString(), "nie ustapil");
-		RadioButton rb2 = new RadioButton("group_"+ treatment.getSymptom().toString(), "nieokreúlone");
+		RadioButton rb2 = new RadioButton("group_"+ treatment.getSymptom().toString(), "nieokre≈õlone");
 		FlowPanel radio = new FlowPanel();
 		radio.add(rb0);
 		radio.add(rb1);
 		radio.add(rb2);
 		radio.setStyleName("details_label");
 		symptom_name = new Label();
-		symptom_name.setText(treatment.getSymptom().name().toString());
+		symptom_name.setText(treatment.getSymptom().toString());
 		symptom_name.setStyleName("details_label");
 
 		firstRowSymptoms = new FlowPanel();
@@ -48,8 +57,8 @@ public class SymptomTreatmentResult {
 		first_label.setStyleName("details_label_second");
 		second_label.setStyleName("details_label_second");
 		
-	//	input = new InputField(null, InputFieldType.);
-	//	input.returnContent().setStyleName("details_label_second");
+		input = new InputField(null, InputFieldType.NUMBER);
+		input.returnContent().setStyleName("details_label_second");
 		secondRowsSymptoms = new FlowPanel();
 		secondRowsSymptoms.add(first_label);
 		secondRowsSymptoms.add(input.returnContent());
@@ -64,7 +73,7 @@ public class SymptomTreatmentResult {
 		{
 			rb0.setValue(true);
 			secondRowsSymptoms.setVisible(true);
-			//input.returnContent().setTitle(treatment.getThreatmentLength().toString());
+			input.setValue(treatment.getThreatmentLength().toString());
 		}
 		else if(treatment.getTreatmentStatus().equals(TreatmentStatus.FAILED))
 		{
@@ -88,7 +97,7 @@ public class SymptomTreatmentResult {
 			@Override
 			public void onClick(ClickEvent event) {
 				secondRowsSymptoms.setVisible(true);
-				status = 1;
+				treatments.setTreatmentStatus(TreatmentStatus.SUCCESSFULL);
 			}
 		});
 		rb1.addClickHandler(new ClickHandler() {
@@ -96,7 +105,7 @@ public class SymptomTreatmentResult {
 			@Override
 			public void onClick(ClickEvent event) {
 				secondRowsSymptoms.setVisible(false);
-				status = 1;
+				treatments.setTreatmentStatus(TreatmentStatus.FAILED);
 			}
 		});
 		rb2.addClickHandler(new ClickHandler() {
@@ -104,10 +113,18 @@ public class SymptomTreatmentResult {
 			@Override
 			public void onClick(ClickEvent event) {
 				secondRowsSymptoms.setVisible(false);
-				status = 2;
+				treatments.setTreatmentStatus(TreatmentStatus.UNKNOWN);
 			}
 		});
 
+	}
+
+	public Treatment getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(Treatment treatments) {
+		this.treatments = treatments;
 	}
 
 }

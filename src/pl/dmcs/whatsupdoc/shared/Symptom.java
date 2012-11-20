@@ -1,7 +1,7 @@
 package pl.dmcs.whatsupdoc.shared;
 
 public enum Symptom {
-	HEADACHE("bÛl g≥owy"), SORE_THROAT("bÛl gard≥a"), FEVER("gorπczka"), NAUSEA("nudnoúci"), COUGH("kaszel"), RASH("wysypka"), CATARRH("katar");
+	HEADACHE("b√≥l g≈Çowy"), SORE_THROAT("b√≥l gard≈Ça"), FEVER("gorƒÖczka"), NAUSEA("nudno≈õci"), COUGH("kaszel"), RASH("wysypka"), CATARRH("katar");
 	
 	private final String symptomString;
 	

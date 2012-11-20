@@ -83,11 +83,11 @@ public class AddRecognitionProvider extends BodyProvider{
 		this.patientFullName = new Label(patientFullName);
 		this.patientFullName.setText(patientFullName);
 		
-		diseaseSelect = new SelectField("Choroba:",5,SelectFieldType.SINGLE_SELECT,diseaseList);
+		diseaseSelect = new SelectField("Choroba:",1,SelectFieldType.SINGLE_SELECT,diseaseList);
 		medicineSelectFieldList = new ArrayList<SelectField>();
 		symptomSelectFieldList = new ArrayList<SelectField>();
-		medicineSelectFieldList.add(new SelectField("Lek:",5,SelectFieldType.MULTIPLE_SELECT,medicineList));
-		symptomSelectFieldList.add(new SelectField("Objaw:",5,SelectFieldType.SINGLE_SELECT,symptomList));
+		medicineSelectFieldList.add(new SelectField("Lek:",1,SelectFieldType.MULTIPLE_SELECT,medicineList));
+		symptomSelectFieldList.add(new SelectField("Objaw:",1,SelectFieldType.SINGLE_SELECT,symptomList));
 		
 		this.patientFullName.setStyleName("patientFullName");
 		doctorFullNameLabel.setStyleName("doctorFullNameLabel");

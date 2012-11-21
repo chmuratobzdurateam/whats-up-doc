@@ -41,14 +41,14 @@ public class PatientCardProvider extends BodyProvider {
 			infos.put("Numer ubezpieczenia", "333-23-54355");
 			infos.put("Płeć", "Płeć");
 			infos.put("Miasto", patientCard.getAddress().getCity());
-			infos.put("Kod Pocztowy", "90-441");
+			infos.put("Kod Pocztowy", patientCard.getAddress().getPostalCode());
 			infos.put("Ulica", patientCard.getAddress().getStreet());
 			infos.put("Telefon", patientCard.getPhone());
 			infos.put("Email", patientCard.getMail());
 			infos.put("Numer domu/mieszkania", patientCard.getAddress().getHouseNumber());
 			key = patientCard.getPatientKey();
 			fullPatientName=patientCard.getName()+" "+patientCard.getSurname();
-			if(patientCard.getAlergies()!=null)
+			if(patientCard.getAlergies().size()!=0)
 				for(Alergy alergy: patientCard.getAlergies()){
 					stringAlergy.append(alergy.toString());
 				}

@@ -66,6 +66,8 @@ public class PPatient extends PUser{
 		patientCard.setAddress(getAddress().asAddress());
 		patientCard.setAlergies(getAlergies());
 		patientCard.setPESEL(getPESEL());
+		patientCard.setMail(getMail());
+		patientCard.setPhone(getPhone());
 		patientCard.setPatientKey(KeyFactory.keyToString(getKey()));
 		return patientCard;
 	}

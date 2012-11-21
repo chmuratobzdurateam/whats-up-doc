@@ -90,7 +90,8 @@ public class LoginProvider extends BodyProvider{
 								break;
 							
 							case PATIENT:
-								setUpBodyAndMenu(new BodyProvider(getCm()), new PatientMenuProvider(getCm()));
+								String p = result.getPESEL();
+								setUpBodyAndMenu(new BodyProvider(getCm()), new PatientMenuProvider(getCm(), p));
 								break;
 								
 							default:

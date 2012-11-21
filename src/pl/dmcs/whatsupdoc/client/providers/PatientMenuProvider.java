@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.services.AuthenticationServiceAsync;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -30,8 +31,9 @@ public class PatientMenuProvider extends MenuProvider {
 	/**
 	 * @param manager - ContentManager type
 	 */
-	public PatientMenuProvider(ContentManager manager){
+	public PatientMenuProvider(ContentManager manager, final String PESEL){
 		super(manager);
+		
 		this.currentBar = Bar.HOME;
 		this.subMenus = new HashMap<Bar, List<Button>>();
 		
@@ -78,6 +80,8 @@ public class PatientMenuProvider extends MenuProvider {
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.PATIENT_CARD;
 				setFirstLvlCSS((Button) event.getSource());
+				BodyProvider b = new PatientCardProvider(getManager(), PESEL);
+				getManager().setBody(b);
 				getManager().drawContent();
 			}
 		});

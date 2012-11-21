@@ -6,6 +6,8 @@ package pl.dmcs.whatsupdoc.client.providers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,9 +20,13 @@ import com.google.gwt.user.client.ui.Widget;
 import pl.dmcs.whatsupdoc.client.ContentManager;
 import pl.dmcs.whatsupdoc.client.fields.ListItemField;
 import pl.dmcs.whatsupdoc.client.model.Recognition;
+import pl.dmcs.whatsupdoc.client.model.User;
+import pl.dmcs.whatsupdoc.client.services.AuthenticationService;
+import pl.dmcs.whatsupdoc.client.services.AuthenticationServiceAsync;
 import pl.dmcs.whatsupdoc.client.services.TreatmentService;
 import pl.dmcs.whatsupdoc.client.services.TreatmentServiceAsync;
 import pl.dmcs.whatsupdoc.shared.FormStatus;
+import pl.dmcs.whatsupdoc.shared.UserType;
 
 /**
  * 17-11-2012
@@ -29,11 +35,13 @@ import pl.dmcs.whatsupdoc.shared.FormStatus;
  * 
  */
 public class PatientRecognitionsProvider extends BodyProvider {
+	private Logger logger = Logger.getLogger("PatientRecognitionsProvider");
 	
 	private String patientKey;
 	private List<ListItemField> items;
 	private Label timeLabel, doctorLabel, sicknessLabel;
 	private Button detailsButton, editForm;
+	private UserType user;
 	
 	
 	/**
@@ -43,6 +51,35 @@ public class PatientRecognitionsProvider extends BodyProvider {
 	public PatientRecognitionsProvider(ContentManager cm, String key) {
 		super(cm);
 		final TreatmentServiceAsync userService = GWT.create(TreatmentService.class);
+		final AuthenticationServiceAsync auth = GWT.create(AuthenticationService.class);
+		
+		auth.getCurrentLoggedInUser(new AsyncCallback<User>() {
+			
+			@Override
+			public void onSuccess(User result) {
+				if(result!=null){
+					user = result.getUserType();
+				}
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				logger.log(Level.SEVERE, "Exception while getCurrentLoggedInUser()");
+				
+			}
+		});
+		
+		Label timeColumn = new Label("Data rozpoznania");
+		timeColumn.setStyleName("time");
+		Label doctorColumn = new Label("Imię i nazwisko prowadzącego");
+		doctorColumn.setStyleName("doctor");
+		Label diseaseColumn = new Label("Choroba");
+		diseaseColumn.setStyleName("disease");
+		
+		ListItemField item = new ListItemField(Arrays.asList(new Widget[]{timeColumn, doctorColumn, diseaseColumn}), 
+				Arrays.asList(new String[] {"timeColumn", "doctorColumn", "diseaseColumn"}));
+		mainPanel.add(item.returnContent());
 		
 		items = new ArrayList<ListItemField>();
 		patientKey = key;
@@ -65,22 +102,29 @@ public class PatientRecognitionsProvider extends BodyProvider {
 							detailsButton = new Button("Szczegóły");
 							detailsButton.setStyleName("button");
 							detailsButton.addClickHandler(new RecognitionDetailHandler(recognition.getRecognitionKeyString()));
-							editForm = new Button("Edytuj formularz");
-							editForm.setStyleName("button");
-							if( FormStatus.APPROVED.equals(recognition.getStatusForm()) ){
-								editForm.setEnabled(true);
-							}else{
-								editForm.setEnabled(false);
-							}
-							editForm.addClickHandler(new FormEdit(recognition));
+							
 							
 							widgets.add(timeLabel);
 							widgets.add(doctorLabel);
 							widgets.add(sicknessLabel);
-							widgets.add(editForm);
+							if(UserType.PATIENT.equals(user)){
+								editForm = new Button("Edytuj formularz");
+								editForm.setStyleName("button");
+								if( FormStatus.NOT_APPROVED.equals(recognition.getStatusForm()) ){
+									editForm.setEnabled(true);
+								}else{
+									editForm.setEnabled(false);
+								}
+								editForm.addClickHandler(new FormEdit(recognition));
+								widgets.add(editForm);
+							}
 							widgets.add(detailsButton);
 							
 							items.add(new ListItemField(widgets, css));
+						}
+						
+						for(ListItemField i : items){
+							mainPanel.add(i.returnContent());
 						}
 					}
 					
@@ -88,25 +132,15 @@ public class PatientRecognitionsProvider extends BodyProvider {
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
+					logger.log(Level.SEVERE,"Exception while get Recognition");
 					
 				}
 			});
 		}
-		Label timeColumn = new Label("Data rozpoznania");
-		timeColumn.setStyleName("time");
-		Label doctorColumn = new Label("Imię i nazwisko prowadzącego");
-		doctorColumn.setStyleName("doctor");
-		Label diseaseColumn = new Label("Choroba");
-		diseaseColumn.setStyleName("disease");
 		
-		ListItemField item = new ListItemField(Arrays.asList(new Widget[]{timeColumn, doctorColumn, diseaseColumn}), 
-				Arrays.asList(new String[] {"timeColumn", "doctorColumn", "diseaseColumn"}));
-		mainPanel.add(item.returnContent());
 		
-		for(ListItemField i : items){
-			mainPanel.add(i.returnContent());
-		}
+		
+		
 	}
 
 	class FormEdit implements ClickHandler{
@@ -125,7 +159,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 		 */
 		@Override
 		public void onClick(ClickEvent event) {
-			if(FormStatus.APPROVED.equals(recognition.getStatusForm())){
+			if(FormStatus.NOT_APPROVED.equals(recognition.getStatusForm()) && UserType.PATIENT.equals(user)){
 				BodyProvider b = new QuestionnaireProvider(getCm(), recognition.getRecognitionKeyString());
 				getCm().setBody(b);
 				getCm().drawContent();

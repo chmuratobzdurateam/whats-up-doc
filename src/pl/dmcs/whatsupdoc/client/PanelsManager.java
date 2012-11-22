@@ -24,6 +24,7 @@ public class PanelsManager {
 	private RootPanel firstMenu;
 	private RootPanel secondMenu;
 	private RootPanel content;
+	private RootPanel breadcrumb;
 	
 	/**
 	 * Default constructor
@@ -31,15 +32,19 @@ public class PanelsManager {
 	public PanelsManager() {
 		firstMenu = RootPanel.get("menu_level_1");
 		if(firstMenu==null){
-			logger.log(Level.WARNING, "Wrong ID for first level menu");
+			logger.log(Level.SEVERE, "Wrong ID for first level menu");
 		}
 		secondMenu = RootPanel.get("menu_level_2");
 		if(secondMenu==null){
-			logger.log(Level.WARNING, "Wrong ID for second level menu");
+			logger.log(Level.SEVERE, "Wrong ID for second level menu");
 		}
 		content = RootPanel.get("contents");
 		if(content==null){
-			logger.log(Level.WARNING, "Wrong ID for page content");
+			logger.log(Level.SEVERE, "Wrong ID for page content");
+		}
+		breadcrumb = RootPanel.get("belt");
+		if(breadcrumb==null){
+			logger.log(Level.SEVERE, "Wrong ID for page content");
 		}
 	}
 	
@@ -82,6 +87,17 @@ public class PanelsManager {
 		if(content!=null){
 			content.clear();
 			content.add(body);
+		}
+	}
+	
+	public void drawBreadcrumb(Panel breadcrumb){
+		if(breadcrumb==null){
+			logger.log(Level.WARNING, "drawBreadcrumb Method get null parameter");
+			return;
+		}
+		if(this.breadcrumb!=null){
+			this.breadcrumb.clear();
+			this.breadcrumb.add(breadcrumb);
 		}
 	}
 }

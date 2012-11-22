@@ -1,6 +1,7 @@
 package pl.dmcs.whatsupdoc.client;
 
 import pl.dmcs.whatsupdoc.client.providers.BodyProvider;
+import pl.dmcs.whatsupdoc.client.providers.BreadcrumbProvider;
 import pl.dmcs.whatsupdoc.client.providers.LoginProvider;
 import pl.dmcs.whatsupdoc.client.providers.MenuProvider;
 import pl.dmcs.whatsupdoc.shared.ContentType;
@@ -31,6 +32,8 @@ public class WhatsUpDoc implements EntryPoint {
 		ContentManager cm = new ContentManager(ContentType.AUTHORIZATION, p);
 		MenuProvider mp = new MenuProvider(cm);
 		cm.setMenu(mp);
+		BreadcrumbProvider bF = new BreadcrumbProvider(cm);
+		cm.setBreadcrumb(bF);
 		BodyProvider body = new LoginProvider(cm);
 		cm.setBody(body);
 		cm.drawContent();

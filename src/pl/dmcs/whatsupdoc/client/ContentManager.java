@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import pl.dmcs.whatsupdoc.client.model.User;
 import pl.dmcs.whatsupdoc.client.providers.BodyProvider;
+import pl.dmcs.whatsupdoc.client.providers.BreadcrumbProvider;
 import pl.dmcs.whatsupdoc.client.providers.ContentProviderInt;
 import pl.dmcs.whatsupdoc.client.providers.MenuProvider;
 import pl.dmcs.whatsupdoc.shared.ContentType;
@@ -35,6 +36,7 @@ public class ContentManager {
 	
 	private MenuProvider menu;
 	private BodyProvider body;
+	private BreadcrumbProvider breadcrumb;
 	private ContentType currentType;
 	private PanelsManager panels;
 	private User currentUser;
@@ -117,6 +119,20 @@ public class ContentManager {
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
 	}
+	
+	/**
+	 * @return the breadcrumb
+	 */
+	public BreadcrumbProvider getBreadcrumb() {
+		return breadcrumb;
+	}
+
+	/**
+	 * @param breadcrumb the breadcrumb to set
+	 */
+	public void setBreadcrumb(BreadcrumbProvider breadcrumb) {
+		this.breadcrumb = breadcrumb;
+	}
 
 	/**
 	 * Draw content into html.
@@ -130,6 +146,11 @@ public class ContentManager {
 			else{
 				logger.log(Level.WARNING, "No menu in Content manager");
 			}
+			if(breadcrumb!=null){
+				panels.drawBreadcrumb(breadcrumb.getContent());
+			}else{
+				logger.log(Level.WARNING,"No breadcrumb in Content manager");
+			}
 			if(body!=null){
 				panels.drawBody(body.getContent());
 			}
@@ -142,4 +163,6 @@ public class ContentManager {
 		}
 
 	}
+
+
 }

@@ -68,7 +68,7 @@ public class VerifierMenuProvider extends MenuProvider {
 				currentBar = Bar.MY_ACCOUNT;
 				
 				setFirstLvlCSS((Button) event.getSource());
-				
+				setFirstLvlBreadcrumb("Moje konto", new BodyProvider(getManager()));
 				getManager().drawContent();
 			}
 		});
@@ -83,7 +83,7 @@ public class VerifierMenuProvider extends MenuProvider {
 				currentBar = Bar.USERS;
 				
 				setFirstLvlCSS((Button) event.getSource());
-				
+				setFirstLvlBreadcrumb("Użytkownicy", new BodyProvider(getManager()));
 				getManager().drawContent();
 			}
 		});
@@ -100,6 +100,8 @@ public class VerifierMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				setSecondLvlCSS((Button) event.getSource());
+				setSecondLevelBreadcrumb("Zmien hasło", new BodyProvider(getManager()));
+				getManager().drawContent();
 			}
 		});
 		list.add(button);
@@ -111,6 +113,8 @@ public class VerifierMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				setSecondLvlCSS((Button) event.getSource());
+				setSecondLevelBreadcrumb("Zmien dane", new BodyProvider(getManager()));
+				getManager().drawContent();
 			}
 		});
 		list.add(button);
@@ -130,6 +134,7 @@ public class VerifierMenuProvider extends MenuProvider {
 				setSecondLvlCSS((Button) event.getSource());
 				BodyProvider b = new AddUserProvider(getManager());
 				getManager().setBody(b);
+				setSecondLevelBreadcrumb("Dodaj użytkownika", b);
 				getManager().drawContent();
 
 			}
@@ -143,7 +148,8 @@ public class VerifierMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				setSecondLvlCSS((Button) event.getSource());
-
+				setSecondLevelBreadcrumb("Edytuj użytkownika", new BodyProvider(getManager()));
+				getManager().drawContent();
 			}
 		});
 		list.add(button);

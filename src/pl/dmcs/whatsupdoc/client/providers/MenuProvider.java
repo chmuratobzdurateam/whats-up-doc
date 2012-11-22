@@ -115,4 +115,16 @@ public class MenuProvider implements ContentProviderInt {
 		
 	}
 	
+	protected void setFirstLvlBreadcrumb(String name, BodyProvider body){
+		BreadcrumbProvider bF = this.manager.getBreadcrumb();
+		bF.clearAll();
+		bF.addField(false, name, body);
+	}
+	
+	protected void setSecondLevelBreadcrumb(String name, BodyProvider body) {
+		BreadcrumbProvider bF = this.manager.getBreadcrumb();
+		bF.clearAfter(0);
+		bF.addField(true, name, body);
+	}
+	
 }

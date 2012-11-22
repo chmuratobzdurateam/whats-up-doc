@@ -19,6 +19,7 @@ import pl.dmcs.whatsupdoc.server.datastore.model.PTreatment;
 import pl.dmcs.whatsupdoc.shared.Disease;
 import pl.dmcs.whatsupdoc.shared.Medicine;
 import pl.dmcs.whatsupdoc.shared.Persister;
+import pl.dmcs.whatsupdoc.shared.Symptom;
 import pl.dmcs.whatsupdoc.shared.Tools;
 import pl.dmcs.whatsupdoc.shared.TreatmentStatus;
 
@@ -144,13 +145,11 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 					updateSymptomTreatmentRates(persister, treatment,
 							oldTreatmentLength);
 				}
+				persister.close();
 				return true;
 			}
-
-		} finally {
-			persister.close();
+		} finally{
 		}
-
 		return false;
 	}
 
@@ -160,14 +159,77 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 		try {
 			Query querySymptomTreatmentRates = persister
 					.newQuery(PSymptomTreatmentRates.class);
-			querySymptomTreatmentRates.declareParameters("Symptom aSymptom");
+			querySymptomTreatmentRates.declareParameters(Symptom.class.getName()+" aSymptom");
 			querySymptomTreatmentRates.setFilter("symptom == aSymptom");
 			List<PSymptomTreatmentRates> pSTRates = (List<PSymptomTreatmentRates>) querySymptomTreatmentRates
 					.execute(treatment.getSymptom());
 
-			if (pSTRates != null) {
+			if ((pSTRates != null)&&(pSTRates.size() > 0)) {
 				PSymptomTreatmentRates pSTRate = pSTRates.get(0);
-				pSTRate.updateMedicineRates(treatment, oldTreatmentLength);
+				for (Medicine medicine : treatment.getMedicines()) {
+					boolean foundedMedicineRate = false;
+					for (PMedicineRate pMedicineRate : pSTRate.getMedicineRates()) {
+						if (pMedicineRate.getMedicine().equals(medicine)) {
+							if(oldTreatmentLength.equals(-1)){ /* FAILED status set earlier */
+								switch(treatment.getTreatmentStatus()){
+								case UNKNOWN:
+									pMedicineRate.onFailedStatusCancel();
+									break;
+								case SUCCESSFULL:
+									pMedicineRate.onFailedStatusCancel();
+									pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
+									break;
+								}
+							} else if(oldTreatmentLength.equals(0)){ /* UNKNOWN status set earlier */
+								switch(treatment.getTreatmentStatus()){
+								case FAILED:
+									pMedicineRate.onSymptomNotDisappear();
+									break;
+								case SUCCESSFULL:
+									pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
+									break;
+								}
+							} else{ /* SUCCESFULL status set earlier */
+								switch(treatment.getTreatmentStatus()){
+								case FAILED:
+									pMedicineRate.onSuccesfullStatusCancel(oldTreatmentLength);
+									pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
+									break;
+								case UNKNOWN:
+									pMedicineRate.onSuccesfullStatusCancel(oldTreatmentLength);
+									break;
+								case SUCCESSFULL:
+									if(!oldTreatmentLength.equals(treatment.getThreatmentLength())){
+										Integer treatmentLengthDiff = treatment.getThreatmentLength() - oldTreatmentLength;
+										pMedicineRate.onTreatmentLengthChange(treatmentLengthDiff);
+									}
+									break;
+								}
+							}
+							
+							foundedMedicineRate = true;
+							break;
+						}
+					}
+
+					if (!foundedMedicineRate) {
+						if (!treatment.getTreatmentStatus().equals(
+								TreatmentStatus.UNKNOWN)) {
+							PMedicineRate newMedicineRate = new PMedicineRate();
+							newMedicineRate.setMedicine(medicine);
+							if (treatment.getTreatmentStatus().equals(
+									TreatmentStatus.SUCCESSFULL)) {
+								newMedicineRate.onSymptomDisappear(treatment
+										.getThreatmentLength());
+							} else if (treatment.getTreatmentStatus().equals(
+									TreatmentStatus.FAILED)) {
+								newMedicineRate.onSymptomNotDisappear();
+							}
+							persister.makePersistent(newMedicineRate);
+							pSTRate.getMedicineRates().add(newMedicineRate);
+						}
+					}
+				}
 			} else { /* Doesn't exist PSymptomTreatmentRates for this symptom */
 				if(!treatment.getTreatmentStatus().equals(TreatmentStatus.UNKNOWN)){
 					PSymptomTreatmentRates newPSTRates = new PSymptomTreatmentRates();
@@ -186,12 +248,10 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 						pMedicineRates.add(pMedicineRate);
 					}
 					newPSTRates.setMedicineRates(pMedicineRates);
-	
 					persister.makePersistent(newPSTRates);
 				}
 			}
-		} finally {
-			persister.close();
+		}finally{
 		}
 	}
 

@@ -155,6 +155,7 @@ public class PTreatment {
 		treatment.setSymptom(getSymptom());
 		treatment.setTreatmentStatus(getTreatmentStatus());
 		treatment.setThreatmentLength(getThreatmentLength());
+		treatment.setMedicine(getMedicine());
 		return treatment;
 	}
 }

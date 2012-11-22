@@ -76,13 +76,14 @@ public class PSymptomTreatmentRates {
 		this.medicineRates = medicineRates;
 	}
 
+	/*
 	public void updateMedicineRates(Treatment treatment,
 			Integer oldTreatmentLength) {
 		for (Medicine medicine : treatment.getMedicines()) {
 			boolean foundedMedicineRate = false;
 			for (PMedicineRate pMedicineRate : medicineRates) {
 				if (pMedicineRate.getMedicine().equals(medicine)) {
-					if(oldTreatmentLength.equals(-1)){ /* FAILED status set earlier */
+					if(oldTreatmentLength.equals(-1)){ // FAILED status set earlier
 						switch(treatment.getTreatmentStatus()){
 						case UNKNOWN:
 							pMedicineRate.onFailedStatusCancel();
@@ -92,7 +93,7 @@ public class PSymptomTreatmentRates {
 							pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
 							break;
 						}
-					} else if(oldTreatmentLength.equals(0)){ /* UNKNOWN status set earlier */
+					} else if(oldTreatmentLength.equals(0)){ // UNKNOWN status set earlier
 						switch(treatment.getTreatmentStatus()){
 						case FAILED:
 							pMedicineRate.onSymptomNotDisappear();
@@ -101,7 +102,7 @@ public class PSymptomTreatmentRates {
 							pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
 							break;
 						}
-					} else{ /* SUCCESFULL status set earlier */
+					} else{ //
 						switch(treatment.getTreatmentStatus()){
 						case FAILED:
 							pMedicineRate.onSuccesfullStatusCancel(oldTreatmentLength);
@@ -141,6 +142,6 @@ public class PSymptomTreatmentRates {
 				}
 			}
 		}
-	}
+	}*/
 
 }

@@ -87,6 +87,7 @@ public class PUser {
 		user.setSurname(surname);
 		user.setUserType(userType);
 		user.setKeyString(KeyFactory.keyToString(key));
+		user.setPESEL(getPESEL());
 		return user;
 	}
 

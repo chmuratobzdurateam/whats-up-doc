@@ -186,6 +186,7 @@ public class QuestionnaireProvider extends BodyProvider {
 				.create(TreatmentService.class);
 		treatmentService.getRecognitionDetails(recognitionKeyString,
 				questionnaireCallback);
+		this.recognitionKeyString = recognitionKeyString;
 
 	}
 }

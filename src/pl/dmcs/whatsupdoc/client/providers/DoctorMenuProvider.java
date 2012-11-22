@@ -64,7 +64,9 @@ public class DoctorMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.MY_ACCOUNT;
-				setFirstLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Moje konto", new BodyProvider(getManager()),current);
 				getManager().drawContent();
 			}
 		});
@@ -77,7 +79,9 @@ public class DoctorMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.PATIENTS;
-				setFirstLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Pacjenci", new BodyProvider(getManager()),current);
 				getManager().drawContent();
 			}
 		});
@@ -90,7 +94,9 @@ public class DoctorMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.STATISTICS;
-				setFirstLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Statystyki", new BodyProvider(getManager()),current);
 				getManager().drawContent();
 			}
 		});
@@ -106,7 +112,10 @@ public class DoctorMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Zmien haslo", new BodyProvider(getManager()), current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -118,7 +127,10 @@ public class DoctorMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Zmien dane", new BodyProvider(getManager()), current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -136,9 +148,11 @@ public class DoctorMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
 				BodyProvider b = new SearchProvider(getManager());
 				getManager().setBody(b);
+				setSecondLevelBreadcrumb("Wyszukiwarka", b, current);
 				getManager().drawContent();
 			}
 		});
@@ -150,7 +164,10 @@ public class DoctorMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Moi pacjenci", new BodyProvider(getManager()), current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -168,7 +185,10 @@ public class DoctorMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Skutecznosc lekow", new BodyProvider(getManager()), current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -180,7 +200,10 @@ public class DoctorMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Moja skutecznosc", new BodyProvider(getManager()), current);
+				getManager().drawContent();
 				
 			}
 		});

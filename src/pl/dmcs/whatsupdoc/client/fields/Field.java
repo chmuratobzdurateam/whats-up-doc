@@ -39,6 +39,10 @@ public abstract class Field {
 		
 	}
 	
+	public final void setMainCSS(String css){
+		mainPanel.setStyleName(css);
+	}
+	
 	/**
 	 * @return Panel - return entire content of object
 	 */

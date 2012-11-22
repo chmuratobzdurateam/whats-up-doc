@@ -42,6 +42,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 	private Label timeLabel, doctorLabel, sicknessLabel;
 	private Button detailsButton, editForm;
 	private UserType user;
+	private List<String> rowsCSS;
 	
 	
 	/**
@@ -52,6 +53,8 @@ public class PatientRecognitionsProvider extends BodyProvider {
 		super(cm);
 		final TreatmentServiceAsync userService = GWT.create(TreatmentService.class);
 		final AuthenticationServiceAsync auth = GWT.create(AuthenticationService.class);
+		
+		rowsCSS = Arrays.asList(new String[]{"even", "odd"});
 		
 		auth.getCurrentLoggedInUser(new AsyncCallback<User>() {
 			
@@ -90,6 +93,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 				public void onSuccess(ArrayList<Recognition> result) {
 					if(result!=null){
 						List<String> css = Arrays.asList(new String[] {"timeDiv", "personDiv", "diseaseDiv", "buttonDiv", "buttonDiv"});
+						int counter = 0;
 						for(Recognition recognition : result){
 							ArrayList<Widget> widgets = new ArrayList<Widget>();
 							
@@ -120,7 +124,10 @@ public class PatientRecognitionsProvider extends BodyProvider {
 							}
 							widgets.add(detailsButton);
 							
-							items.add(new ListItemField(widgets, css));
+							ListItemField lF = new ListItemField(widgets, css);
+							lF.setMainCSS(rowsCSS.get(counter%2));
+							counter++;
+							items.add(lF);
 						}
 						
 						for(ListItemField i : items){

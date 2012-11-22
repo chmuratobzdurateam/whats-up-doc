@@ -66,7 +66,9 @@ public class PatientMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.MY_ACCOUNT;
-				setFirstLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Moje konto", new BodyProvider(getManager()),current);
 				getManager().drawContent();
 			}
 		});
@@ -79,8 +81,10 @@ public class PatientMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.PATIENT_CARD;
-				setFirstLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
 				BodyProvider b = new PatientCardProvider(getManager(), PESEL);
+				setFirstLevelBreadcrumb("Moja karta pacjenta", b,current);
 				getManager().setBody(b);
 				getManager().drawContent();
 			}
@@ -94,7 +98,9 @@ public class PatientMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.SEARCH;
-				setFirstLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Szukaj lekarza", new BodyProvider(getManager()),current);
 				getManager().drawContent();
 			}
 		});
@@ -107,7 +113,9 @@ public class PatientMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.STATISTICS;
-				setFirstLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Statystyki", new BodyProvider(getManager()),current);
 				getManager().drawContent();
 			}
 		});
@@ -123,8 +131,10 @@ public class PatientMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
-				
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setFirstLevelBreadcrumb("Zmien haslo", new BodyProvider(getManager()),current);
+				getManager().drawContent();
 			}
 		});
 		list.add(button);
@@ -135,7 +145,10 @@ public class PatientMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setFirstLevelBreadcrumb("Zmien dane", new BodyProvider(getManager()),current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -153,7 +166,10 @@ public class PatientMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setFirstLevelBreadcrumb("Aktualne", new BodyProvider(getManager()),current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -165,7 +181,10 @@ public class PatientMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Historia", new BodyProvider(getManager()),current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -183,7 +202,10 @@ public class PatientMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Skutecznosc leczenia", new BodyProvider(getManager()),current);
+				getManager().drawContent();
 				
 			}
 		});
@@ -195,7 +217,10 @@ public class PatientMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Najskuteczniejsi lekarze", new BodyProvider(getManager()),current);
+				getManager().drawContent();
 				
 			}
 		});

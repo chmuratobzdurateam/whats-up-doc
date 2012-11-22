@@ -29,13 +29,19 @@ public class BreadcrumbProvider extends BodyProvider {
 	public BreadcrumbProvider(ContentManager cm) {
 		super(cm);
 		fields = new ArrayList<BreadcrumbField>();
+		mainPanel.setStyleName("belt");
 	}
 	
-	public void addField(boolean begginingImg, String name, BodyProvider body){
+	public int addField(boolean begginingImg, String name, BodyProvider body){
 		Button button = new Button(name);
 		button.addClickHandler(new ChangeBody(body, fields.size()));
 		fields.add(new BreadcrumbField(begginingImg, button));
 		reCreatePanel();
+		return fields.size()-1;
+	}
+	
+	public BreadcrumbField getField(int index){
+		return fields.get(index);
 	}
 
 	public void clearAfter(int index){

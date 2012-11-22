@@ -66,9 +66,9 @@ public class VerifierMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.MY_ACCOUNT;
-				
-				setFirstLvlCSS((Button) event.getSource());
-				setFirstLvlBreadcrumb("Moje konto", new BodyProvider(getManager()));
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Moje konto", new BodyProvider(getManager()),current);
 				getManager().drawContent();
 			}
 		});
@@ -81,9 +81,9 @@ public class VerifierMenuProvider extends MenuProvider {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentBar = Bar.USERS;
-				
-				setFirstLvlCSS((Button) event.getSource());
-				setFirstLvlBreadcrumb("Użytkownicy", new BodyProvider(getManager()));
+				Button current =(Button) event.getSource();
+				setFirstLvlCSS(current);
+				setFirstLevelBreadcrumb("Użytkownicy", new BodyProvider(getManager()), current);
 				getManager().drawContent();
 			}
 		});
@@ -99,8 +99,9 @@ public class VerifierMenuProvider extends MenuProvider {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
-				setSecondLevelBreadcrumb("Zmien hasło", new BodyProvider(getManager()));
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Zmien hasło", new BodyProvider(getManager()), current);
 				getManager().drawContent();
 			}
 		});
@@ -112,8 +113,9 @@ public class VerifierMenuProvider extends MenuProvider {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
-				setSecondLevelBreadcrumb("Zmien dane", new BodyProvider(getManager()));
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Zmien dane", new BodyProvider(getManager()), current);
 				getManager().drawContent();
 			}
 		});
@@ -131,10 +133,11 @@ public class VerifierMenuProvider extends MenuProvider {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
 				BodyProvider b = new AddUserProvider(getManager());
 				getManager().setBody(b);
-				setSecondLevelBreadcrumb("Dodaj użytkownika", b);
+				setSecondLevelBreadcrumb("Dodaj użytkownika", b, current);
 				getManager().drawContent();
 
 			}
@@ -147,8 +150,9 @@ public class VerifierMenuProvider extends MenuProvider {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setSecondLvlCSS((Button) event.getSource());
-				setSecondLevelBreadcrumb("Edytuj użytkownika", new BodyProvider(getManager()));
+				Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Edytuj użytkownika", new BodyProvider(getManager()), current);
 				getManager().drawContent();
 			}
 		});

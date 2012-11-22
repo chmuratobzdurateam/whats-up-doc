@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -115,16 +117,45 @@ public class MenuProvider implements ContentProviderInt {
 		
 	}
 	
-	protected void setFirstLvlBreadcrumb(String name, BodyProvider body){
+	protected void setFirstLevelBreadcrumb(String name, BodyProvider body, Button b){
 		BreadcrumbProvider bF = this.manager.getBreadcrumb();
 		bF.clearAll();
 		bF.addField(false, name, body);
+		bF.getField(0).addClickHandler(new BreadcrumbHandler(b, true));
 	}
 	
-	protected void setSecondLevelBreadcrumb(String name, BodyProvider body) {
+	protected void setSecondLevelBreadcrumb(String name, BodyProvider body, Button b) {
 		BreadcrumbProvider bF = this.manager.getBreadcrumb();
 		bF.clearAfter(0);
 		bF.addField(true, name, body);
+		bF.getField(1).addClickHandler(new BreadcrumbHandler(b, false));
+	}
+	
+	class BreadcrumbHandler implements ClickHandler{
+		
+		private Button button;
+		private boolean firstLevel;
+		
+		/**
+		 * 
+		 */
+		public BreadcrumbHandler(Button button, boolean firstLevel) {
+			this.button = button;
+			this.firstLevel = firstLevel;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt.event.dom.client.ClickEvent)
+		 */
+		@Override
+		public void onClick(ClickEvent event) {
+			if(button!=null){
+				if(firstLevel) setFirstLvlCSS(button);
+				else setSecondLvlCSS(button);
+			}
+			
+		}
+		
 	}
 	
 }

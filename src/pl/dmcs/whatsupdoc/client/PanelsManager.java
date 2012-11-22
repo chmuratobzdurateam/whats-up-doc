@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -24,7 +25,7 @@ public class PanelsManager {
 	private RootPanel firstMenu;
 	private RootPanel secondMenu;
 	private RootPanel content;
-	private RootPanel breadcrumb;
+	private FlowPanel breadcrumb;
 	
 	/**
 	 * Default constructor
@@ -42,7 +43,9 @@ public class PanelsManager {
 		if(content==null){
 			logger.log(Level.SEVERE, "Wrong ID for page content");
 		}
-		breadcrumb = RootPanel.get("belt");
+		breadcrumb = new FlowPanel();
+		breadcrumb.setStyleName("belt");
+		
 		if(breadcrumb==null){
 			logger.log(Level.SEVERE, "Wrong ID for page content");
 		}
@@ -79,13 +82,14 @@ public class PanelsManager {
 	/**
 	 * @param body - Panel to draw into html
 	 */
-	public void drawBody(Panel body){
+	public void drawBody(Panel body, Panel breadcrumb){
 		if(body==null){
 			logger.log(Level.WARNING, "drawBody Method get null parameter");
 			return;
 		}
 		if(content!=null){
 			content.clear();
+			content.add(breadcrumb);
 			content.add(body);
 		}
 	}

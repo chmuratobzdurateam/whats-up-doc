@@ -146,13 +146,13 @@ public class ContentManager {
 			else{
 				logger.log(Level.WARNING, "No menu in Content manager");
 			}
-			if(breadcrumb!=null){
+			/*if(breadcrumb!=null){
 				panels.drawBreadcrumb(breadcrumb.getContent());
 			}else{
 				logger.log(Level.WARNING,"No breadcrumb in Content manager");
-			}
-			if(body!=null){
-				panels.drawBody(body.getContent());
+			}*/
+			if(body!=null && breadcrumb!=null){
+				panels.drawBody(body.getContent(), breadcrumb.getContent());
 			}
 			else{
 				logger.log(Level.WARNING,"No body in Content manager");

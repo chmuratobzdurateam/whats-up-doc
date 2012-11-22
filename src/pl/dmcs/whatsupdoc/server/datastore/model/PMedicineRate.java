@@ -6,6 +6,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import pl.dmcs.whatsupdoc.client.model.MedicineRate;
 import pl.dmcs.whatsupdoc.shared.Medicine;
 
 import com.google.appengine.api.datastore.Key;
@@ -94,5 +95,14 @@ public class PMedicineRate {
 
 	public void onTreatmentLengthChange(Integer treatmentLengthDiff) {
 		totalTreatmentLength += treatmentLengthDiff;
+	}
+	
+	public MedicineRate asMedicineRate(){
+		MedicineRate medicineRate = new MedicineRate();
+		medicineRate.setMedicine(getMedicine());
+		medicineRate.setTreatmentsNumber(treatmentsNumber);
+		medicineRate.setSuccessTreatmentRate(getSuccessTreatmentsRate());
+		medicineRate.setAverageTreatmentLength(getAverageTreatmentLength());
+		return medicineRate;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import pl.dmcs.whatsupdoc.client.model.MedicineRate;
 import pl.dmcs.whatsupdoc.client.model.Recognition;
 import pl.dmcs.whatsupdoc.client.model.RecognitionDetails;
 import pl.dmcs.whatsupdoc.client.model.Treatment;
@@ -148,7 +149,7 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 				persister.close();
 				return true;
 			}
-		} finally{
+		} finally {
 		}
 		return false;
 	}
@@ -159,54 +160,73 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 		try {
 			Query querySymptomTreatmentRates = persister
 					.newQuery(PSymptomTreatmentRates.class);
-			querySymptomTreatmentRates.declareParameters(Symptom.class.getName()+" aSymptom");
+			querySymptomTreatmentRates.declareParameters(Symptom.class
+					.getName() + " aSymptom");
 			querySymptomTreatmentRates.setFilter("symptom == aSymptom");
 			List<PSymptomTreatmentRates> pSTRates = (List<PSymptomTreatmentRates>) querySymptomTreatmentRates
 					.execute(treatment.getSymptom());
 
-			if ((pSTRates != null)&&(pSTRates.size() > 0)) {
+			if ((pSTRates != null) && (pSTRates.size() > 0)) {
 				PSymptomTreatmentRates pSTRate = pSTRates.get(0);
 				for (Medicine medicine : treatment.getMedicines()) {
 					boolean foundedMedicineRate = false;
-					for (PMedicineRate pMedicineRate : pSTRate.getMedicineRates()) {
+					for (PMedicineRate pMedicineRate : pSTRate
+							.getMedicineRates()) {
 						if (pMedicineRate.getMedicine().equals(medicine)) {
-							if(oldTreatmentLength.equals(-1)){ /* FAILED status set earlier */
-								switch(treatment.getTreatmentStatus()){
+							if (oldTreatmentLength.equals(-1)) { /*
+																 * FAILED status
+																 * set earlier
+																 */
+								switch (treatment.getTreatmentStatus()) {
 								case UNKNOWN:
 									pMedicineRate.onFailedStatusCancel();
 									break;
 								case SUCCESSFULL:
 									pMedicineRate.onFailedStatusCancel();
-									pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
+									pMedicineRate.onSymptomDisappear(treatment
+											.getThreatmentLength());
 									break;
 								}
-							} else if(oldTreatmentLength.equals(0)){ /* UNKNOWN status set earlier */
-								switch(treatment.getTreatmentStatus()){
+							} else if (oldTreatmentLength.equals(0)) { /*
+																		 * UNKNOWN
+																		 * status
+																		 * set
+																		 * earlier
+																		 */
+								switch (treatment.getTreatmentStatus()) {
 								case FAILED:
 									pMedicineRate.onSymptomNotDisappear();
 									break;
 								case SUCCESSFULL:
-									pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
+									pMedicineRate.onSymptomDisappear(treatment
+											.getThreatmentLength());
 									break;
 								}
-							} else{ /* SUCCESFULL status set earlier */
-								switch(treatment.getTreatmentStatus()){
+							} else { /* SUCCESFULL status set earlier */
+								switch (treatment.getTreatmentStatus()) {
 								case FAILED:
-									pMedicineRate.onSuccesfullStatusCancel(oldTreatmentLength);
-									pMedicineRate.onSymptomDisappear(treatment.getThreatmentLength());
+									pMedicineRate
+											.onSuccesfullStatusCancel(oldTreatmentLength);
+									pMedicineRate.onSymptomDisappear(treatment
+											.getThreatmentLength());
 									break;
 								case UNKNOWN:
-									pMedicineRate.onSuccesfullStatusCancel(oldTreatmentLength);
+									pMedicineRate
+											.onSuccesfullStatusCancel(oldTreatmentLength);
 									break;
 								case SUCCESSFULL:
-									if(!oldTreatmentLength.equals(treatment.getThreatmentLength())){
-										Integer treatmentLengthDiff = treatment.getThreatmentLength() - oldTreatmentLength;
-										pMedicineRate.onTreatmentLengthChange(treatmentLengthDiff);
+									if (!oldTreatmentLength.equals(treatment
+											.getThreatmentLength())) {
+										Integer treatmentLengthDiff = treatment
+												.getThreatmentLength()
+												- oldTreatmentLength;
+										pMedicineRate
+												.onTreatmentLengthChange(treatmentLengthDiff);
 									}
 									break;
 								}
 							}
-							
+
 							foundedMedicineRate = true;
 							break;
 						}
@@ -231,18 +251,21 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 					}
 				}
 			} else { /* Doesn't exist PSymptomTreatmentRates for this symptom */
-				if(!treatment.getTreatmentStatus().equals(TreatmentStatus.UNKNOWN)){
+				if (!treatment.getTreatmentStatus().equals(
+						TreatmentStatus.UNKNOWN)) {
 					PSymptomTreatmentRates newPSTRates = new PSymptomTreatmentRates();
 					newPSTRates.setSymptom(treatment.getSymptom());
-	
+
 					ArrayList<PMedicineRate> pMedicineRates = new ArrayList<PMedicineRate>();
 					for (Medicine medicine : treatment.getMedicines()) {
 						PMedicineRate pMedicineRate = new PMedicineRate();
 						pMedicineRate.setMedicine(medicine);
-						if (treatment.getTreatmentStatus().equals(TreatmentStatus.SUCCESSFULL)) {
+						if (treatment.getTreatmentStatus().equals(
+								TreatmentStatus.SUCCESSFULL)) {
 							pMedicineRate.onSymptomDisappear(treatment
 									.getThreatmentLength());
-						} else if(treatment.getTreatmentStatus().equals(TreatmentStatus.FAILED)){
+						} else if (treatment.getTreatmentStatus().equals(
+								TreatmentStatus.FAILED)) {
 							pMedicineRate.onSymptomNotDisappear();
 						}
 						pMedicineRates.add(pMedicineRate);
@@ -251,7 +274,7 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 					persister.makePersistent(newPSTRates);
 				}
 			}
-		}finally{
+		} finally {
 		}
 	}
 
@@ -273,8 +296,43 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 		} finally {
 			persister.close();
 		}
-		
+
 		return null;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<MedicineRate> getTopMedicineRates(Symptom symptom,
+			Integer topRatesNumber) {
+		ArrayList<MedicineRate> topMedicineRates = new ArrayList<MedicineRate>();
+		PersistenceManager persister = Persister.getPersistenceManager();
+		try {
+			Query querySymptomTreatmentRates = persister
+					.newQuery(PSymptomTreatmentRates.class);
+			querySymptomTreatmentRates.declareParameters(Symptom.class
+					.getName() + " aSymptom");
+			querySymptomTreatmentRates.setFilter("symptom == aSymptom");
+			List<PSymptomTreatmentRates> pSTRates = (List<PSymptomTreatmentRates>) querySymptomTreatmentRates
+					.execute(symptom);
+
+			if ((pSTRates != null) && (pSTRates.size() > 0)) {
+				PSymptomTreatmentRates pSTR = pSTRates.get(0);
+				ArrayList<PMedicineRate> pMedicineRates = pSTR.getMedicineRates();
+				for(PMedicineRate pMedicineRate: pMedicineRates){
+					/* 
+					(PASTOR) wypełnij topMedicineRates tak, żeby zwróciło topRatesNumber najlepszych MedicineRate
+					
+					Ma to wyglądać końcowo tak:
+					if(pMedicineRate jest jednym z topMedicineRate){
+						topMedicineRates.add(pMedicineRate.asMedicineRate());
+					}
+					*/
+				}
+			}
+		} finally {
+			persister.close();
+		}
+		return topMedicineRates;
 	}
 
 }

@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.Label;
 
 /**
  * 29-10-2012
- * @author Adrian Œpionek, adrian.spionek@gmail.com
+ * @author Adrian ï¿½pionek, adrian.spionek@gmail.com
  * 
  * 
  */
@@ -90,6 +90,7 @@ public class SearchProvider extends BodyProvider{
 							/* new button list for Patient Card*/
 							ArrayList buttonList = new ArrayList<Button>();
 							Button patientCardButton = new Button("Karta Pacjenta");
+							patientCardButton.setStyleName("patientCard");
 							buttonList.add(patientCardButton);
 							
 							/* onClick event to change view from patients found by PESEL list to detailed PatientCard of found Patient*/

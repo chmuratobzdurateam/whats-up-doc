@@ -88,6 +88,8 @@ public class AddRecognitionProvider extends BodyProvider{
 		symptomSelectFieldList = new ArrayList<SelectField>();
 		medicineSelectFieldList.add(new SelectField("Lek:",1,SelectFieldType.MULTIPLE_SELECT,medicineList));
 		symptomSelectFieldList.add(new SelectField("Objaw:",1,SelectFieldType.SINGLE_SELECT,symptomList));
+		((SelectField)medicineSelectFieldList.get(0)).setMainCSS("even");
+		((SelectField)symptomSelectFieldList.get(0)).setMainCSS("even");
 		
 		this.patientFullName.setStyleName("patientFullName");
 		doctorFullNameLabel.setStyleName("doctorFullNameLabel");
@@ -148,10 +150,14 @@ public class AddRecognitionProvider extends BodyProvider{
 				
 				if(symptomSelectFieldList.size() % 2 == 1){
 					symptomField = new SelectField("Objaw:",5,SelectFieldType.SINGLE_SELECT,symptomList);
+					symptomField.setMainCSS("odd");
 					medicineField = new SelectField("Lek:",5,SelectFieldType.MULTIPLE_SELECT,medicineList);
+					medicineField.setMainCSS("odd");
 				}else{
 					symptomField = new SelectField("Objaw:",5,SelectFieldType.SINGLE_SELECT,symptomList);
+					symptomField.setMainCSS("even");
 					medicineField = new SelectField("Lek:",5,SelectFieldType.MULTIPLE_SELECT,medicineList);
+					medicineField.setMainCSS("even");
 				}
 				
 				symptomSelectFieldList.add(symptomField);

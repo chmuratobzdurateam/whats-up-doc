@@ -31,19 +31,7 @@ footer {
 	height: 36px;
 }
 
-#belt {
-	position: relative;
-	font-size: 12px;
-	font-family: Verdana;
-	color: white;
-	background: #207DBA;
-	height: 26px;
-}
 
-#belt table {
-	position: relative;
-	top: -3px;
-}
 
 #contents {
 	font-size: 12px;
@@ -87,7 +75,7 @@ footer {
 	background-color: white;
 	color: #666666;
 	top: 4px;
-	width: 150px;
+	width: 200px;
 	height: 32px;
 	float: centre;
 	text-align: center;
@@ -102,7 +90,7 @@ footer {
 	background-color: #E5E5E5;
 	color: #666666;
 	 margin-top: 10px;
-	width: 150px;
+	width: 200px;
 	height: 26px;
 	float: centre;
 	text-align: center;
@@ -112,7 +100,7 @@ footer {
 .firstLevelMenu>.menuButton {
 	font-size: 15px;
 	padding-bottom: 10px;
-	margin-left: 50px;
+	margin-left: 30px;
 	font-family: Verdana;
 	color: #666666;
 	position: relative;
@@ -124,7 +112,7 @@ footer {
 	font-size: 15px;
 	padding-bottom: 10px;
 	background: url(images/menu_kreska.png) repeat-x;
-	margin-left: 50px;
+	margin-left: 30px;
 	font-family: Verdana;
 	color: #207DBA;
 	position: relative;
@@ -259,6 +247,7 @@ button.cancelButton:hover {
 .first_label{
            width: 100px;
            display: inline-block;
+
 }
 
 .second_label{
@@ -269,9 +258,10 @@ button.cancelButton:hover {
           padding-top: 30px;
     text-align: left;
     font-size: 15px;
-
+    color: #207DBA;
 	font-family: Verdana;
 	padding-left: 15px;  
+	padding-bottom: 15px;
 }
 
 .details{
@@ -283,11 +273,11 @@ button.cancelButton:hover {
 	padding-left: 15px;   
 }
 .details > .firstRow{
-        
+
 }
 .details_label{
      display: inline-block;
-     width: 300px;   
+
 }
 .details > .secondRow{
     padding-top: 15px;
@@ -354,4 +344,107 @@ button.cancelButton:hover {
 
 }
 
+.dateRow{
+    padding-bottom: 10px;
+	background: url(images/menu_kreska.png) repeat-x; 
+	margin-right: 10px;
+}
 
+.firstRow > .details_label{
+ text-align: left;
+ color: #207DBA;
+}
+
+.questionnaireRowEven{
+    padding-top: 20px;
+
+ 
+    font-size: 15px;
+    font-family: Verdana;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.questionnaireRowOdd{
+    padding-top: 20px;
+   background:  #E5E5E5;
+    font-size: 15px;
+    font-family: Verdana;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.details_label .gwt-RadioButton{
+ padding-left: 50px;
+ color: black; 
+}
+.details_label > .details_label{
+     display: inline-block;
+     width: 500px;
+
+}
+.symptom_label{
+     color: #207DBA;
+     display: inline-block;
+     width: 100px;    
+}
+.questionnaireRowEven .secondRow{
+    color: black;
+    text-align: center;
+    height: 50px;
+
+}
+.questionnaireRowEven .firstRow{
+       height: 50px;
+}
+
+.questionnaireRowOdd .secondRow{
+    color: black;
+    text-align: center;
+    height: 50px;
+
+}
+.questionnaireRowOdd .firstRow{
+       height: 50px;
+}
+
+
+/*belt */
+
+.belt {
+
+	        font-size: 12px;
+	        font-family: Verdana;
+	        color: white;
+	        background: #207DBA;
+	        height: 26px;
+}
+.belt .row{
+           display: inline-block;
+           height: 26px;  
+}
+.belt .row .arrowDiv{
+            display: inline-block;
+            width: 26px;
+            height: 26px;   
+}
+
+.belt .row .buttonDiv{
+             display: inline-block;
+             
+}
+
+.belt .row .buttonDiv .button{
+    font-family: Verdana;
+	font-size: 12px;
+	background-color: #207DBA;
+	color: white;
+	float: centre;
+	text-align: center;
+	border: none;
+	height: 20px;
+	position: relative;
+	display: inline-block;
+		top: -6px;
+	
+}

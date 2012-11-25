@@ -1,6 +1,7 @@
 package pl.dmcs.whatsupdoc.server;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -318,16 +319,23 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 			if ((pSTRates != null) && (pSTRates.size() > 0)) {
 				PSymptomTreatmentRates pSTR = pSTRates.get(0);
 				ArrayList<PMedicineRate> pMedicineRates = pSTR.getMedicineRates();
-				for(PMedicineRate pMedicineRate: pMedicineRates){
-					/* 
-					(PASTOR) wypełnij topMedicineRates tak, żeby zwróciło topRatesNumber najlepszych MedicineRate
-					
-					Ma to wyglądać końcowo tak:
-					if(pMedicineRate jest jednym z topMedicineRate){
-						topMedicineRates.add(pMedicineRate.asMedicineRate());
-					}
-					*/
-				}
+				float[] tmp2 = new float[]{};
+                int z=0;
+                for(PMedicineRate pMedicineRate: pMedicineRates){
+                    tmp2[z]=pMedicineRate.getMedicineRate();
+                    z++;
+                }
+                Arrays.sort(tmp2);
+                for(int i=0;i<topRatesNumber;i++){
+                    for(PMedicineRate pMedicineRate: pMedicineRates){
+                        if(pMedicineRate.getMedicineRate()==tmp2[i])
+                        {
+                            topMedicineRates.add(pMedicineRate.asMedicineRate());
+                            break;
+                        }
+                    }
+                }
+
 			}
 		} finally {
 			persister.close();

@@ -92,13 +92,21 @@ public class QuestionnaireProvider extends BodyProvider {
 
 			mainPanel.add(details);
 			mainPanel.add(symptoms_label);
-
+			int i=0;
 			if (treatmentsList.isEmpty() == false) {
 				for (Treatment tmp : treatmentsList) {
+					i=i+1;
 					FlowPanel treatment_object = new FlowPanel();
 					SymptomTreatmentResult str = new SymptomTreatmentResult(tmp);
 					resultList.add(str);
 					treatment_object = str.treatment_object;
+					if(i%2 == 0)
+					{
+						treatment_object.setStyleName("questionnaireRowEven");
+					}
+					else{
+						treatment_object.setStyleName("questionnaireRowOdd");
+					}
 					mainPanel.add(treatment_object);
 				}
 
@@ -106,6 +114,7 @@ public class QuestionnaireProvider extends BodyProvider {
 
 			updateRecognition = new Button();
 			updateRecognition.setText("Zatwierdź");
+			updateRecognition.setStyleName("confirmButton");
 			mainPanel.add(updateRecognition);
 			updateRecognition.addClickHandler(new ClickHandler() {
 
@@ -123,6 +132,14 @@ public class QuestionnaireProvider extends BodyProvider {
 						resultTreatmentsList.add(tmpTreatment);
 
 					}
+					if (resultTreatmentsList.isEmpty() == false) {
+						for (Treatment tmp : treatmentsList) {
+							FlowPanel treatment_object = new FlowPanel();
+							SymptomTreatmentResult str = new SymptomTreatmentResult(tmp);
+							resultList.add(str);
+							treatment_object = str.treatment_object;
+							mainPanel.add(treatment_object);
+						}}
 					final TreatmentServiceAsync treatmentService = GWT
 							.create(TreatmentService.class);
 					treatmentService.updateRecognition(recognitionKeyString,

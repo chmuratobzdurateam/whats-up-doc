@@ -703,6 +703,82 @@ button.addSymptom:hover {
     
 }
 
+.diseaseSelect {
+     font-style: Verdana;
+     font-size: 15px;
+     text-align: left;
+     padding-left: 25px;   
+}
+
+.diseaseSelect .firstColumn{ 
+    color:  #207DBA;
+    display: inline-block;
+    width: 110px;
+}
+
+.diseaseSelect .secondColumn{ 
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.diseaseSelect .secondColumn .selectBox{ 
+    display: inline-block;
+    width: 300px;
+
+}
+
+.buttons .patientCard{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 7px 20px;
+	background: -moz-linear-gradient(top, #207cba 0%, #207cba);
+	background: -webkit-gradient(linear, left top, left bottom, from(#207cba),
+		to(#207cba) );
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	border: 0px solid #000000;
+	-moz-box-shadow: 0px 1px 0px rgba(000, 000, 000, 0), inset 0px 0px 1px
+		rgba(255, 255, 255, 0.6);
+	-webkit-box-shadow: 0px 1px 0px rgba(000, 000, 000, 0), inset 0px 0px
+		1px rgba(255, 255, 255, 0.6);
+	box-shadow: 0px 1px 0px rgba(000, 000, 000, 0), inset 0px 0px 1px
+		rgba(255, 255, 255, 0.6);
+	text-shadow: 0px -1px 0px rgba(255, 255, 255, 0), 0px 1px 0px
+		rgba(255, 255, 255, 0);
+}
+
+.buttons .patientCard:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 7px 20px;
+	background: -moz-linear-gradient(top, #207cba 0%, #207cba);
+	background: -webkit-gradient(linear, left top, left bottom, from(#207cba),
+		to(#207cba) );
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	border: 0px solid #000000;
+	-moz-box-shadow: 0px 1px 19px rgba(255, 255, 255, 1), inset 0px 0px 9px
+		rgba(255, 255, 255, 1);
+	-webkit-box-shadow: 0px 1px 19px rgba(255, 255, 255, 1), inset 0px 0px
+		9px rgba(255, 255, 255, 1);
+	box-shadow: 0px 1px 19px rgba(255, 255, 255, 1), inset 0px 0px 9px
+		rgba(255, 255, 255, 1);
+	text-shadow: 0px -1px 0px rgba(255, 255, 255, 0), 0px 1px 0px
+		rgba(255, 255, 255, 0);
+}
+
+.details .firstRow .detailsName_label{
+ display: inline-block;
+ width: 100px;
+}
+
+
+
+
 
 
 

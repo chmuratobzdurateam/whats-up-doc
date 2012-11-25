@@ -4,13 +4,20 @@
 package pl.dmcs.whatsupdoc.client.providers;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import pl.dmcs.whatsupdoc.client.ContentManager;
 import pl.dmcs.whatsupdoc.client.fields.SelectField;
 import pl.dmcs.whatsupdoc.client.fields.SelectFieldType;
+import pl.dmcs.whatsupdoc.client.model.MedicineRate;
+import pl.dmcs.whatsupdoc.client.services.TreatmentService;
+import pl.dmcs.whatsupdoc.client.services.TreatmentServiceAsync;
 import pl.dmcs.whatsupdoc.shared.Symptom;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -41,6 +48,8 @@ public class DrugStatisticProvider extends BodyProvider{
 	 */
 	public DrugStatisticProvider(ContentManager contentManager,final String patientKeyString,String patientFullName){
 		super(contentManager);
+		
+		final TreatmentServiceAsync treatService = GWT.create(TreatmentService.class);
 		
 		/* preparing flowPanels */
 		symptomSelectPanel = new FlowPanel();
@@ -76,6 +85,7 @@ public class DrugStatisticProvider extends BodyProvider{
 		
 		/* ************************ */
 		
+		
 		/* preparing search button (it will find and add to mainPanel top3 drugs */
 		search = new Button("wyszukaj");
 		search.setStyleName("wyszukaj");
@@ -84,37 +94,78 @@ public class DrugStatisticProvider extends BodyProvider{
 			@Override
 			public void onClick(ClickEvent event) {
 				
+				/* clearing view and setting up again  basic info first*/
 				mainPanel.clear();
 				mainPanel.add(symptomSelectPanel);
 				mainPanel.add(topDrugLabel);
+				/* ********************************** */
 				
-				topOneDrug.add(new Label());
-				topOneDrug.add(new Label());
-				topOneDrug.add(new Label());
-				topTwoDrug.add(new Label());
-				topTwoDrug.add(new Label());
-				topTwoDrug.add(new Label());
-				topThreeDrug.add(new Label());
-				topThreeDrug.add(new Label());
-				topThreeDrug.add(new Label());
-				
-				/* adding all label "drugStatistic" stylename */
-				for(FlowPanel p: new FlowPanel[]{topOneDrug, topTwoDrug, topThreeDrug}){
-					
-					for (int i=0 ; i< p.getWidgetCount(); i++){
-						((Label)p.getWidget(i)).setStyleName("drugStatistic");
+				/* retreiving data of TOP 3 drugs for selected symptom */
+				Symptom symptom = Symptom.getSymptom((String) symptomSelectField.getValue());
+				treatService.getTopMedicineRates(symptom, 3, new AsyncCallback<List<MedicineRate>>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						caught.printStackTrace();
+						
+					}
+
+					@Override
+					public void onSuccess(List<MedicineRate> result) {
+						
+						
+						if(!result.isEmpty()){
+							/* retreiving info f top 3 */
+							MedicineRate info = result.get(0);
+							topOneDrug.add(new Label(info.getMedicine().toString()));
+							topOneDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
+							topOneDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
+							
+							info = result.get(1);
+							topTwoDrug.add(new Label(info.getMedicine().toString()));
+							topTwoDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
+							topTwoDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
+							
+							info = result.get(2);
+							topThreeDrug.add(new Label(info.getMedicine().toString()));
+							topThreeDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
+							topThreeDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
+							/* *********************** */
+							
+							/* adding all label "drugStatistic" stylename */
+							for(FlowPanel p: new FlowPanel[]{topOneDrug, topTwoDrug, topThreeDrug}){
+								
+								for (int i=0 ; i< p.getWidgetCount(); i++){
+									((Label)p.getWidget(i)).setStyleName("drugStatistic");
+								}
+								
+							}
+							/* ******************** */
+							
+							/* adding them to main Panel */
+							mainPanel.add(topOneDrug);
+							mainPanel.add(topTwoDrug);
+							mainPanel.add(topThreeDrug);
+							/* ********************* */
+							
+							getCm().drawContent();
+						}else{
+							
+							
+							/* actualy there is no action for else.. the list is empty */
+							
+						}
+						
+						
 					}
 					
-				}
-				/* ******************** */
+				});
+				/* ********************** */
 				
-				/* adding them to main Panel */
-				mainPanel.add(topOneDrug);
-				mainPanel.add(topTwoDrug);
-				mainPanel.add(topThreeDrug);
-				/* ********************* */
-				
+
+				/* predrawing view basic info only*/
 				getCm().drawContent();
+				/* ************************ */
 				
 			}
 		});

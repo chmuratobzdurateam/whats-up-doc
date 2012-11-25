@@ -84,6 +84,7 @@ public class AddRecognitionProvider extends BodyProvider{
 		this.patientFullName.setText(patientFullName);
 		
 		diseaseSelect = new SelectField("Choroba:",1,SelectFieldType.SINGLE_SELECT,diseaseList);
+		((SelectField)diseaseSelect).setMainCSS("diseaseSelect");
 		medicineSelectFieldList = new ArrayList<SelectField>();
 		symptomSelectFieldList = new ArrayList<SelectField>();
 		medicineSelectFieldList.add(new SelectField("Lek:",1,SelectFieldType.MULTIPLE_SELECT,medicineList));
@@ -149,14 +150,14 @@ public class AddRecognitionProvider extends BodyProvider{
 				SelectField symptomField;
 				
 				if(symptomSelectFieldList.size() % 2 == 1){
-					symptomField = new SelectField("Objaw:",5,SelectFieldType.SINGLE_SELECT,symptomList);
+					symptomField = new SelectField("Objaw:",1,SelectFieldType.SINGLE_SELECT,symptomList);
 					symptomField.setMainCSS("odd");
-					medicineField = new SelectField("Lek:",5,SelectFieldType.MULTIPLE_SELECT,medicineList);
+					medicineField = new SelectField("Lek:",1,SelectFieldType.MULTIPLE_SELECT,medicineList);
 					medicineField.setMainCSS("odd");
 				}else{
-					symptomField = new SelectField("Objaw:",5,SelectFieldType.SINGLE_SELECT,symptomList);
+					symptomField = new SelectField("Objaw:",1,SelectFieldType.SINGLE_SELECT,symptomList);
 					symptomField.setMainCSS("even");
-					medicineField = new SelectField("Lek:",5,SelectFieldType.MULTIPLE_SELECT,medicineList);
+					medicineField = new SelectField("Lek:",1,SelectFieldType.MULTIPLE_SELECT,medicineList);
 					medicineField.setMainCSS("even");
 				}
 				

@@ -23,9 +23,10 @@ public class PatientCard extends User{
 	 */
 	public void setAlergies(ArrayList<Alergy> alergies) {
 		this.alergies = new ArrayList<Alergy>();
-		for(Alergy alergy: alergies){
-			this.alergies.add(alergy);
-		}
+		if((this.alergies.size()!=0)&&(this.alergies!=null))
+			for(Alergy alergy: alergies){
+				this.alergies.add(alergy);
+			}
 	}
 	/**
 	 * @return the address

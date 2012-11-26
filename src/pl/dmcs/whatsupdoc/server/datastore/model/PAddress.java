@@ -23,7 +23,35 @@ public class PAddress{
 	private String postalCode;
 	@Persistent
 	private String houseNumber;
+	@Persistent
+	private Float lat;
+	@Persistent
+	private Float lon;
 	
+	/**
+	 * @return the lat
+	 */
+	public Float getLat() {
+		return lat;
+	}
+	/**
+	 * @param lat the lat to set
+	 */
+	public void setLat(Float lat) {
+		this.lat = lat;
+	}
+	/**
+	 * @return the lon
+	 */
+	public Float getLon() {
+		return lon;
+	}
+	/**
+	 * @param lon the lon to set
+	 */
+	public void setLon(Float lon) {
+		this.lon = lon;
+	}
 	public PAddress(){
 	}
 	/**
@@ -80,6 +108,8 @@ public class PAddress{
 		address.setHouseNumber(getHouseNumber());
 		address.setPostalCode(getPostalCode());
 		address.setStreet(getStreet());
+		address.setLat(getLat());
+		address.setLon(getLon());
 		return address;
 	}
 	/**

@@ -185,9 +185,16 @@ public class DoctorMenuProvider extends MenuProvider {
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				/*Button current =(Button) event.getSource();
+				setSecondLvlCSS(current);
+				setSecondLevelBreadcrumb("Skutecznosc lekow", new DrugStatisticProvider(getManager()), current);
+				getManager().drawContent();*/
+				
 				Button current =(Button) event.getSource();
 				setSecondLvlCSS(current);
-				setSecondLevelBreadcrumb("Skutecznosc lekow", new BodyProvider(getManager()), current);
+				BodyProvider b = new DrugStatisticProvider(getManager());
+				getManager().setBody(b);
+				setSecondLevelBreadcrumb("Skutecznosc lekow", b, current);
 				getManager().drawContent();
 				
 			}

@@ -46,7 +46,7 @@ public class DrugStatisticProvider extends BodyProvider{
 	/**
 	 * @param cm CoontentManager of this class
 	 */
-	public DrugStatisticProvider(ContentManager contentManager,final String patientKeyString,String patientFullName){
+	public DrugStatisticProvider(ContentManager contentManager){
 		super(contentManager);
 		
 		final TreatmentServiceAsync treatService = GWT.create(TreatmentService.class);
@@ -102,6 +102,7 @@ public class DrugStatisticProvider extends BodyProvider{
 				
 				/* retreiving data of TOP 3 drugs for selected symptom */
 				Symptom symptom = Symptom.getSymptom((String) symptomSelectField.getValue());
+				System.out.print(symptom.toString());
 				treatService.getTopMedicineRates(symptom, 3, new AsyncCallback<List<MedicineRate>>(){
 
 					@Override
@@ -120,18 +121,18 @@ public class DrugStatisticProvider extends BodyProvider{
 							topOneDrug.add(new Label(info.getMedicine().toString()));
 							topOneDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
 							topOneDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
-							
+							getCm().drawContent();
 							info = result.get(1);
 							topTwoDrug.add(new Label(info.getMedicine().toString()));
 							topTwoDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
 							topTwoDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
-							
+							getCm().drawContent();
 							info = result.get(2);
 							topThreeDrug.add(new Label(info.getMedicine().toString()));
 							topThreeDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
 							topThreeDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
 							/* *********************** */
-							
+							getCm().drawContent();
 							/* adding all label "drugStatistic" stylename */
 							for(FlowPanel p: new FlowPanel[]{topOneDrug, topTwoDrug, topThreeDrug}){
 								
@@ -177,7 +178,6 @@ public class DrugStatisticProvider extends BodyProvider{
 		symptomSelectPanel.add(symptomSelectField.returnContent());
 		symptomSelectPanel.add(search);
 		/* ********************** */
-		
 		mainPanel.add(symptomSelectPanel);
 		getCm().drawContent();
 	}

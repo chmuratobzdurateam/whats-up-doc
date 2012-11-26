@@ -308,6 +308,8 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 		ArrayList<MedicineRate> topMedicineRates = new ArrayList<MedicineRate>();
 		PersistenceManager persister = Persister.getPersistenceManager();
 		try {
+			System.out.println("TEST0");
+			System.out.println(symptom.toString());
 			Query querySymptomTreatmentRates = persister
 					.newQuery(PSymptomTreatmentRates.class);
 			querySymptomTreatmentRates.declareParameters(Symptom.class
@@ -315,26 +317,33 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 			querySymptomTreatmentRates.setFilter("symptom == aSymptom");
 			List<PSymptomTreatmentRates> pSTRates = (List<PSymptomTreatmentRates>) querySymptomTreatmentRates
 					.execute(symptom);
-
+			System.out.println("TEST1");
 			if ((pSTRates != null) && (pSTRates.size() > 0)) {
+				System.out.println("TEST2");
 				PSymptomTreatmentRates pSTR = pSTRates.get(0);
 				ArrayList<PMedicineRate> pMedicineRates = pSTR.getMedicineRates();
-				float[] tmp2 = new float[]{};
+				System.out.println("Medicine rates size: "+pMedicineRates.size());
+				float[] tmp2 = new float[pMedicineRates.size()];
                 int z=0;
                 for(PMedicineRate pMedicineRate: pMedicineRates){
+                	System.out.println("Medicine: "+pMedicineRate.getMedicine().toString());
+                	System.out.println("Rate: "+pMedicineRate.getMedicineRate());
                     tmp2[z]=pMedicineRate.getMedicineRate();
                     z++;
                 }
                 Arrays.sort(tmp2);
                 for(int i=0;i<topRatesNumber;i++){
                     for(PMedicineRate pMedicineRate: pMedicineRates){
-                        if(pMedicineRate.getMedicineRate()==tmp2[i])
+                        if(pMedicineRate.getMedicineRate()==tmp2[0])
                         {
+                        	System.out.println("Medicine added: "+pMedicineRate.getMedicine().toString());
                             topMedicineRates.add(pMedicineRate.asMedicineRate());
                             break;
                         }
                     }
                 }
+                
+                System.out.println("TOP medicine rate size: "+topMedicineRates.size());
 
 			}
 		} finally {

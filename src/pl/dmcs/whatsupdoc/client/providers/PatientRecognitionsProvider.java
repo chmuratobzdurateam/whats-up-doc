@@ -92,7 +92,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 				@Override
 				public void onSuccess(ArrayList<Recognition> result) {
 					if(result!=null){
-						List<String> css = Arrays.asList(new String[] {"timeDiv", "personDiv", "diseaseDiv", "buttonDiv", "buttonDiv"});
+						List<String> css = Arrays.asList(new String[] {"timeDiv", "personDiv", "diseaseDiv", "buttonDiv"});
 						int counter = 0;
 						for(Recognition recognition : result){
 							ArrayList<Widget> widgets = new ArrayList<Widget>();
@@ -121,6 +121,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 								}
 								editForm.addClickHandler(new FormEdit(recognition));
 								widgets.add(editForm);
+								css.add("buttonDiv");
 							}
 							widgets.add(detailsButton);
 							

@@ -53,8 +53,12 @@ public class AddUserProvider extends BodyProvider {
 		
 		@Override
 		public void onSuccess(Boolean result) {
-			clearWidgets();
-			addUserButton.setText("Użytkownika dodano pomyślnie.");
+			if(result.booleanValue()){
+				clearWidgets();
+				addUserButton.setText("Użytkownika dodano pomyślnie.");
+			}else{
+				addUserButton.setText("Użytkownika nie dodano.");
+			}
 			getCm().drawContent();
 		}
 		

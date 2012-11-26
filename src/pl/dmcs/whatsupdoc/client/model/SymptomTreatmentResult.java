@@ -41,7 +41,7 @@ public class SymptomTreatmentResult {
 		radio.setStyleName("details_label");
 		symptom_name = new Label();
 		symptom_name.setText(treatment.getSymptom().toString());
-		symptom_name.setStyleName("details_label");
+		symptom_name.setStyleName("detailsName_label");
 
 		firstRowSymptoms = new FlowPanel();
 

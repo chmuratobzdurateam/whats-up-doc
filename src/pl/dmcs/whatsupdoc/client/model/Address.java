@@ -7,6 +7,9 @@ public class Address implements IsSerializable{
 	private String street;
 	private String postalCode;
 	private String houseNumber;
+	private Float lat;
+	private Float lon;
+	
 	/**
 	 * @return the city
 	 */
@@ -54,5 +57,29 @@ public class Address implements IsSerializable{
 	 */
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
+	}
+	/**
+	 * @return the lon
+	 */
+	public Float getLon() {
+		return lon;
+	}
+	/**
+	 * @param lon the lon to set
+	 */
+	public void setLon(Float lon) {
+		this.lon = lon;
+	}
+	/**
+	 * @return the lat
+	 */
+	public Float getLat() {
+		return lat;
+	}
+	/**
+	 * @param lat the lat to set
+	 */
+	public void setLat(Float lat) {
+		this.lat = lat;
 	}
 }

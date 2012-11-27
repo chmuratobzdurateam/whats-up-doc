@@ -23,6 +23,7 @@ public class ListItemField extends Field {
 		super(l.size(), css);
 		
 		for(int i=0;i<l.size();i++){
+			System.out.println(subDiv.get(i).getStyleName());
 			subDiv.get(i).add(l.get(i));
 		}
 	}

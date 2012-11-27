@@ -34,9 +34,6 @@ public class DrugStatisticProvider extends BodyProvider{
 
 	private SelectField symptomSelectField;
 	private FlowPanel symptomSelectPanel;
-	private FlowPanel topOneDrug;
-	private FlowPanel topTwoDrug;
-	private FlowPanel topThreeDrug;
 	private FlowPanel topDrugLabel;
 	
 	ArrayList<String> symptomList = new ArrayList<String>();
@@ -53,26 +50,19 @@ public class DrugStatisticProvider extends BodyProvider{
 		
 		/* preparing flowPanels */
 		symptomSelectPanel = new FlowPanel();
-		topOneDrug = new FlowPanel();
-		topOneDrug.setStyleName("topDrugs");
-		topTwoDrug = new FlowPanel();
-		topTwoDrug.setStyleName("topDrugs");
-		topThreeDrug = new FlowPanel();
-		topThreeDrug.setStyleName("topDrugs");
-		topDrugLabel = new FlowPanel();
-		topDrugLabel.setStyleName("topDrugsLabel");
 		symptomSelectPanel.setStyleName("symptom");
 		/* ************ */
 		
 		/* preparing labels for topDrugsLabel */
+		topDrugLabel = new FlowPanel();
+		topDrugLabel.setStyleName("drugStatisticLabel");
 		Label label = new Label("Lek:");
-		label.setStyleName("drugStatistic");
 		topDrugLabel.add(label);
 		label = new Label("Wyleczone (%):");
-		label.setStyleName("drugStatistic");
 		topDrugLabel.add(label);
 		label = new Label("Średnia długość leczenia:");
-		label.setStyleName("drugStatistic");
+		topDrugLabel.add(label);
+		label = new Label("Ilość przebadanych:");
 		topDrugLabel.add(label);
 		/* ***************************** */
 		
@@ -117,39 +107,34 @@ public class DrugStatisticProvider extends BodyProvider{
 						
 						if(!result.isEmpty()){
 							/* retreiving info f top 3 */
-							MedicineRate info = result.get(0);
-							topOneDrug.add(new Label(info.getMedicine().toString()));
-							topOneDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
-							topOneDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
-							getCm().drawContent();
-							info = result.get(1);
-							topTwoDrug.add(new Label(info.getMedicine().toString()));
-							topTwoDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
-							topTwoDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
-							getCm().drawContent();
-							info = result.get(2);
-							topThreeDrug.add(new Label(info.getMedicine().toString()));
-							topThreeDrug.add(new Label(Float.toString(info.getSuccessTreatmentRate()*100)));
-							topThreeDrug.add(new Label(Float.toString(info.getAverageTreatmentLength())));
-							/* *********************** */
-							getCm().drawContent();
-							/* adding all label "drugStatistic" stylename */
-							for(FlowPanel p: new FlowPanel[]{topOneDrug, topTwoDrug, topThreeDrug}){
+							int i = 0;
+							Label label;
+							FlowPanel drugStatistic;
+							for (MedicineRate r : result){
+								drugStatistic = new FlowPanel();
+								label = new Label(r.getMedicine().toString());
+								drugStatistic.add(label);
+								label = new Label(Float.toString(r.getSuccessTreatmentRate()*100));
+								drugStatistic.add(label);
+								label = new Label(Float.toString(r.getAverageTreatmentLength()));
+								drugStatistic.add(label);
+								label = new Label(Integer.toString(r.getTreatmentsNumber()));
+								drugStatistic.add(label);
 								
-								for (int i=0 ; i< p.getWidgetCount(); i++){
-									((Label)p.getWidget(i)).setStyleName("drugStatistic");
+								if(i%2==1){
+									drugStatistic.setStyleName("drugStatisticOdd");
+								}else{
+									drugStatistic.setStyleName("drugStatisticEven");
 								}
 								
+							mainPanel.add(drugStatistic);
+								
 							}
-							/* ******************** */
 							
-							/* adding them to main Panel */
-							mainPanel.add(topOneDrug);
-							mainPanel.add(topTwoDrug);
-							mainPanel.add(topThreeDrug);
-							/* ********************* */
-							
+							/* *********************** */
 							getCm().drawContent();
+
+							
 						}else{
 							
 							

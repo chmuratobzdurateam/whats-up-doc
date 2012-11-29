@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.services.AuthenticationService;
 import pl.dmcs.whatsupdoc.client.services.AuthenticationServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -45,7 +47,7 @@ public class PatientMenuProvider extends MenuProvider {
 		
 		//************************************************ Create buttons for first menu********************************************
 		
-		Button button = new Button("Strona Główna");
+		/*Button button = new Button("Strona Główna");
 		firstLevelButton = button;
 		button.setStyleName(CSS.get(0));
 		button.addClickHandler(new ClickHandler() {
@@ -57,9 +59,9 @@ public class PatientMenuProvider extends MenuProvider {
 				getManager().drawContent();
 			}
 		});
-		hFirstPanel.add(button);
+		hFirstPanel.add(button);*/
 		
-		button = new Button("Moje konto");
+		Button button = new Button("Moje konto");
 		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 			
@@ -116,6 +118,28 @@ public class PatientMenuProvider extends MenuProvider {
 				Button current =(Button) event.getSource();
 				setFirstLvlCSS(current);
 				setFirstLevelBreadcrumb("Statystyki", new BodyProvider(getManager()),current);
+				getManager().drawContent();
+			}
+		});
+		hFirstPanel.add(button);
+		
+		button = new Button("Wyloguj");
+		button.setStyleName(CSS.get(1));
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				//Button current =(Button) event.getSource();
+				//setFirstLvlCSS(null);
+				//setFirstLevelBreadcrumb("Statystyki", new BodyProvider(getManager()),current);
+				final AuthenticationServiceAsync auth = GWT.create(AuthenticationService.class);
+				
+				getManager().getBreadcrumb().clearAll();
+				BodyProvider b = new LoginProvider(getManager());
+				MenuProvider mp = new MenuProvider(getManager());
+				getManager().setBody(b);
+				getManager().setMenu(mp);
 				getManager().drawContent();
 			}
 		});

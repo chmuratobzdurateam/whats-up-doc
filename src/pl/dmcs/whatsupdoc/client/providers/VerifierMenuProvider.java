@@ -42,7 +42,7 @@ public class VerifierMenuProvider extends MenuProvider {
 
 		// *********************************************************** Create buttons for first menu *************************************
 
-		Button button = new Button("Strona Główna");
+		/*Button button = new Button("Strona Główna");
 		firstLevelButton = button;
 		button.setStyleName(CSS.get(0));
 		//button.addStyleName(CSS.get(1));
@@ -57,9 +57,9 @@ public class VerifierMenuProvider extends MenuProvider {
 				getManager().drawContent();
 			}
 		});
-		hFirstPanel.add(button);
+		hFirstPanel.add(button);*/
 
-		button = new Button("Moje konto");
+		Button button = new Button("Moje konto");
 		button.setStyleName(CSS.get(1));
 		button.addClickHandler(new ClickHandler() {
 

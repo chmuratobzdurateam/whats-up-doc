@@ -4,6 +4,11 @@ aside,nav,article {
 	position: relative;
 }
 
+body{
+	padding: 0;
+	margin: 0 !important;
+}
+
 #wrapper {
 	margin: 0 auto;
 	width: auto;
@@ -14,14 +19,20 @@ header {
 	height: 53px;
 }
 
+#centered_container{
+	margin: auto;
+	width: 860px;
+}
+
 footer {
-	position: relative;
-	top: 100px;
+	position: fixed;
+	bottom: 0px;
+	width:100%;
 	font-family: Verdana;
 	font-size: 12px;
 	color: #666666;
 	background: url(images/Stopka-Tlo-PAsek.png) repeat-x;
-	height: 53px;
+	height: 20px;
 	text-align: center;
 	padding-top: 10px;
 }
@@ -45,6 +56,15 @@ footer {
 	margin: 0 auto;
 }
 
+#shadow {
+	top: 20px;
+	position: relative;
+	width: 860px;
+	min-height: 25px;
+	margin: 0 auto;
+	background: url(images/shadow.png) no-repeat;
+}
+
 .container {
 	display: table; /* wy�wietlanie jak tabela*/
 }
@@ -64,7 +84,7 @@ footer {
 }
 
 .firstLevelMenu {
-	margin-left: 36%;
+	margin-left: 35px;
 	padding-top: 10px;
 }
 
@@ -81,6 +101,7 @@ footer {
 	text-align: center;
 	border: none;
 	color: #207DBA;
+	cursor: pointer;
 }
 
 .secondLevelMenu>.menuButton {
@@ -95,6 +116,7 @@ footer {
 	float: centre;
 	text-align: center;
 	border: none;
+	cursor: pointer;
 }
 
 .firstLevelMenu>.menuButton {
@@ -106,6 +128,11 @@ footer {
 	position: relative;
 	text-decoration: none;
 	border: none;
+	cursor: pointer;
+}
+
+.firstLevelMenu>.menuButton:hover, .secondLevelMenu>.menuButton:hover{
+	color: #4185BC;
 }
 
 .firstLevelMenu>.currentMenuButton {
@@ -118,9 +145,10 @@ footer {
 	position: relative;
 	text-decoration: none;
 	border: none;
+	cursor: pointer;
 }
 
-button.confirmButton {
+button.confirmButton, button.addRecognitionButton, button.addSymptom, button.patientCard {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #ffffff;
@@ -130,9 +158,10 @@ button.confirmButton {
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	border: 0px solid #000000;
+	cursor: pointer;
 }
 
-button.confirmButton:hover {
+button.confirmButton:hover, button.addRecognitionButton:hover, button.addSymptom:hover, button.patientCard:hover {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #ffffff;
@@ -178,6 +207,7 @@ button.cancelButton {
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	border: 0px solid #000000;
+	cursor: pointer;
 }
 
 button.cancelButton:hover {
@@ -524,59 +554,6 @@ text-align: left;
         display: inline-block;
 }
 
-button.addRecognitionButton {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #ffffff;
-	padding: 7px 20px;
-	background: #666666;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	border: 0px solid #000000;
-}
-
-button.addRecognitionButton:hover {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #ffffff;
-	padding: 7px 20px;
-	background: -moz-linear-gradient(top, #207cba 0%, #207cba);
-	background: -webkit-gradient(linear, left top, left bottom, from(#207cba),
-		to(#207cba) );
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	border: 0px solid #000000;
-}
-
-button.addSymptom {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #ffffff;
-	padding: 7px 20px;
-	background: #666666;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	border: 0px solid #000000;
-}
-
-button.addSymptom:hover {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #ffffff;
-	padding: 7px 20px;
-	background: -moz-linear-gradient(top, #207cba 0%, #207cba);
-	background: -webkit-gradient(linear, left top, left bottom, from(#207cba),
-		to(#207cba) );
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	border: 0px solid #000000;
-}
-
-
 .row .timeColumn{
      background:    #207DBA;
      font-style: Verdana;
@@ -629,33 +606,6 @@ button.addSymptom:hover {
      width: 310px;
      text-align: left;
     
-}
-
-
-button.patientCard{
-     	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #ffffff;
-	padding: 7px 20px;
-	background: #666666;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	border: 0px solid #000000;   
-}
-
-button.patientCard:hover {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #ffffff;
-	padding: 7px 20px;
-	background: -moz-linear-gradient(top, #207cba 0%, #207cba);
-	background: -webkit-gradient(linear, left top, left bottom, from(#207cba),
-		to(#207cba) );
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	border: 0px solid #000000;
 }
 
 .searchResult .row .patient{

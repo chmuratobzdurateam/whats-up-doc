@@ -13,4 +13,6 @@ public interface AuthenticationServiceAsync {
 
 	void isUserLoggedIn(AsyncCallback<Boolean> callback);
 
+	void logOut(AsyncCallback<Void> callback);
+
 }

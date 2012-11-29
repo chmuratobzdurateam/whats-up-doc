@@ -308,8 +308,6 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 		ArrayList<MedicineRate> topMedicineRates = new ArrayList<MedicineRate>();
 		PersistenceManager persister = Persister.getPersistenceManager();
 		try {
-			System.out.println("TEST0");
-			System.out.println(symptom.toString());
 			Query querySymptomTreatmentRates = persister
 					.newQuery(PSymptomTreatmentRates.class);
 			querySymptomTreatmentRates.declareParameters(Symptom.class

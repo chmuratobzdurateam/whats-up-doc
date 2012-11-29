@@ -6,6 +6,7 @@ package pl.dmcs.whatsupdoc.client.providers;
 import pl.dmcs.whatsupdoc.client.ContentManager;
 
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -19,6 +20,7 @@ public class BodyProvider implements ContentProviderInt {
 	
 	protected FlowPanel mainPanel;
 	private ContentManager cm;
+	private Label writeLabel;
 	
 	/**
 	 * Default constructor for BodyProvider
@@ -26,6 +28,9 @@ public class BodyProvider implements ContentProviderInt {
 	public BodyProvider(ContentManager cm) {
 		this.cm = cm;
 		this.mainPanel = new FlowPanel();
+		this.writeLabel = new Label("Proszę czekać, trwa wczytywanie danych.");
+		writeLabel.setStyleName("wait");
+		
 		this.mainPanel.setStyleName("mainPanel");
 	}
 
@@ -49,6 +54,15 @@ public class BodyProvider implements ContentProviderInt {
 	 */
 	public void setCm(ContentManager cm) {
 		this.cm = cm;
+	}
+	
+	/**
+	 * Add and render wait label
+	 */
+	public void drawWaitContent(){
+		this.mainPanel.add(writeLabel);
+		cm.drawContent();
+		this.mainPanel.clear();
 	}
 
 }

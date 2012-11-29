@@ -51,12 +51,25 @@ public class ButtonStatusField extends Field {
 	@Override
 	public void clear() {
 		text.setText(startText);
+		subDiv.get(0).setStyleName("labelColum");
 	}
 
 	/**
 	 * @param text - change current label text
+	 * @deprecated use instead setType
 	 */
+	@Deprecated
 	public void setText(String text){
 		this.text.setText(text);
+		subDiv.get(0).setStyleName("labelColum");
+	}
+	
+	public void setType(StatusFieldType type){
+		if(type!=null){
+			this.text.setText(type.toString());
+			if(StatusFieldType.WAIT.equals(type)){
+				subDiv.get(0).setStyleName("wait");
+			}
+		}
 	}
 }

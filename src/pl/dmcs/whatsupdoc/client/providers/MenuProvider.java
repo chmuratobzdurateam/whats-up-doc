@@ -86,12 +86,15 @@ public class MenuProvider implements ContentProviderInt {
 	 * @param b - button which will get currentMenuButton CSS class
 	 */
 	protected void setFirstLvlCSS(Button b){
-		firstLevelButton.setStyleName(CSS.get(1));
+		if(firstLevelButton!=null){
+			firstLevelButton.setStyleName(CSS.get(1));
+		}
+		if(b!=null){
+			b.setStyleName(CSS.get(0));
+			
+			firstLevelButton = b;
+		}
 		
-		b.setStyleName(CSS.get(0));
-		//b.addStyleName(CSS.get(1));
-		
-		firstLevelButton = b;
 		
 		if(secondLevelButton!=null){
 			secondLevelButton.setStyleName(CSS.get(1));
@@ -106,8 +109,9 @@ public class MenuProvider implements ContentProviderInt {
 	 * @param b
 	 */
 	protected void setSecondLvlCSS(Button b) {
+		if(b==null) return;
 		b.setStyleName(CSS.get(0));
-		//b.addStyleName(CSS.get(2));
+
 		if(secondLevelButton==null){
 			secondLevelButton = b;
 		}else{

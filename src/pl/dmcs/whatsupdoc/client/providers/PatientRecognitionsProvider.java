@@ -51,6 +51,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 	 */
 	public PatientRecognitionsProvider(ContentManager cm, String key) {
 		super(cm);
+		this.drawWaitContent();
 		final TreatmentServiceAsync userService = GWT.create(TreatmentService.class);
 		final AuthenticationServiceAsync auth = GWT.create(AuthenticationService.class);
 		
@@ -193,7 +194,10 @@ public class PatientRecognitionsProvider extends BodyProvider {
 		 */
 		@Override
 		public void onClick(ClickEvent event) {
-			// TODO when RecognitionDetail implemented create it and draw it
+			BodyProvider body = new RecognitionsDetailsProvider(getCm(), recognitionKey);
+			getCm().setBody(body);
+			getCm().getBreadcrumb().addField(true, "Rozpoznanie", body);
+			getCm().drawContent();
 			
 		}
 		

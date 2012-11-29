@@ -15,6 +15,7 @@ import pl.dmcs.whatsupdoc.client.services.AuthenticationServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -135,12 +136,27 @@ public class PatientMenuProvider extends MenuProvider {
 				//setFirstLevelBreadcrumb("Statystyki", new BodyProvider(getManager()),current);
 				final AuthenticationServiceAsync auth = GWT.create(AuthenticationService.class);
 				
-				getManager().getBreadcrumb().clearAll();
-				BodyProvider b = new LoginProvider(getManager());
-				MenuProvider mp = new MenuProvider(getManager());
-				getManager().setBody(b);
-				getManager().setMenu(mp);
-				getManager().drawContent();
+				auth.logOut(new AsyncCallback<Void>() {
+					
+					@Override
+					public void onSuccess(Void result) {
+						getManager().getBreadcrumb().clearAll();
+						
+						BodyProvider b = new LoginProvider(getManager());
+						getManager().getBreadcrumb().addField(false, "Strona logowania", b);
+						MenuProvider mp = new MenuProvider(getManager());
+						getManager().setBody(b);
+						getManager().setMenu(mp);
+						getManager().drawContent();
+						
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
 		});
 		hFirstPanel.add(button);

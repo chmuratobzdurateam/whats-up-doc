@@ -83,6 +83,7 @@ public class LoginProvider extends BodyProvider{
 							login.setType(StatusFieldType.ERROR_LOGIN);
 							setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
 						}else{
+							getCm().getBreadcrumb().clearAll();
 							switch(result.getUserType()){
 							case VERIFIER:
 								setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));

@@ -84,18 +84,20 @@ public class LoginProvider extends BodyProvider{
 							setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
 						}else{
 							getCm().getBreadcrumb().clearAll();
+							BodyProvider b = new WelcomeProvider(getCm(), result);
+							getCm().getBreadcrumb().addField(false, "Welcome", b);
 							switch(result.getUserType()){
 							case VERIFIER:
-								setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
+								setUpBodyAndMenu(b, new VerifierMenuProvider(getCm()));
 								break;
 								
 							case DOCTOR:
-								setUpBodyAndMenu(new BodyProvider(getCm()), new DoctorMenuProvider(getCm()));
+								setUpBodyAndMenu(b, new DoctorMenuProvider(getCm()));
 								break;
 							
 							case PATIENT:
 								String p = result.getPESEL();
-								setUpBodyAndMenu(new BodyProvider(getCm()), new PatientMenuProvider(getCm(), p));
+								setUpBodyAndMenu(b, new PatientMenuProvider(getCm(), p));
 								break;
 								
 							default:

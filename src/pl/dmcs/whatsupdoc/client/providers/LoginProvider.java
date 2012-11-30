@@ -10,6 +10,7 @@ import pl.dmcs.whatsupdoc.client.ContentManager;
 import pl.dmcs.whatsupdoc.client.fields.ButtonStatusField;
 import pl.dmcs.whatsupdoc.client.fields.InputField;
 import pl.dmcs.whatsupdoc.client.fields.InputFieldType;
+import pl.dmcs.whatsupdoc.client.fields.StatusFieldType;
 import pl.dmcs.whatsupdoc.client.model.Patient;
 import pl.dmcs.whatsupdoc.client.model.User;
 import pl.dmcs.whatsupdoc.client.services.AuthenticationService;
@@ -47,7 +48,7 @@ public class LoginProvider extends BodyProvider{
 	 */
 	public LoginProvider(ContentManager contentManager){
 		super(contentManager);
-		
+		this.drawWaitContent();
 		final AuthenticationServiceAsync auth = GWT.create(AuthenticationService.class);
 		
 		
@@ -63,7 +64,8 @@ public class LoginProvider extends BodyProvider{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				login.setText("Czekaj.");
+				//login.setText("Czekaj.");
+				login.setType(StatusFieldType.WAIT);
 				errorLabel.setText("");
 				
 				if(!loginField.checkConstraint() || !passwordField.checkConstraint()){
@@ -77,21 +79,25 @@ public class LoginProvider extends BodyProvider{
 					@Override
 					public void onSuccess(User result) {
 						if(result==null){ // only for now
-							login.setText("Zły login lub hasło.");
+							//login.setText("Zły login lub hasło.");
+							login.setType(StatusFieldType.ERROR_LOGIN);
 							setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
 						}else{
+							getCm().getBreadcrumb().clearAll();
+							BodyProvider b = new WelcomeProvider(getCm(), result);
+							getCm().getBreadcrumb().addField(false, "Welcome", b);
 							switch(result.getUserType()){
 							case VERIFIER:
-								setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
+								setUpBodyAndMenu(b, new VerifierMenuProvider(getCm()));
 								break;
 								
 							case DOCTOR:
-								setUpBodyAndMenu(new BodyProvider(getCm()), new DoctorMenuProvider(getCm()));
+								setUpBodyAndMenu(b, new DoctorMenuProvider(getCm()));
 								break;
 							
 							case PATIENT:
 								String p = result.getPESEL();
-								setUpBodyAndMenu(new BodyProvider(getCm()), new PatientMenuProvider(getCm(), p));
+								setUpBodyAndMenu(b, new PatientMenuProvider(getCm(), p));
 								break;
 								
 							default:
@@ -122,7 +128,8 @@ public class LoginProvider extends BodyProvider{
 						MenuProvider menu = new DoctorMenuProvider(getCm());
 						getCm().setMenu(menu);
 						getCm().drawContent();*/
-						login.setText("Problem z bazą danych.");
+						//login.setText("Problem z bazą danych.");
+						login.setType(StatusFieldType.ERROR_DB);
 						logger.log(Level.WARNING, "Exception while user authentication.");
 					}
 				});

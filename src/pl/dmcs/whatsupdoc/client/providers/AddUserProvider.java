@@ -20,6 +20,7 @@ import pl.dmcs.whatsupdoc.client.fields.InputFieldType;
 import pl.dmcs.whatsupdoc.client.fields.RadioField;
 import pl.dmcs.whatsupdoc.client.fields.SelectField;
 import pl.dmcs.whatsupdoc.client.fields.SelectFieldType;
+import pl.dmcs.whatsupdoc.client.fields.StatusFieldType;
 import pl.dmcs.whatsupdoc.client.services.UserService;
 import pl.dmcs.whatsupdoc.client.services.UserServiceAsync;
 import pl.dmcs.whatsupdoc.server.datastore.model.PAddress;
@@ -53,8 +54,14 @@ public class AddUserProvider extends BodyProvider {
 		
 		@Override
 		public void onSuccess(Boolean result) {
-			clearWidgets();
-			addUserButton.setText("Użytkownika dodano pomyślnie.");
+			if(result.booleanValue()){
+				clearWidgets();
+				//addUserButton.setText("Użytkownika dodano pomyślnie.");
+				addUserButton.setType(StatusFieldType.ADD_USER_SUCCESS);
+			}else{
+				//addUserButton.setText("Użytkownika nie dodano.");
+				addUserButton.setType(StatusFieldType.ADD_USER_ERROR);
+			}
 			getCm().drawContent();
 		}
 		
@@ -62,7 +69,8 @@ public class AddUserProvider extends BodyProvider {
 		public void onFailure(Throwable caught) {
 			clearWidgets();
 			//errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
-			addUserButton.setText("Problem z dodaniem użytkownika do bazy danych.");
+			//addUserButton.setText("Problem z dodaniem użytkownika do bazy danych.");
+			addUserButton.setType(StatusFieldType.ERROR_DB);
 			getCm().drawContent();
 		}
 	};
@@ -72,7 +80,7 @@ public class AddUserProvider extends BodyProvider {
 	 */
 	public AddUserProvider(ContentManager cm) {
 		super(cm);
-		
+		this.drawWaitContent();
 		final UserServiceAsync userService = GWT.create(UserService.class);
 		
 		select = new SelectField("Specjalność:", 1, SelectFieldType.SINGLE_SELECT, Arrays.asList(new String[] {Speciality.GINEKOLOG.toString(),
@@ -117,7 +125,8 @@ public class AddUserProvider extends BodyProvider {
 					return;
 				}
 				
-				addUserButton.setText("Czekaj");
+				//addUserButton.setText("Czekaj");
+				addUserButton.setType(StatusFieldType.WAIT);
 				
 				if(userType.getValue() == UserType.DOCTOR){
 					

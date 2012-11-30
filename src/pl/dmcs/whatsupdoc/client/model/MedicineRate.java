@@ -1,8 +1,10 @@
 package pl.dmcs.whatsupdoc.client.model;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import pl.dmcs.whatsupdoc.shared.Medicine;
 
-public class MedicineRate {
+public class MedicineRate implements IsSerializable{
 	private Medicine medicine;
 	private Integer treatmentsNumber;
 	private Float averageTreatmentLength;

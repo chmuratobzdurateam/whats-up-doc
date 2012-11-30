@@ -315,11 +315,10 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 			querySymptomTreatmentRates.setFilter("symptom == aSymptom");
 			List<PSymptomTreatmentRates> pSTRates = (List<PSymptomTreatmentRates>) querySymptomTreatmentRates
 					.execute(symptom);
-
 			if ((pSTRates != null) && (pSTRates.size() > 0)) {
 				PSymptomTreatmentRates pSTR = pSTRates.get(0);
 				ArrayList<PMedicineRate> pMedicineRates = pSTR.getMedicineRates();
-				float[] tmp2 = new float[]{};
+				float[] tmp2 = new float[pMedicineRates.size()];
                 int z=0;
                 for(PMedicineRate pMedicineRate: pMedicineRates){
                     tmp2[z]=pMedicineRate.getMedicineRate();
@@ -328,13 +327,14 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
                 Arrays.sort(tmp2);
                 for(int i=0;i<topRatesNumber;i++){
                     for(PMedicineRate pMedicineRate: pMedicineRates){
-                        if(pMedicineRate.getMedicineRate()==tmp2[i])
+                        if(pMedicineRate.getMedicineRate()==tmp2[0])
                         {
                             topMedicineRates.add(pMedicineRate.asMedicineRate());
                             break;
                         }
                     }
                 }
+                
 
 			}
 		} finally {

@@ -98,4 +98,9 @@ public class AuthenticationServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
+	@Override
+	public void logOut() {
+		this.getThreadLocalRequest().getSession().removeAttribute("user");
+	}
+
 }

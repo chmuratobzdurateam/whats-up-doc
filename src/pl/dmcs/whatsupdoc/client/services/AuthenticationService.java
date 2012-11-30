@@ -13,4 +13,5 @@ public interface AuthenticationService extends RemoteService {
 	User authenticate(String login, String password);
 	Boolean isUserLoggedIn();
 	User getCurrentLoggedInUser();
+	void logOut();
 }

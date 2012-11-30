@@ -132,14 +132,6 @@ public class QuestionnaireProvider extends BodyProvider {
 						resultTreatmentsList.add(tmpTreatment);
 
 					}
-					if (resultTreatmentsList.isEmpty() == false) {
-						for (Treatment tmp : treatmentsList) {
-							FlowPanel treatment_object = new FlowPanel();
-							SymptomTreatmentResult str = new SymptomTreatmentResult(tmp);
-							resultList.add(str);
-							treatment_object = str.treatment_object;
-							mainPanel.add(treatment_object);
-						}}
 					final TreatmentServiceAsync treatmentService = GWT
 							.create(TreatmentService.class);
 					treatmentService.updateRecognition(recognitionKeyString,

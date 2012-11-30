@@ -91,7 +91,6 @@ public class RecognitionsDetailsProvider extends BodyProvider {
 		CSS2.add("leki");
 		CSS2.add("etap");
 		CSS2.add("etapLeczenia");
-		recognitionKey = "aglub19hcHBfaWRyFwsSEFBSZWNvZ25pdGlvbkZvcm0YsAEM";
 		final TreatmentServiceAsync userService = GWT.create(TreatmentService.class);
 		userService.getRecognitionDetails(recognitionKey, recognitionsDetailsCallback);
 		

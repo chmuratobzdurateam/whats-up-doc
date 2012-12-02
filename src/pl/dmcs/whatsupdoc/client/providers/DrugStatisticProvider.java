@@ -126,7 +126,7 @@ public class DrugStatisticProvider extends BodyProvider{
 								}else{
 									drugStatistic.setStyleName("drugStatisticEven");
 								}
-								
+								i++;
 							mainPanel.add(drugStatistic);
 								
 							}

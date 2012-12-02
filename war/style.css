@@ -848,8 +848,7 @@ width:
      text-align: left;
      
 }
-.drugStatistiOdd{
-
+.drugStatisticOdd{
      	        padding-top: 5px;
      	        padding-bottom: 5px;
      	        font-size: 15px;
@@ -860,4 +859,100 @@ width:
      width: 210px;
      text-align: left;
      
+}
+
+.recognitionsDetailsRow{
+     font-size: 15px;
+     display: inline-block; 
+
+}
+
+.recognitionsDetailsRow .value{
+     padding-bottom: 15px;
+     display: inline-block;
+     text-align: left; 
+     width: 660px;  
+     background: url(images/menu_kreska.png) repeat-x; 
+     height: 26px;
+}
+.recognitionsDetailsRow .name{
+    color: #207DBA;
+     display: inline-block;  
+     text-align: left; 
+     width: 180px;
+     background: url(images/menu_kreska.png) repeat-x; 
+     height: 26px;
+
+}
+
+
+.recognitionsDetailsRowP{
+    color: black;
+     display: inline-block;  
+     text-align: left; 
+                 background: #E5E5E5;
+    font-size: 15px;
+
+}
+
+.recognitionsDetailsRowP .objaw{
+    padding-top:20px;
+         display: inline-block; 
+         width: 180px;
+         padding-left: 10px; 
+}
+.recognitionsDetailsRowP .przypisane{
+         display: inline-block; 
+         width: 220px;  
+         color: #207DBA;
+}
+.recognitionsDetailsRowP .leki{
+         display: inline-block;
+         width: 440px;  
+}
+.recognitionsDetailsRowP .etap{
+    padding-top: 20px;
+         display: inline-block;
+                  color: #207DBA;
+                  width:220px;
+                  padding-left: 190px;
+                      padding-bottom: 20px;  
+}
+.recognitionsDetailsRowP .etapLeczenia{
+         display: inline-block;  
+}
+
+.recognitionsDetailsRowN{
+    color: black;
+     display: inline-block;  
+     text-align: left; 
+    font-size: 15px;
+
+}
+
+.recognitionsDetailsRowN .objaw{
+    padding-top:20px;
+         display: inline-block; 
+         width: 180px;
+         padding-left: 10px; 
+}
+.recognitionsDetailsRowN .przypisane{
+         display: inline-block; 
+         width: 220px;  
+         color: #207DBA;
+}
+.recognitionsDetailsRowN .leki{
+         display: inline-block;
+         width: 440px;  
+}
+.recognitionsDetailsRowN .etap{
+    padding-top: 20px;
+         display: inline-block;
+                  color: #207DBA;
+                  width:220px;
+                  padding-left: 190px;
+                      padding-bottom: 20px;  
+}
+.recognitionsDetailsRowN .etapLeczenia{
+         display: inline-block;  
 }

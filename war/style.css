@@ -986,3 +986,18 @@ width:
 .recognitionsDetailsRowN .etapLeczenia{
          display: inline-block;  
 }
+
+.recognitionsDetailsRow .details_label{
+     text-align: left;
+     width: 840px;   
+     margin-top: 20px;
+     background: url(images/menu_kreska.png) repeat-x; 
+     height: 26px;
+     margin-bottom: 20px;
+                       color: #207DBA;
+}
+
+.detailsName_label{
+    width: 150px;
+    display: inline-block;
+}

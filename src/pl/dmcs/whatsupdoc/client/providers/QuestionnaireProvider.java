@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.fields.ButtonStatusField;
 import pl.dmcs.whatsupdoc.client.model.RecognitionDetails;
 import pl.dmcs.whatsupdoc.client.model.SymptomTreatmentResult;
 import pl.dmcs.whatsupdoc.client.model.Treatment;
@@ -32,6 +33,7 @@ public class QuestionnaireProvider extends BodyProvider {
 	Label doctor, doctor_name, patient, patient_name, date_label,
 			date_recognition, symptoms_label, symptoms_name, swistak;
 	ArrayList<Treatment> resultTreatmentsList = new ArrayList<Treatment>();
+	ButtonStatusField updateRecognition;
 
 	private AsyncCallback<RecognitionDetails> questionnaireCallback = new AsyncCallback<RecognitionDetails>() {
 
@@ -39,9 +41,7 @@ public class QuestionnaireProvider extends BodyProvider {
 		public void onSuccess(RecognitionDetails rd) {
 
 			treatmentsList = rd.getTreatments();
-			Button updateRecognition;
-			updateRecognition = new Button();
-			updateRecognition.setText("Zatwierdź");
+
 			doctor = new Label();
 			doctor.setText("Lekarz: ");
 			doctor.setStyleName("first_label");
@@ -112,14 +112,16 @@ public class QuestionnaireProvider extends BodyProvider {
 
 			}
 
-			updateRecognition = new Button();
-			updateRecognition.setText("Zatwierdź");
-			updateRecognition.setStyleName("confirmButton");
-			mainPanel.add(updateRecognition);
-			updateRecognition.addClickHandler(new ClickHandler() {
+			updateRecognition = new ButtonStatusField("Zatwierdź");
+			updateRecognition.setErrorMessage("Błąd połączenia z bazą");
+			updateRecognition.setCorrectMessage("Ankieta dodana");
+			updateRecognition.setProgressMessage("Dodawanie ankiety...");
+
+			mainPanel.add(updateRecognition.returnContent());
+			updateRecognition.getButton().addClickHandler(new ClickHandler() {
 
 				public void onClick(ClickEvent event) {
-
+					updateRecognition.showProgressMessage();
 					for (SymptomTreatmentResult str : resultList) {
 
 						Treatment tmpTreatment = new Treatment();
@@ -139,29 +141,15 @@ public class QuestionnaireProvider extends BodyProvider {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									Label inf = new Label();
-									inf.setText("onFailure");
-									mainPanel.add(inf);
-									caught.printStackTrace();
+									updateRecognition.showErrorMessage();
 
 								}
 
 								@Override
 								public void onSuccess(Boolean result) {
 
-									if (result) {
+										updateRecognition.showCorrectMessage();
 
-										Label inf = new Label();
-										inf.setText("Ankieta została dodana");
-										mainPanel.add(inf);
-
-									} else {
-
-										Label inf = new Label();
-										inf.setText("Error");
-										mainPanel.add(inf);
-
-									}
 								}
 							}); 
 
@@ -175,14 +163,13 @@ public class QuestionnaireProvider extends BodyProvider {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			Label err = new Label("err");
-			mainPanel.add(err);
+			
 		}
 	};
 
 	public QuestionnaireProvider(ContentManager cm, String recognitionKeyString) {
 		super(cm);
-
+		this.drawWaitContent();
 		final TreatmentServiceAsync treatmentService = GWT
 				.create(TreatmentService.class);
 		treatmentService.getRecognitionDetails(recognitionKeyString,

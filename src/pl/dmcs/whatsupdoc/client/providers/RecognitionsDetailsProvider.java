@@ -115,11 +115,13 @@ public class RecognitionsDetailsProvider extends BodyProvider {
 			row.add(text);
 			row.add(information);
 		}
-		text = new Label();
-		text.setStyleName(CSS.get(1));
-		text.setText("Objawy:");
-		row.add(text);
+		
+		Label details = new Label();
+		details.setText("Objawy");
+		details.setStyleName("details_label");
+		row.add(details);
 		mainPanel.add(row);
+
 		
 		int a = 0, parity = 0;
 			for (String item : symptomDetails) {

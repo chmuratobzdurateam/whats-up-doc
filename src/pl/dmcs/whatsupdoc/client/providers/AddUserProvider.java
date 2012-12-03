@@ -199,6 +199,7 @@ public class AddUserProvider extends BodyProvider {
 		genderType.clear();
 		select.clear();
 		addUserButton.clear();
+		reCreatePanel();
 	}
 	
 	

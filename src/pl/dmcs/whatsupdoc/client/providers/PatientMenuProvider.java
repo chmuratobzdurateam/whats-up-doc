@@ -143,7 +143,7 @@ public class PatientMenuProvider extends MenuProvider {
 						getManager().getBreadcrumb().clearAll();
 						
 						BodyProvider b = new LoginProvider(getManager());
-						getManager().getBreadcrumb().addField(false, "Strona logowania", b);
+						getManager().getBreadcrumb().addField(false, "Logowanie", b);
 						MenuProvider mp = new MenuProvider(getManager());
 						getManager().setBody(b);
 						getManager().setMenu(mp);

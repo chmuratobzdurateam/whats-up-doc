@@ -112,6 +112,7 @@ public class DrugStatisticProvider extends BodyProvider{
 						
 						
 						if(!result.isEmpty()){
+							topDrugLabel.removeStyleName("hidden");
 							/* retreiving info f top 3 */
 							int i = 0;
 							Label label;
@@ -143,8 +144,8 @@ public class DrugStatisticProvider extends BodyProvider{
 
 							
 						}else{
-							
-							searchButtonStatusField.getErrorMessage();
+							topDrugLabel.addStyleName("hidden");
+							searchButtonStatusField.showErrorMessage();
 							/* actualy there is no action for else.. the list is empty */
 							
 						}

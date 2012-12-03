@@ -1013,6 +1013,8 @@ width:
 
 .welcomePageImg{
  display: inline-block;   
+ float: left;
+ margin-left: 50px;
 }
 .welcomeImage{ 
     
@@ -1024,15 +1026,19 @@ width:
  display: inline-block;  
  text-align: left; 
 	color: #207DBA;
+	float: left;
 
 }
 
 .welcomeName{
-     font-size: 22px;   
+     font-size: 21px;  
+     padding-bottom: 20px;
+     padding-top: 15px;
+     padding-left: 20px;
 }
 
 .welcomeText{
     color: black;
-    font-size: 14px;
-    padding-bottom: 30px;
+    font-size: 13px;
+    padding-left: 20px;
 }

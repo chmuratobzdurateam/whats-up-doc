@@ -312,6 +312,7 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 					.newQuery(PSymptomTreatmentRates.class);
 			querySymptomTreatmentRates.declareParameters(Symptom.class
 					.getName() + " aSymptom");
+			querySymptomTreatmentRates.setFilter("symptom == aSymptom");
 			List<PSymptomTreatmentRates> pSTRates = (List<PSymptomTreatmentRates>) querySymptomTreatmentRates
 					.execute(symptom);
 			if ((pSTRates != null) && (pSTRates.size() > 0)) {

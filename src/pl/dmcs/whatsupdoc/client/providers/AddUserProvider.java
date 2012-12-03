@@ -134,14 +134,14 @@ public class AddUserProvider extends BodyProvider {
 					
 					Speciality speciality = (Speciality) select.getValue();
 					if(speciality!=null){
-						userService.addDoctor(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
+						userService.addDoctor(userLogin.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
 								phone.getValue(), PESEL.getValue(), UserType.DOCTOR, speciality, gender, registerCallback);
 					}
 					
 				}else {
 					if(userType.getValue() == UserType.VERIFIER){
 						
-						userService.addVerifier(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
+						userService.addVerifier(userLogin.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
 								phone.getValue(), PESEL.getValue(), UserType.VERIFIER, gender, registerCallback);
 					}else{
 						if(!city.checkConstraint() || !street.checkConstraint() || !houseNr.checkConstraint() || !postalCode.checkConstraint()){
@@ -153,7 +153,7 @@ public class AddUserProvider extends BodyProvider {
 						addr.setCity(city.getValue());
 						addr.setStreet(street.getValue());
 						addr.setHouseNumber(houseNr.getValue());*/
-						userService.addPatient(name.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
+						userService.addPatient(userLogin.getValue(), name.getValue(), surname.getValue(), password.getValue(), mail.getValue(), 
 								phone.getValue(), PESEL.getValue(), UserType.PATIENT, city.getValue(),
 								street.getValue(), houseNr.getValue(), postalCode.getValue(), gender, registerCallback);
 
@@ -199,6 +199,7 @@ public class AddUserProvider extends BodyProvider {
 		genderType.clear();
 		select.clear();
 		addUserButton.clear();
+		reCreatePanel();
 	}
 	
 	

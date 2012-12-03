@@ -88,7 +88,7 @@ public class LoginProvider extends BodyProvider{
 						}else{
 							getCm().getBreadcrumb().clearAll();
 							BodyProvider b = new WelcomeProvider(getCm(), result);
-							getCm().getBreadcrumb().addField(false, "Welcome", b);
+							getCm().getBreadcrumb().addField(false, "Powitanie", b);
 							switch(result.getUserType()){
 							case VERIFIER:
 								setUpBodyAndMenu(b, new VerifierMenuProvider(getCm()));

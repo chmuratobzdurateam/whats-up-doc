@@ -93,9 +93,10 @@ public class PatientRecognitionsProvider extends BodyProvider {
 				@Override
 				public void onSuccess(ArrayList<Recognition> result) {
 					if(result!=null){
-						List<String> css = new ArrayList<String>(Arrays.asList(new String[] {"timeDiv", "personDiv", "diseaseDiv", "buttonDiv"}));
+						
 						int counter = 0;
 						for(Recognition recognition : result){
+							List<String> css = new ArrayList<String>(Arrays.asList(new String[] {"timeDiv", "personDiv", "diseaseDiv", "buttonDiv"}));
 							ArrayList<Widget> widgets = new ArrayList<Widget>();
 							
 							timeLabel = new Label(recognition.getDate().toString()); // In future we should use some date format with user local time

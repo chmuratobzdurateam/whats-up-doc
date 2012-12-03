@@ -449,10 +449,10 @@ button.cancelButton:hover {
 	float: centre;
 	text-align: center;
 	border: none;
-	height: 20px;
+	height: 23px;
 	position: relative;
 	display: inline-block;
-		top: -6px;
+		top: -3px;
 			cursor: pointer;
 	
 }

@@ -59,7 +59,7 @@ public class ButtonStatusField extends Field {
 	 */
 	@Override
 	public void clear() {
-		subDiv.get(0).setStyleName("labelColum");
+		//subDiv.get(0).setStyleName("labelColum");
 	}
 
 	/**

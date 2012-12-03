@@ -41,7 +41,7 @@ public class LoginProvider extends BodyProvider{
 	
 	private Label errorLabel;
 	private InputField loginField, passwordField;
-	private ButtonStatusField login;
+	private ButtonStatusField loginButton;
 	
 	/**
 	 * @param cm CoontentManager of this class
@@ -58,17 +58,20 @@ public class LoginProvider extends BodyProvider{
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
 		
-		Button loginButton = new Button("Zaloguj");
-		loginButton.setStyleName("confirmButton");
-		loginButton.addClickHandler(new ClickHandler() {
+		loginButton = new ButtonStatusField("Wejdź");
+		loginButton.setErrorMessage("Podano niepoprawne dane.");
+		loginButton.setProgressMessage("Trwa sprawdzanie danych...");
+		
+		loginButton.getButton().addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				//login.setText("Czekaj.");
-				login.setType(StatusFieldType.WAIT);
+				loginButton.showProgressMessage();
 				errorLabel.setText("");
 				
 				if(!loginField.checkConstraint() || !passwordField.checkConstraint()){
+					loginButton.hideMessage();
 					getCm().drawContent();
 					return;
 				}
@@ -80,7 +83,7 @@ public class LoginProvider extends BodyProvider{
 					public void onSuccess(User result) {
 						if(result==null){ // only for now
 							//login.setText("Zły login lub hasło.");
-							login.setType(StatusFieldType.ERROR_LOGIN);
+							loginButton.showErrorMessage();
 							setUpBodyAndMenu(new BodyProvider(getCm()), new VerifierMenuProvider(getCm()));
 						}else{
 							getCm().getBreadcrumb().clearAll();
@@ -129,7 +132,7 @@ public class LoginProvider extends BodyProvider{
 						getCm().setMenu(menu);
 						getCm().drawContent();*/
 						//login.setText("Problem z bazą danych.");
-						login.setType(StatusFieldType.ERROR_DB);
+						loginButton.showErrorMessage();
 						logger.log(Level.WARNING, "Exception while user authentication.");
 					}
 				});
@@ -137,12 +140,10 @@ public class LoginProvider extends BodyProvider{
 			}
 		});
 		
-		login = new ButtonStatusField(loginButton, "");
-		
 		mainPanel.add(loginField.returnContent());
 		mainPanel.add(passwordField.returnContent());
 		mainPanel.add(errorLabel);
-		mainPanel.add(login.returnContent());
+		mainPanel.add(loginButton.returnContent());
 	}
 	
 	private void setUpBodyAndMenu(BodyProvider body, MenuProvider menu){

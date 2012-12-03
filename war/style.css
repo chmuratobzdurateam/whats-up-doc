@@ -148,7 +148,7 @@ footer {
 	cursor: pointer;
 }
 
-button.confirmButton, button.addRecognitionButton, button.addSymptom, button.patientCard {
+button.confirmButton, button.addRecognitionButton, button.addSymptom, button.patientCard, button.action_button {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #ffffff;
@@ -161,7 +161,7 @@ button.confirmButton, button.addRecognitionButton, button.addSymptom, button.pat
 	cursor: pointer;
 }
 
-button.confirmButton:hover, button.addRecognitionButton:hover, button.addSymptom:hover, button.patientCard:hover {
+button.confirmButton:hover, button.addRecognitionButton:hover, button.addSymptom:hover, button.patientCard:hover, button.action_button:hover {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #ffffff;
@@ -175,10 +175,16 @@ button.confirmButton:hover, button.addRecognitionButton:hover, button.addSymptom
 	border: 0px solid #000000;
 }
 
+button.action_button{
+	float:left;
+}
+
 .mainPanel {
 	text-align: center;
 	padding-bottom: 20px;
 	padding-top: 15px;
+	overflow: hidden;
+	height: auto;
 }
 
 .row>.firstColumn {
@@ -187,9 +193,16 @@ button.confirmButton:hover, button.addRecognitionButton:hover, button.addSymptom
 	padding-left: 350px;
 }
 
-.row>.secondColumn {
+.row>.secondColumn  {
 	padding-top: 5px;
 	text-align: center;
+}
+
+.row>.buttonColumn{
+	padding-left: 350px;
+	margin-top: 20px;
+	float: left;
+	width: 100%;
 }
 
 .row>.thirdColumn {
@@ -797,17 +810,34 @@ width:
                 padding-top:10px; 
 }
 
-.wait .textLabel{
-    
-
-        width: 100px;
- 	    padding-left: 20px;
+.wait .textLabel, .progress_message{
+        width: auto;
+ 	    padding-right: 20px;
 		background: url(images/progress.gif);
 		background-repeat: no-repeat;
+		background-position: right;	   
+}
 
+.progress_message, .correct_message, .error_message{
+	margin-left: 20px;
+	margin-top: 10px;
+	color: #1F7DB9;
+	display: block;
+	float: left;
+}
 
- 	   
- 	   
+.correct_message{
+	width: auto;
+	color: green;
+}
+
+.error_message{
+	width: auto;
+	color: red;
+}
+
+.hidden{
+	display: none;
 }
 
 .welcomeName{

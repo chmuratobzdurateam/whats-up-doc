@@ -57,10 +57,10 @@ public class AddUserProvider extends BodyProvider {
 			if(result.booleanValue()){
 				clearWidgets();
 				//addUserButton.setText("Użytkownika dodano pomyślnie.");
-				addUserButton.setType(StatusFieldType.ADD_USER_SUCCESS);
+				addUserButton.showCorrectMessage();
 			}else{
 				//addUserButton.setText("Użytkownika nie dodano.");
-				addUserButton.setType(StatusFieldType.ADD_USER_ERROR);
+				addUserButton.showErrorMessage();
 			}
 			getCm().drawContent();
 		}
@@ -70,7 +70,7 @@ public class AddUserProvider extends BodyProvider {
 			clearWidgets();
 			//errorLabel.setText("Problem z dodaniem użytkownika do bazy danych.");
 			//addUserButton.setText("Problem z dodaniem użytkownika do bazy danych.");
-			addUserButton.setType(StatusFieldType.ERROR_DB);
+			addUserButton.showErrorMessage();
 			getCm().drawContent();
 		}
 	};
@@ -111,10 +111,12 @@ public class AddUserProvider extends BodyProvider {
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
 		
+		addUserButton = new ButtonStatusField("Dodaj użytkownika");
+		addUserButton.setCorrectMessage("Poprawnie dodano użytkownika");
+		addUserButton.setErrorMessage("Wystąpił błąd podczas dodawania użytkownika.");
+		addUserButton.setProgressMessage("Trwa dodawanie użytkownika...");
 		
-		Button addUser = new Button("Dodaj");
-		addUser.setStyleName("confirmButton");
-		addUser.addClickHandler(new ClickHandler() {
+		addUserButton.getButton().addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -126,7 +128,7 @@ public class AddUserProvider extends BodyProvider {
 				}
 				
 				//addUserButton.setText("Czekaj");
-				addUserButton.setType(StatusFieldType.WAIT);
+				addUserButton.showProgressMessage();
 				
 				if(userType.getValue() == UserType.DOCTOR){
 					
@@ -160,8 +162,6 @@ public class AddUserProvider extends BodyProvider {
 				
 			}
 		});
-		
-		addUserButton = new ButtonStatusField(addUser, "");
 		
 		cancel = new Button("Wyczyść");
 		cancel.setStyleName("cancelButton");

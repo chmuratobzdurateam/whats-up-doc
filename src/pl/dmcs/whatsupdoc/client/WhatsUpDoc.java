@@ -51,7 +51,7 @@ public class WhatsUpDoc implements EntryPoint {
 				BodyProvider body;
 				if(result ==  null){
 					body = new LoginProvider(cm);
-					bF.addField(false, "Strona logowania", body);
+					bF.addField(false, "Logowanie", body);
 					mp = new MenuProvider(cm);
 				}else{
 					body = new BodyProvider(cm);

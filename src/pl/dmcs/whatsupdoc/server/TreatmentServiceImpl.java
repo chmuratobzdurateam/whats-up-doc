@@ -312,29 +312,54 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 					.newQuery(PSymptomTreatmentRates.class);
 			querySymptomTreatmentRates.declareParameters(Symptom.class
 					.getName() + " aSymptom");
-			querySymptomTreatmentRates.setFilter("symptom == aSymptom");
 			List<PSymptomTreatmentRates> pSTRates = (List<PSymptomTreatmentRates>) querySymptomTreatmentRates
 					.execute(symptom);
 			if ((pSTRates != null) && (pSTRates.size() > 0)) {
 				PSymptomTreatmentRates pSTR = pSTRates.get(0);
 				ArrayList<PMedicineRate> pMedicineRates = pSTR.getMedicineRates();
-				float[] tmp2 = new float[pMedicineRates.size()];
+				ArrayList<PMedicineRate> pMedicineRatesTMP;
+				ArrayList<PMedicineRate> pMedicineRatesFinal = new ArrayList<PMedicineRate>();
+				pMedicineRatesFinal.add(new PMedicineRate());
+				float[] tmp = new float[pMedicineRates.size()];
                 int z=0;
                 for(PMedicineRate pMedicineRate: pMedicineRates){
-                    tmp2[z]=pMedicineRate.getMedicineRate();
+                    tmp[z]=pMedicineRate.getMedicineRate();
                     z++;
                 }
-                Arrays.sort(tmp2);
-                for(int i=0;i<topRatesNumber;i++){
-                    for(PMedicineRate pMedicineRate: pMedicineRates){
-                        if(pMedicineRate.getMedicineRate()==tmp2[0])
-                        {
-                            topMedicineRates.add(pMedicineRate.asMedicineRate());
-                            break;
-                        }
-                    }
+                Arrays.sort(tmp);
+                if(topRatesNumber<tmp.length){
+	                for(int i=0;i<topRatesNumber;i++){
+	                	pMedicineRatesTMP = new ArrayList<PMedicineRate>();
+	                    for(PMedicineRate pMedicineRate: pMedicineRates){
+	                        if(pMedicineRate.getMedicineRate()==tmp[tmp.length-i-1])
+	                        {
+	                            pMedicineRatesTMP.add(pMedicineRate);
+	                        }
+	                        if(pMedicineRatesTMP.size()>1)
+	                    		i=i+pMedicineRatesTMP.size()-1;
+	                    }
+	                    sort(pMedicineRatesTMP, pMedicineRatesFinal);
+	                }
+                }
+                else{
+                	for(int i=0;i<tmp.length;i++){
+                		pMedicineRatesTMP = new ArrayList<PMedicineRate>();
+	                    for(PMedicineRate pMedicineRate: pMedicineRates){
+	                        if(pMedicineRate.getMedicineRate()==tmp[tmp.length-i-1])
+	                        {
+	                            pMedicineRatesTMP.add(pMedicineRate);
+	                        }
+	                        if(pMedicineRatesTMP.size()>1)
+	                    		i=i+pMedicineRatesTMP.size()-1;
+	                    }
+	                    sort(pMedicineRatesTMP, pMedicineRatesFinal);
+	                }
                 }
                 
+                for(PMedicineRate medicineRateFinal: pMedicineRatesFinal){
+                	topMedicineRates.add(medicineRateFinal.asMedicineRate());
+                }
+                pMedicineRatesFinal.remove(0);
 
 			}
 		} finally {
@@ -343,4 +368,36 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 		return topMedicineRates;
 	}
 
+	
+	private void sort(ArrayList<PMedicineRate> pMedicineRatesTMP, ArrayList<PMedicineRate> pMedicineRatesFinal) {
+		ArrayList<PMedicineRate> listaPFinalA = new ArrayList<PMedicineRate>();
+		float[] tmp = new float[pMedicineRatesTMP.size()];
+        int z=0;
+        for(PMedicineRate pMedicineRate: pMedicineRatesTMP){
+            tmp[z]=pMedicineRate.getAverageTreatmentLength();
+            z++;
+        }
+        Arrays.sort(tmp);
+        if(pMedicineRatesFinal.isEmpty())
+        	listaPFinalA.add(pMedicineRatesTMP.get(0));
+        for(int i=0;i<tmp.length;i++){
+        	for(PMedicineRate pMedicineRateTMP: pMedicineRatesTMP){
+        		int q=0;
+        		if(pMedicineRateTMP.getAverageTreatmentLength()==tmp[tmp.length-i-1])
+                {
+        			for(PMedicineRate poWszystkich: listaPFinalA){
+    					if(poWszystkich.getKey()==pMedicineRateTMP.getKey())
+    						q++;
+    				}
+	    			if(q==0)
+	    				listaPFinalA.add(pMedicineRateTMP);
+                }
+        	}
+        }
+
+        for(PMedicineRate alala: listaPFinalA)
+        	pMedicineRatesFinal.add(alala);
+	
+	
+	}
 }

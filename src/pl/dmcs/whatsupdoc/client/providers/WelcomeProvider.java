@@ -30,9 +30,7 @@ public class WelcomeProvider extends BodyProvider {
 		FlowPanel fP1 = new FlowPanel();
 		fP1.setStyleName("welcomePageImg");
 		FlowPanel fP2 = new FlowPanel();
-		fP2.setStyleName("welcomePageName");
-		FlowPanel fP3 = new FlowPanel();
-		fP3.setStyleName("welcomePageText");
+		fP2.setStyleName("rowText");
 		
 		Image img = new Image("images/logo_90x90.png");
 		img.setStyleName("welcomeImage");
@@ -44,11 +42,11 @@ public class WelcomeProvider extends BodyProvider {
 		
 		Label welcomeText = new Label("Rozpocznij korzystanie z serwisu poprzez wybranie przycisku z górnego menu.");
 		welcomeText.setStyleName("welcomeText");
-		fP3.add(welcomeText);
+		fP2.add(welcomeText);
 		
 		mainPanel.add(fP1);
 		mainPanel.add(fP2);
-		mainPanel.add(fP3);
+		mainPanel.add(fP2);
  	}
 
 }

@@ -68,7 +68,7 @@ public class RecognitionsDetailsProvider extends BodyProvider {
 		
 		@Override
 		public void onFailure(Throwable caught) {
-			Label err = new Label("err");
+			Label err = new Label("errRecognitionDetails");
 			mainPanel.add(err);
 		}
 	};
@@ -91,6 +91,7 @@ public class RecognitionsDetailsProvider extends BodyProvider {
 		CSS2.add("leki");
 		CSS2.add("etap");
 		CSS2.add("etapLeczenia");
+		//recognitionKey = "aglub19hcHBfaWRyFwsSEFBSZWNvZ25pdGlvbkZvcm0YsAEM";
 		final TreatmentServiceAsync userService = GWT.create(TreatmentService.class);
 		userService.getRecognitionDetails(recognitionKey, recognitionsDetailsCallback);
 		
@@ -114,6 +115,10 @@ public class RecognitionsDetailsProvider extends BodyProvider {
 			row.add(text);
 			row.add(information);
 		}
+		text = new Label();
+		text.setStyleName(CSS.get(1));
+		text.setText("Objawy:");
+		row.add(text);
 		mainPanel.add(row);
 		
 		int a = 0, parity = 0;

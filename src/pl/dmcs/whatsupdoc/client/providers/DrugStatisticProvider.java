@@ -83,7 +83,6 @@ public class DrugStatisticProvider extends BodyProvider{
 		searchButtonStatusField.setErrorMessage("Nieznaleziono");
 		searchButtonStatusField.setProgressMessage("Trwa Szukanie");
 		
-		searchButtonStatusField.getButton().setStyleName("wyszukaj");
 		searchButtonStatusField.getButton().addClickHandler( new ClickHandler() {
 			
 			@Override

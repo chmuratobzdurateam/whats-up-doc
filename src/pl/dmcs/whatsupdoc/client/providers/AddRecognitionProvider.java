@@ -235,7 +235,6 @@ public class AddRecognitionProvider extends BodyProvider{
 		});
 		
 		
-		addRecognitionButtonStatusField.getButton().setStyleName("addRecognitionButton");
 		addRecognitionButtonStatusField.setCorrectMessage("Dodano Rozpoznanie");
 		addRecognitionButtonStatusField.setErrorMessage("Blad przy dodawaniu rozpozania");
 		addRecognitionButtonStatusField.setProgressMessage("Dodawanie Prosze Czekac");

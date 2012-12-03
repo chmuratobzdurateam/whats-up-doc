@@ -355,11 +355,11 @@ public class TreatmentServiceImpl extends RemoteServiceServlet implements
 	                    sort(pMedicineRatesTMP, pMedicineRatesFinal);
 	                }
                 }
-                
+                pMedicineRatesFinal.remove(0);
                 for(PMedicineRate medicineRateFinal: pMedicineRatesFinal){
                 	topMedicineRates.add(medicineRateFinal.asMedicineRate());
                 }
-                pMedicineRatesFinal.remove(0);
+               
 
 			}
 		} finally {

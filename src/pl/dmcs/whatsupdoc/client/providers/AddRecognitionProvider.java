@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.fields.ButtonStatusField;
 import pl.dmcs.whatsupdoc.client.fields.SelectField;
 import pl.dmcs.whatsupdoc.client.fields.SelectFieldType;
 import pl.dmcs.whatsupdoc.client.model.Treatment;
@@ -35,8 +36,8 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class AddRecognitionProvider extends BodyProvider{
 	
-	private Button addRecognition;
 	private Button addSymptom;
+	private ButtonStatusField addRecognitionButtonStatusField;
 	
 	private Label doctorFullName, doctorFullNameLabel;
 	private Label patientFullName, patientFullNameLabel;
@@ -144,7 +145,7 @@ public class AddRecognitionProvider extends BodyProvider{
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				mainPanel.remove(addRecognition);
+				mainPanel.remove(addRecognitionButtonStatusField.returnContent());
 				mainPanel.remove(addSymptom);
 				SelectField medicineField;
 				SelectField symptomField;
@@ -167,7 +168,7 @@ public class AddRecognitionProvider extends BodyProvider{
 				mainPanel.add(symptomField.returnContent());
 				mainPanel.add(medicineField.returnContent());
 				mainPanel.add(addSymptom);
-				mainPanel.add(addRecognition);
+				mainPanel.add(addRecognitionButtonStatusField.returnContent());
 				getCm().drawContent();
 				
 			}
@@ -175,13 +176,13 @@ public class AddRecognitionProvider extends BodyProvider{
 		
 		
 		
-		addRecognition = new Button("Dodaj Rozpoznanie");
-		addRecognition.addClickHandler(new ClickHandler() {
+		addRecognitionButtonStatusField = new ButtonStatusField("Dodaj Rozpoznanie");
+		addRecognitionButtonStatusField.getButton().addClickHandler(new ClickHandler() {
 			
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				addRecognitionButtonStatusField.showProgressMessage();
 				ArrayList<Treatment> treatmentList = new ArrayList<Treatment>();
 				
 				Iterator<SelectField> symptomIterator = symptomSelectFieldList.iterator();
@@ -210,6 +211,7 @@ public class AddRecognitionProvider extends BodyProvider{
 					public void onFailure(Throwable caught) {
 						
 						caught.printStackTrace();
+						addRecognitionButtonStatusField.showErrorMessage();
 						
 					}
 
@@ -217,11 +219,11 @@ public class AddRecognitionProvider extends BodyProvider{
 					public void onSuccess(Boolean result) {
 						
 						if(result){
-							
+							addRecognitionButtonStatusField.showCorrectMessage();
 							/* success */
 							
 						}else{
-							
+							addRecognitionButtonStatusField.showErrorMessage();
 							/* failure */
 							
 						}
@@ -231,8 +233,13 @@ public class AddRecognitionProvider extends BodyProvider{
 				
 			}
 		});
-		addRecognition.setStyleName("addRecognitionButton");
-
+		
+		
+		addRecognitionButtonStatusField.getButton().setStyleName("addRecognitionButton");
+		addRecognitionButtonStatusField.setCorrectMessage("Dodano Rozpoznanie");
+		addRecognitionButtonStatusField.setErrorMessage("Blad przy dodawaniu rozpozania");
+		addRecognitionButtonStatusField.setProgressMessage("Dodawanie Prosze Czekac");
+		
 		/* i will put these labels into FlowPanel so it will be easier to put that blue line under them */
 		patientAndDoctorLabel = new FlowPanel();
 		patientAndDoctorLabel.setStyleName("patientAndDoctorFullNameInfo");
@@ -246,7 +253,7 @@ public class AddRecognitionProvider extends BodyProvider{
 		mainPanel.add(symptomSelectFieldList.get(0).returnContent());
 		mainPanel.add(medicineSelectFieldList.get(0).returnContent());
 		mainPanel.add(addSymptom);
-		mainPanel.add(addRecognition);
+		mainPanel.add(addRecognitionButtonStatusField.returnContent());
 		
 		
 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.fields.ButtonStatusField;
 import pl.dmcs.whatsupdoc.client.fields.SelectField;
 import pl.dmcs.whatsupdoc.client.fields.SelectFieldType;
 import pl.dmcs.whatsupdoc.client.model.MedicineRate;
@@ -30,7 +31,7 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class DrugStatisticProvider extends BodyProvider{
 	
-	private Button search;
+	private ButtonStatusField searchButtonStatusField;
 
 	private SelectField symptomSelectField;
 	private FlowPanel symptomSelectPanel;
@@ -77,9 +78,13 @@ public class DrugStatisticProvider extends BodyProvider{
 		
 		
 		/* preparing search button (it will find and add to mainPanel top3 drugs */
-		search = new Button("wyszukaj");
-		search.setStyleName("wyszukaj");
-		search.addClickHandler( new ClickHandler() {
+		searchButtonStatusField = new ButtonStatusField("wyszukaj");
+		searchButtonStatusField.setCorrectMessage("Znaleziono");
+		searchButtonStatusField.setErrorMessage("Nieznaleziono");
+		searchButtonStatusField.setProgressMessage("Trwa Szukanie");
+		
+		searchButtonStatusField.getButton().setStyleName("wyszukaj");
+		searchButtonStatusField.getButton().addClickHandler( new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -89,7 +94,7 @@ public class DrugStatisticProvider extends BodyProvider{
 				mainPanel.add(symptomSelectPanel);
 				mainPanel.add(topDrugLabel);
 				/* ********************************** */
-				
+				searchButtonStatusField.showProgressMessage();
 				/* retreiving data of TOP 3 drugs for selected symptom */
 				Symptom symptom = Symptom.getSymptom((String) symptomSelectField.getValue());
 				System.out.print(symptom.toString());
@@ -98,6 +103,8 @@ public class DrugStatisticProvider extends BodyProvider{
 					@Override
 					public void onFailure(Throwable caught) {
 						caught.printStackTrace();
+						searchButtonStatusField.showErrorMessage();
+						
 						
 					}
 
@@ -132,12 +139,13 @@ public class DrugStatisticProvider extends BodyProvider{
 							}
 							
 							/* *********************** */
+							searchButtonStatusField.showCorrectMessage();
 							getCm().drawContent();
 
 							
 						}else{
 							
-							
+							searchButtonStatusField.getErrorMessage();
 							/* actualy there is no action for else.. the list is empty */
 							
 						}
@@ -161,7 +169,7 @@ public class DrugStatisticProvider extends BodyProvider{
 		
 		/* adding symptom selection and button to flow panel */
 		symptomSelectPanel.add(symptomSelectField.returnContent());
-		symptomSelectPanel.add(search);
+		symptomSelectPanel.add(searchButtonStatusField.returnContent());
 		/* ********************** */
 		mainPanel.add(symptomSelectPanel);
 		getCm().drawContent();

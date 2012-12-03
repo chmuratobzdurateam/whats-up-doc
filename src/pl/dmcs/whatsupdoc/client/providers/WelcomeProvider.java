@@ -34,7 +34,7 @@ public class WelcomeProvider extends BodyProvider {
 		FlowPanel fP3 = new FlowPanel();
 		fP3.setStyleName("welcomePageText");
 		
-		Image img = new Image("images/logo_35x35.png");
+		Image img = new Image("images/logo_90x90.png");
 		img.setStyleName("welcomeImage");
 		fP1.add(img);
 		

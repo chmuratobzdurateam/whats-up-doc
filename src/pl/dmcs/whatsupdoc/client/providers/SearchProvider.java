@@ -6,6 +6,7 @@ package pl.dmcs.whatsupdoc.client.providers;
 import java.util.ArrayList;
 
 import pl.dmcs.whatsupdoc.client.ContentManager;
+import pl.dmcs.whatsupdoc.client.fields.ButtonStatusField;
 import pl.dmcs.whatsupdoc.client.fields.PatientField;
 import pl.dmcs.whatsupdoc.client.fields.SearchFieldType;
 import pl.dmcs.whatsupdoc.client.fields.SearchInputField;
@@ -30,7 +31,7 @@ public class SearchProvider extends BodyProvider{
 	
 	private Label errorLabel;
 	private SearchInputField searchField;
-	private Button searchButton;
+	private ButtonStatusField searchButton;
 	private FlowPanel searchResult;
 	
 	/**
@@ -42,11 +43,14 @@ public class SearchProvider extends BodyProvider{
 		searchResult = new FlowPanel();
 		searchResult.setStyleName("searchResult");
 		
-		searchButton = new Button("Znajdz");
+		searchButton = new ButtonStatusField("szukaj");
+		searchButton.setErrorMessage("Nie znaleziono pacjenta o podanym numerze PESEL.");
+		searchButton.setProgressMessage("Trwa wyszukiwanie pacjenta...");
+		
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
 		
-		searchButton.addClickHandler(new ClickHandler() {
+		searchButton.getButton().addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -59,21 +63,22 @@ public class SearchProvider extends BodyProvider{
 				}
 				
 				searchResult.clear(); // clearing previously found patient
-				
+				searchButton.showProgressMessage();
 				
 				userService.getPatientByPESEL(searchField.getValue(), new AsyncCallback<Patient>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
 						
-						errorLabel.setText("Pacjent umarl.. Wystapil blad");
+						errorLabel.setText("Wystąpił błąd. Spróbuj ponownie.");
 					}
 
 					@Override
 					public void onSuccess(Patient result) {
 						if(result==null){
-							errorLabel.setText("Pacjent umarl.. nic nie da sie zrobic.. a i przy okazji PESEL nie znaleziono");
+							searchButton.showErrorMessage();
 						}else{
+							searchButton.hideMessage();
 							String patient = result.getName()+" "+result.getSurname()+" "+result.getPESEL();
 							final String PESEL = result.getPESEL();
 							/* new button list for Patient Card*/
@@ -109,12 +114,11 @@ public class SearchProvider extends BodyProvider{
 			}
 		});
 		
-		searchButton.setStyleName("confirmButton");
-		
-		searchField = new SearchInputField("Wyszukaj:", SearchFieldType.PESEL_SEARCH, searchButton);
+		searchField = new SearchInputField("Wyszukaj:", SearchFieldType.PESEL_SEARCH);
 		
 
 		mainPanel.add(searchField.returnContent());
+		mainPanel.add(searchButton.returnContent());
 		mainPanel.add(searchResult);
 		mainPanel.add(errorLabel);
 		getCm().drawContent();

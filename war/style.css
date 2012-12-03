@@ -1001,3 +1001,29 @@ width:
     width: 150px;
     display: inline-block;
 }
+
+.welcomePageImg{
+ display: inline-block;   
+}
+.welcomeImage{ 
+    
+}
+
+.rowText{
+
+ padding-left: 10px;
+ display: inline-block;  
+ text-align: left; 
+	color: #207DBA;
+
+}
+
+.welcomeName{
+     font-size: 22px;   
+}
+
+.welcomeText{
+    color: black;
+    font-size: 14px;
+    padding-bottom: 30px;
+}

@@ -79,9 +79,9 @@ public class DrugStatisticProvider extends BodyProvider{
 		
 		/* preparing search button (it will find and add to mainPanel top3 drugs */
 		searchButtonStatusField = new ButtonStatusField("wyszukaj");
-		searchButtonStatusField.setCorrectMessage("Znaleziono");
-		searchButtonStatusField.setErrorMessage("Nieznaleziono");
-		searchButtonStatusField.setProgressMessage("Trwa Szukanie");
+		searchButtonStatusField.setErrorMessage("Nie znaleziono żadnych statystyk.");
+		searchButtonStatusField.setProgressMessage("Trwa wczytywanie statystyk...");
+		searchButtonStatusField.setColumnStyle("buttonColumnStatistic");
 		
 		searchButtonStatusField.getButton().addClickHandler( new ClickHandler() {
 			
@@ -138,7 +138,7 @@ public class DrugStatisticProvider extends BodyProvider{
 							}
 							
 							/* *********************** */
-							searchButtonStatusField.showCorrectMessage();
+							searchButtonStatusField.hideMessage();
 							getCm().drawContent();
 
 							

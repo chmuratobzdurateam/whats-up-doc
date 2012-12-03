@@ -205,6 +205,13 @@ button.action_button{
 	width: 100%;
 }
 
+.row>.buttonColumnStatistic{
+	margin-left: 87px;
+	margin-top: 20px;
+	float: left;
+	width: 100%;
+}
+
 .row>.thirdColumn {
 	padding-top: 5px;
 	color: red;
@@ -749,7 +756,8 @@ text-align: left;
 .symptom .row{
      display: inline-block;
      text-align: left;
-     padding-bottom: 30px;   
+     /*padding-bottom: 30px;*/
+     width: 100%;   
 }
 
 .symptom .row .firstColumn{
@@ -774,7 +782,7 @@ width:
      display: inline-block; 
      width: 150px;
      font-size: 16px; 
-     
+     margin-left: 20px;
 }
 
 
@@ -857,6 +865,7 @@ width:
      	        padding-bottom: 5px;
      	        font-size: 15px;
      	        padding-left: 5px;
+     	        margin-top: 20px;
 }
 .drugStatisticLabel .gwt-Label{
      display: inline-block;   

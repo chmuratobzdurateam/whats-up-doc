@@ -135,4 +135,8 @@ public class ButtonStatusField extends Field {
 	public void disable(){
 		button.setEnabled(false);
 	}
+
+	public void setColumnStyle(String style) {
+		subDiv.get(0).setStyleName(style);
+	}
 }

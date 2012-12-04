@@ -103,7 +103,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 							timeLabel.setStyleName("date");
 							doctorLabel = new Label(recognition.getDoctorName());
 							doctorLabel.setStyleName("personName");
-							sicknessLabel = new Label(recognition.getDisease().name().toString());
+							sicknessLabel = new Label(recognition.getDisease().toString());
 							sicknessLabel.setStyleName("diseaseName");
 							detailsButton = new Button("Szczegóły");
 							detailsButton.setStyleName("button");

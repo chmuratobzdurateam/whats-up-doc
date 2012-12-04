@@ -53,12 +53,13 @@ public class LoginProvider extends BodyProvider{
 		
 		
 		loginField = new InputField("Login:", InputFieldType.TEXT_BOX);
+		loginField.setMyError("Login powinien być dłuższy niż 3 znaki.");
 		passwordField = new InputField("Hasło:", InputFieldType.PASSWORD_BOX);
 		
 		errorLabel = new Label();
 		errorLabel.setStyleName("error");
 		
-		loginButton = new ButtonStatusField("Wejdź");
+		loginButton = new ButtonStatusField("Zaloguj");
 		loginButton.setErrorMessage("Podano niepoprawne dane.");
 		loginButton.setProgressMessage("Trwa sprawdzanie danych...");
 		

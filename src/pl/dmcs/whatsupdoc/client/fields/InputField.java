@@ -22,6 +22,8 @@ public class InputField extends Field implements FieldConstraint {
 	private InputFieldType myType;
 	private Label title, error;
 	private TextBox input;
+	private String myError;
+	private boolean isErrorTextSet = false;
 	
 	/**
 	 * @param title - label for field
@@ -45,7 +47,21 @@ public class InputField extends Field implements FieldConstraint {
 		subDiv.get(1).add(this.input);
 		subDiv.get(2).add(this.error);
 	}
+
 	
+	
+	/**
+	 * @param myError the myError to set
+	 */
+	public void setMyError(String myError) {
+		if(myError!=null && !"".equals(myError)){
+			this.myError = myError;
+			this.isErrorTextSet = true;
+		}
+	}
+
+
+
 	/* (non-Javadoc)
 	 * @see pl.dmcs.whatsupdoc.client.fields.FieldConstraint#checkConstraint()
 	 */
@@ -57,7 +73,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidPassword(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Hasło musi być dłuższe niż 4 znaki i nie może zawierać spacji!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Hasło musi być dłuższe niż 4 znaki i nie może zawierać spacji!");
+					}
 					return false;
 				}
 				
@@ -65,7 +85,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidName(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Imie oraz nazwisko musi być dłuższe niż 3 znaki!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Imie oraz nazwisko musi być dłuższe niż 3 znaki!");
+					}
 					return false;
 				}
 				
@@ -73,7 +97,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidPESEL(this.input.getText())){
 					return true;
 				}else{
-					error.setText("PESEL musi się skladać z tylko jedenastu cyfr!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("PESEL musi się skladać z tylko jedenastu cyfr!");
+					}
 					return false;
 				}
 				
@@ -81,14 +109,23 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidPhone(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Numer telefonu składa się z 9 cyfr!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Numer telefonu składa się z 9 cyfr!");
+					}
+					return false;
 				}
 				
 			case EMAIL:
 				if(FieldVerifier.isValidEmail(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Podany email ma nieprawidłową składnię!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Podany email ma nieprawidłową składnię!");
+					}
 					return false;
 				}
 				
@@ -96,7 +133,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidCity(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Nazwa miasta musi być dłuższa niż 3 znaki oraz nie może zawierać spacji!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Nazwa miasta musi być dłuższa niż 3 znaki oraz nie może zawierać spacji!");
+					}
 					return false;
 				}
 				
@@ -104,7 +145,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidStreet(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Nazwa ulicy musi być dłuższa niż 4 znaki!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Nazwa ulicy musi być dłuższa niż 4 znaki!");
+					}
 					return false;
 				}
 				
@@ -112,7 +157,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidHouseNr(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Musisz podać numer mieszkania!");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Musisz podać numer mieszkania!");
+					}
 					return false;
 				}
 				
@@ -120,7 +169,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidPostalCode(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Musisz podać kod pocztowy w formacie: dd-ddd");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Musisz podać kod pocztowy w formacie: dd-ddd");
+					}
 					return false;
 				}
 				
@@ -128,7 +181,11 @@ public class InputField extends Field implements FieldConstraint {
 				if(FieldVerifier.isValidNumber(this.input.getText())){
 					return true;
 				}else{
-					error.setText("Podaj cyfrę.");
+					if(isErrorTextSet){
+						error.setText(myError);
+					}else{
+						error.setText("Podaj cyfrę.");
+					}
 					return false;
 				}
 	

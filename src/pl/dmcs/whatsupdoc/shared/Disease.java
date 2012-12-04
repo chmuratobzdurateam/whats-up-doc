@@ -1,7 +1,7 @@
 package pl.dmcs.whatsupdoc.shared;
 
 public enum Disease {
-	FLU("grypa"), PHARYNGITIS("zapalenie gard³a"), JAUNDICE("¿ó³taczka"), FOOD_POISONING("zatrucie pokaromwe"), RUBELLA("ró¿yczka");
+	FLU("grypa"), PHARYNGITIS("zapalenie gardÅ‚a"), JAUNDICE("Å¼Ã³Å‚taczka"), FOOD_POISONING("zatrucie pokaromwe"), RUBELLA("rÃ³Å¼yczka");
 	
 	private final String diseaseString;
 	

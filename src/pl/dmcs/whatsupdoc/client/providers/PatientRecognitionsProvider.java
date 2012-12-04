@@ -103,7 +103,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 							timeLabel.setStyleName("date");
 							doctorLabel = new Label(recognition.getDoctorName());
 							doctorLabel.setStyleName("personName");
-							sicknessLabel = new Label(recognition.getDisease().name());
+							sicknessLabel = new Label(recognition.getDisease().name().toString());
 							sicknessLabel.setStyleName("diseaseName");
 							detailsButton = new Button("Szczegóły");
 							detailsButton.setStyleName("button");
@@ -120,6 +120,7 @@ public class PatientRecognitionsProvider extends BodyProvider {
 									editForm.setEnabled(true);
 								}else{
 									editForm.setEnabled(false);
+									editForm.setStyleName("hidden");
 								}
 								editForm.addClickHandler(new FormEdit(recognition));
 								widgets.add(editForm);
